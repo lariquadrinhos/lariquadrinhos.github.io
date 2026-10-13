@@ -1,7 +1,7 @@
 # Case Study: Finanças PF+PJ
 
 <!-- bloco: card -->
-# The spreadsheet that became a product
+# From spreadsheet to product
 A desktop app for managing personal and business finances together.
 
 <!-- bloco: case -->
@@ -10,7 +10,7 @@ A desktop app for managing personal and business finances together.
 <!-- trilha: Introduction -->
 
 <!-- bloco: hero -->
-# The spreadsheet that became a product
+# From spreadsheet to product
 
 **I saw someone trying to fit their personal finances and their company's into the same spreadsheet. I decided to turn that scene into a desktop app. Today: it works, and a real person uses it.**
 

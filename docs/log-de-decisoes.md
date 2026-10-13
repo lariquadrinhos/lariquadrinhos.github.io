@@ -7799,3 +7799,24 @@ recurring reimbursement requests in an insurance app."* (Reembolso). Os rótulos
 **Custo aceito.** As linhas em inglês dizem um pouco menos que as do português.
 
 **Consequência.** Os dois `.en.md` mudam o bloco `card`.
+
+---
+
+## 246 · O título do Finanças em inglês passa a "From spreadsheet to product"
+
+**Quando** 2026-10-13 · **Fase** 4 · **Domínio** trabalhos
+
+**Gatilho.** Depois da 245, o dev mediu de novo: em 1280 e 1366 de largura, entre 790 e 805 de altura,
+Trabalhos em inglês ainda rolava até 16, porque *"The spreadsheet that became a product"* quebrava em duas
+linhas no título do card, e *"A planilha que virou produto"* cabe numa.
+
+**Decisão.** *"sim, vai com a B"*, proposta minha: o título em inglês passa a *"From spreadsheet to
+product"*, no card e no case, para continuarem iguais como no português. Na tela estreita, quebra em
+*"From spreadsheet / to product"*. Substitui a quebra aprovada na 244.
+
+**Alternativa descartada.** *Aceitar os até 16 de rolagem.* *O degrau de 790 começar em 806 só no inglês.*
+*Encurtar só o card*, deixando o título do case diferente do card.
+
+**Custo aceito.** O título em inglês deixa de ser a tradução literal do português.
+
+**Consequência.** `case-study-financas-pf-pj.en.md` e `idioma/segundo-idioma.md` atualizados.

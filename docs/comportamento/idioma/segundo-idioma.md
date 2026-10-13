@@ -103,8 +103,8 @@ O marca-texto do hero de cada case em inglês é a mesma virada da frase de aber
 decided to turn that scene into a desktop app."*; no Reembolso, *"I decided to redesign the flow so the
 second time would be different from the first."*
 
-O título do Finanças, na tela estreita, quebra em *"The spreadsheet that / became a product"*, como o
-português (decisão 186).
+O título do Finanças em inglês é *"From spreadsheet to product"*, no card e no case (decisão 246). Na tela
+estreita, quebra em *"From spreadsheet / to product"*, como o português (decisão 186).
 
 A quebra escolhida do título de Trabalhos em inglês: *"Two problems I saw up close, / and what I did
 about them."*
