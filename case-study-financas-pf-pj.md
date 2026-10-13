@@ -100,9 +100,9 @@ No fim, uma auditoria de fidelidade. Mais de cem agentes de IA rodando em parale
 Aprendi a decidir o que as coisas são, e sustentar essa decisão em cada tela depois. Aprendi a escrever para quem vem depois de mim, e descobri que documentar bem é o que faz o design sobreviver ao contato com a implementação. E aprendi que trabalhar com IA se decide antes, não depois: o que define a qualidade do que volta é a regra que eu estabeleci no começo, não a minha avaliação de cada resposta. Sem ela, qualquer resultado plausível passa.
 
 <!-- bloco: par -->
-![O mockup da Evolução Mensal no Figma: o gráfico Lucro Líquido por entidade, com o valor de julho, R$ 10.400,00, mais 44,4% sobre junho, e barras de PF e PJ lado a lado em cada mês, de fevereiro a julho, nas duas cores do par, com legenda; embaixo, o começo da tabela mês a mês.](publico/midias/financas-6-mockup-evolucao.png)
-![O mockup do DRE no Figma, em julho de 2026: os seletores Consolidado, PF e PJ, e Pago e Previsto, o mês, e a cascata de Receita Bruta a Lucro Líquido, com os subtotais numa faixa cinza e o Lucro Líquido, R$ 10.400,00, em destaque.](publico/midias/financas-6-mockup-dre.png)
-Legenda: A Evolução Mensal e o DRE, no desenho do produto.
+![A Home do produto rodando, com dados de demonstração: o quadro Onde Está Meu Dinheiro, com as contas em blocos do tamanho do saldo, as dívidas logo abaixo e o patrimônio líquido no rodapé, e o quadro Despesas por Categoria, com os gastos do mês em blocos.](publico/midias/financas-6-produto-home.png)
+![A Evolução Mensal do produto rodando, com dados de demonstração: o gráfico Lucro Líquido por entidade, com uma barra por mês de maio a outubro e o valor de outubro, R$ 6.530, em destaque; embaixo, o começo da tabela mês a mês, com receita, EBITDA e lucro líquido.](publico/midias/financas-6-produto-evolucao.png)
+Legenda: A Home e a Evolução Mensal no produto, já com as melhorias que vieram dos testes de uso.
 
 <!-- bloco: provas -->
 As decisões de UX, a especificação de cada tela e o modelo de dados

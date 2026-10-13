@@ -21,7 +21,7 @@ links levantados sobre os dois.
 | 3 · Desenho e documentação | ~~Fluxo mapeado ao lado de uma especificação de tela~~ **Entregue em 01/10**: `financas-3-desenho`, claro e escuro. Ver decisão 195 | "quem implementa não precisa perguntar nada que já não esteja escrito" |
 | 4 · Design system | ~~O par PF/PJ nos dois temas, com os números de contraste~~ **Entregue em 01/10**: `financas-4-design-system`, claro e escuro. Ver decisão 199 | "reprovava no escuro" |
 | 5 · Desenvolvimento | ~~Mockup e produto rodando lado a lado~~ **Entregue em 01/10**: `financas-5-desenvolvimento`, claro e escuro (decisão 201). **Saiu em 02/10**: o capítulo 5 ficou sem mídia, ver decisão 205 | "fiel ao que eu tinha desenhado" |
-| 6 · Resultados | ~~Capturas do produto rodando de verdade~~ **Entregue em 02/10**: substituída em 02/10 pelo par `financas-6-mockup-evolucao` e `-dre`, claro e escuro. Ver decisões 205 e 206 | "existe, funciona e está em uso" |
+| 6 · Resultados | ~~Capturas do produto rodando de verdade~~ **Entregue em 13/10**: o par `financas-6-produto-home` e `-evolucao`, claro e escuro, com o produto rodando, no lugar dos mockups de 02/10 (decisão 236). Ver decisões 205 e 206 | "existe, funciona e está em uso" |
 
 **Seis legendas**, uma por imagem. **Todas escritas em 01 e 02/10**, como rascunho meu à espera dela, e o mesmo vale para os textos alternativos.
 

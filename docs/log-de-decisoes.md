@@ -7535,3 +7535,31 @@ faixa clara acima da página escura.
 
 **Consequência.** `tema/tema-claro-e-escuro.md` ganha a regra e o cenário "A barra do navegador
 acompanha o tema".
+
+---
+
+## 236 · O par do capítulo 6 do Finanças passa a mostrar o produto rodando
+
+**Quando** 2026-10-13 · **Fase** 4 · **Domínio** case · `#reversao`
+
+**Gatilho.** Ela pôs no Figma capturas reais do produto rodando, nos dois temas: a Home (`607:2701`,
+`607:2704`) e a Evolução Mensal (`607:2707`, `607:2710`), com quadrados dela cobrindo o indicador do
+canto inferior esquerdo. *"é melhor do que mostrar os mockup mas precisa explicar na legenda que depois
+dos testes com o usuario o produto ganhou algumas melhorias"*. Os valores são de demonstração, por
+palavra dela.
+
+**Decisão.** O par do capítulo 6 troca os mockups da Evolução Mensal e do DRE pela Home e pela Evolução
+Mensal do produto. Montei as imagens no formato do par anterior (1030 de largura, título no alto, faixa
+de `bg/page` embaixo), com as telas inteiras e os quadrados dela aplicados, e ela aprovou na prancha e
+no Figma. Títulos: *"Produto · Home"* e *"Produto · Evolução Mensal"*. Legenda, a opção A das três que
+propus: *"A Home e a Evolução Mensal no produto, já com as melhorias que vieram dos testes de uso."*
+
+**Alternativa descartada.** *Manter os mockups*, como na 206. As outras duas legendas.
+
+**Custo aceito.** As imagens mostram a tela inteira, então o texto delas fica pequeno, como já era nos
+mockups. O capítulo 6 encolhe 56 no desktop e 48 na tela estreita.
+
+**Consequência.** Reverte a 206 quanto à mídia. `publico/midias/financas-6-produto-{home,evolucao}-
+{claro,escuro}.png` entram, e os quatro `financas-6-mockup-*` saem. O `.md` muda o par, com textos
+alternativos novos, e a legenda. Figma: as quatro telas do case atualizadas, e as imagens soltas em
+`611:1540` a `611:1547`.
