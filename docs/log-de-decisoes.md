@@ -7404,3 +7404,29 @@ onde a coluna tem limite, não só a partir de 1024.
 **Consequência.** `602:1487` reajustado: coluna em x236, 628 de largura, capa do próximo em 628×419,
 altura 9693. `case/pagina-de-case.md` atualizado, com o cenário "O case numa janela entre a tela estreita
 e o desktop". `--coluna-do-case` passa a 628.
+
+---
+
+## 230 · Abaixo de 1280, toda página usa a barra da tela estreita; a prosa logo acima de 1280 fica como está
+
+**Quando** 2026-10-13 · **Fase** 4 · **Domínio** moldura
+
+**Gatilho.** Duas observações do tester na rodada 32. Entre 1024 e 1279, o case mostrava a barra da
+tela estreita (com Menu) e as outras páginas a do desktop (com Quem sou eu e Tema): quem ia de Trabalhos
+para um case via a barra trocar. E entre 1280 e uns 1400, já no desktop, a primeira linha da prosa tem
+59 (Reembolso) e 62 (Finanças) caracteres, abaixo do piso de 65.
+
+**Decisão.** *"sim, vai com as duas"*, propostas minhas:
+1. **Abaixo de 1280, todas as páginas usam a barra da tela estreita.** Só peças já desenhadas, e a
+   barra igual no site todo. O conteúdo da Home, de Trabalhos e de Quem sou eu não muda.
+2. **A prosa entre 1280 e uns 1400 fica como está.**
+
+**Alternativa descartada.** *O case manter a barra do desktop, com a faixa de progresso embaixo*:
+combinação nunca desenhada. *Levar a fronteira do case acima de 1280.*
+
+**Custo aceito.** Entre 1024 e 1279, a Home, Trabalhos e Quem sou eu escondem Quem sou eu e o tema no
+Menu. Entre 1280 e uns 1400, a prosa fica de 3 a 6 caracteres abaixo do piso; o Finanças já tem 60 no
+desenho de 1440.
+
+**Consequência.** `moldura/botao-contato.md` ganha a regra e o cenário "A barra é a mesma em todas as
+páginas na mesma largura".

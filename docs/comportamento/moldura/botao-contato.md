@@ -49,6 +49,10 @@ e-mail escrito por extenso e o LinkedIn.
 - **Em tela estreita a barra é: Larissa · Trabalhos · Contato · Menu.** "Quem sou eu" e o
   controle de tema vão para dentro do menu. **Nenhum item vira ícone**: a barra é toda
   palavra, nas duas larguras.
+- **Abaixo de 1280 de largura, todas as páginas usam a barra da tela estreita**, com Menu. É
+  a fronteira em que o case passa ao modo estreito (decisão 225), e a barra não troca quando a
+  pessoa vai de uma página para outra na mesma janela. O conteúdo da Home, de Trabalhos e de Quem
+  sou eu não muda com isso. Ver decisão 230.
 - **O que decide a divisão é a largura, medida, não a arrumação.** A barra estreita tem
   327px úteis. "Quem sou eu" é o rótulo mais longo do site, 113px, e a combinação que cabe
 (Larissa · Trabalhos · Contato · Menu, 308px) deixa 19px de folga. Nenhum arranjo com
@@ -204,6 +208,11 @@ Funcionalidade: Contato na barra
     Dado que "Quem sou eu" está dentro do menu
     Quando a página abre
     Então a palavra "Menu" recebe o sublinhado no acento de sistema
+
+  Cenário: A barra é a mesma em todas as páginas na mesma largura
+    Dado que a janela tem menos de 1280 de largura
+    Quando a pessoa vai de qualquer página para outra
+    Então a barra mostra Larissa, Trabalhos, Contato e Menu nas duas
 ```
 
 ## Transições
