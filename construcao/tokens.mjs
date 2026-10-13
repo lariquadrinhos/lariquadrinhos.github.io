@@ -92,18 +92,12 @@ ${bloco('Grade', Grade.variaveis, 'Tela pequena').replaceAll('\n  ', '\n    ').r
   }
 }
 
-/* Tema. Sem escolha salva, segue o sistema; com escolha, data-tema manda. */
+/* Tema. Sem escolha salva, o claro, qualquer que seja o sistema; com escolha, data-tema manda
+   (decisão 234). A preferência do sistema não é lida. */
 :root,
 :root[data-tema="claro"] {
   color-scheme: light;
 ${claro}
-}
-
-@media (prefers-color-scheme: dark) {
-  :root:not([data-tema="claro"]) {
-    color-scheme: dark;
-${escuro.replaceAll('\n  ', '\n    ').replace(/^  /, '    ')}
-  }
 }
 
 :root[data-tema="escuro"] {

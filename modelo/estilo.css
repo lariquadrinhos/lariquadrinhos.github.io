@@ -674,10 +674,6 @@ em { font-style: normal; }
 .midia-escuro { display: none; }
 :root[data-tema="escuro"] .midia-claro { display: none; }
 :root[data-tema="escuro"] .midia-escuro { display: block; }
-@media (prefers-color-scheme: dark) {
-  :root:not([data-tema="claro"]) .midia-claro { display: none; }
-  :root:not([data-tema="claro"]) .midia-escuro { display: block; }
-}
 
 /* Tabela é conteúdo de desktop (decisão 132): em tela estreita a seção sai inteira. */
 .so-largo-bloco { display: none; }

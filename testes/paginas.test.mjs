@@ -462,7 +462,35 @@ test('O script de tema não executa', () => {
   assert.match(home, /class="caixa caixa--tema so-com-js"/, 'e o controle de tema não promete o que não pode cumprir');
   const css = readFileSync(join(site.saida, 'estilo.css'), 'utf8');
   assert.match(css, /\.sem-js \.so-com-js \{ display: none !important; \}/);
-  assert.match(css, /@media \(prefers-color-scheme: dark\)/, 'o CSS segue o tema do sistema');
+  // Sem script, nenhuma escolha chega ao data-tema: vale a base do CSS, que é o claro.
+  assert.match(css, /:root,\n:root\[data-tema="claro"\] \{\n  color-scheme: light;/, 'sem script, o claro');
+  assert.doesNotMatch(css, /prefers-color-scheme/, 'e não o do sistema');
+});
+
+test('Primeira visita, qualquer que seja o sistema', () => {
+  // Decisão 234. Sem escolha guardada, o site fica no claro: o CSS não lê o sistema, o script
+  // do <head> só marca uma escolha que exista, e a moldura não lê o sistema.
+  for (const arquivo of ['estilo.css', 'estilo-case.css']) {
+    const css = readFileSync(join(site.saida, arquivo), 'utf8');
+    assert.doesNotMatch(css, /prefers-color-scheme/, `${arquivo}: o sistema não é lido`);
+    assert.match(css, /:root,\n:root\[data-tema="claro"\] \{\n  color-scheme: light;/, `${arquivo}: o claro é a base`);
+    // As mídias: a versão escura só com o escuro escolhido.
+    assert.match(css, /\.midia-escuro \{ display: none; \}/);
+    assert.doesNotMatch(css, /:root:not\(\[data-tema="claro"\]\)/, `${arquivo}: nada vale para "não claro" sem escolha`);
+  }
+  const temaJs = readFileSync(join(RAIZ, 'modelo/tema.js'), 'utf8');
+  assert.doesNotMatch(temaJs.replace(/\/\/.*$/gm, ''), /matchMedia|prefers-color-scheme/, 'o script do <head> não lê o sistema');
+  assert.match(temaJs, /if \(tema === 'claro' \|\| tema === 'escuro'\) raiz\.setAttribute\('data-tema', tema\);/, 'só a escolha guardada vira data-tema');
+  // O fundo do claro é cinza claro, não branco puro (lido dos tokens).
+  const fundo = JSON.parse(readFileSync(join(RAIZ, 'docs/spec/tokens.json'), 'utf8')).colecoes.Cor.variaveis['bg/page'].Claro;
+  assert.doesNotMatch(String(fundo), /^#?(fff|ffffff)$/i, 'o fundo do claro não é branco puro');
+});
+
+test('O leitor muda a preferência do sistema', () => {
+  // Decisão 234. Nada no site escuta o sistema: mudar a preferência dele não muda a página.
+  const moldura = readFileSync(join(RAIZ, 'modelo/moldura.js'), 'utf8').replace(/\/\/.*$/gm, '');
+  assert.doesNotMatch(moldura, /prefers-color-scheme/, 'a moldura não lê nem escuta o sistema');
+  assert.match(moldura, /return escolhido === 'escuro' \? 'escuro' : 'claro';/, 'sem escolha, o tema em vigor é o claro');
 });
 
 // ── Ícone de aba (decisão 187) ────────────────────────────────────────────────

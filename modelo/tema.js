@@ -1,6 +1,6 @@
 // Roda bloqueante no <head>, antes da primeira pintura: marca o tema escolhido no elemento
-// raiz, para nunca haver troca visível depois que a página apareceu. Se não rodar, o CSS
-// cai na preferência do sistema e todo o conteúdo continua legível (contrato tema/).
+// raiz, para nunca haver troca visível depois que a página apareceu. Sem escolha, ou se não
+// rodar, vale o claro do CSS, qualquer que seja o sistema (contrato tema/, decisão 234).
 (function () {
   var raiz = document.documentElement;
   raiz.className = raiz.className.replace('sem-js', 'com-js');

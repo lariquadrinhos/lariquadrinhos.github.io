@@ -11,19 +11,20 @@
   var largo = window.matchMedia('(min-width: ' + (document.documentElement.getAttribute('data-quebra') || '1024') + 'px)');
   // A barra e as sobreposições têm a quebra delas, a mesma em toda página (decisão 230).
   var barraLarga = window.matchMedia('(min-width: ' + (document.documentElement.getAttribute('data-quebra-barra') || '1280') + 'px)');
-  var escuroNoSistema = window.matchMedia('(prefers-color-scheme: dark)');
   var semMovimento = window.matchMedia('(prefers-reduced-motion: reduce)');
 
   // ── Tema ────────────────────────────────────────────────────────────────────
-  // Duas posições, claro e escuro. Sem escolha, vale o sistema; a escolha é lembrada e
-  // vale até ser trocada de novo. Escolher não fecha a caixa (decisão 063).
+  // Duas posições, claro e escuro. Sem escolha, o claro, qualquer que seja o sistema (decisão
+  // 234); a escolha é lembrada e vale até ser trocada de novo. Escolher não fecha a caixa
+  // (decisão 063).
 
   function temaEscolhido() {
     try { return localStorage.getItem('tema'); } catch (e) { return null; }
   }
 
   function temaEmVigor() {
-    return temaEscolhido() || (escuroNoSistema.matches ? 'escuro' : 'claro');
+    var escolhido = temaEscolhido();
+    return escolhido === 'escuro' ? 'escuro' : 'claro';
   }
 
   function marcarOpcoes() {
@@ -44,9 +45,6 @@
     marcarOpcoes();
   });
 
-  escuroNoSistema.addEventListener('change', function () {
-    if (!temaEscolhido()) marcarOpcoes();
-  });
   marcarOpcoes();
 
   // ── Sobreposições ───────────────────────────────────────────────────────────
