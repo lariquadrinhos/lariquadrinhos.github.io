@@ -555,6 +555,10 @@ em { font-style: normal; }
 @media (min-width: 1024px) {
   .case__hero { row-gap: var(--space-32); padding-top: var(--space-96); }
   .case__titulo .linha-estreita, .card__titulo .linha-estreita { display: inline; }
+  /* No card, cada linha escolhida fica inteira: se o título não cabe numa linha, a única
+     quebra possível é a escolhida (decisão 248). Sem largura escrita: vale para os dois
+     idiomas e para qualquer fonte. */
+  .card__titulo .linha-estreita { white-space: nowrap; }
   .case__abertura { grid-column: 1 / 7; }
   .tira { flex-direction: row; gap: var(--calha); }
   .tira__item { flex: 1 1 0; min-width: 0; }

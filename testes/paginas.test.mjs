@@ -653,6 +653,9 @@ test('O título do case quebra onde o Figma quebra', () => {
   assert.ok(site.pagina(`${REEMBOLSO}index.html`).includes(quebrado), 'o card do próximo case');
   assert.match(base['.card__titulo .linha-estreita'] ?? '', /display:\s*block/, 'o card quebra na tela estreita');
   assert.match(largo['.card__titulo .linha-estreita'] ?? '', /display:\s*inline/, 'e corre numa linha no desktop');
+  // No desktop, cada linha escolhida fica inteira: se o título não cabe numa linha, só quebra
+  // onde foi escolhido, nunca sozinho (decisão 248).
+  assert.match(largo['.card__titulo .linha-estreita'] ?? '', /white-space:\s*nowrap/, 'no desktop, só a quebra escolhida');
   // As quebras aprovadas em inglês são do texto dos arquivos em inglês: se o texto mudar, o
   // teste avisa, em vez de a quebra deixar de valer em silêncio (decisões 244, 246 e 247).
   const tituloEn = lerCase(RAIZ, 'case-study-financas-pf-pj.en.md').hero.titulo;
