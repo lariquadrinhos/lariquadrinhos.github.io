@@ -81,9 +81,11 @@ Funcionalidade: Endereço inexistente
     Dado que a página de erro está aberta
     Então o corpo levanta a hipótese do link quebrado antes da digitação errada
 
-  @lacuna
   Cenário: Como a hospedagem entrega a página de erro
-    Então A DEFINIR. Ver pergunta P15
+    Dado que o site é servido pelo GitHub Pages em "larissaquadros.com"
+    Quando o endereço pedido não corresponde a nenhuma página
+    Então o servidor responde com o status 404
+    E entrega a página de erro do site, não a do servidor
 ```
 
 ## Transições
