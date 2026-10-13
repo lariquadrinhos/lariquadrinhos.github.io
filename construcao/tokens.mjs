@@ -15,6 +15,10 @@ export const QUEBRA_DESKTOP = 1024;
 // de Trabalhos (decisão 212).
 export const QUEBRA_DO_CASE = 1280;
 
+// A barra e as sobreposições trocam de modo em 1280 em todas as páginas (decisão 230): na
+// mesma janela, a barra é a mesma de uma página para outra. É a fronteira do case.
+export const QUEBRA_DA_BARRA = QUEBRA_DO_CASE;
+
 // O CSS do case é o mesmo CSS, com o ponto de troca movido: todo `min-width` do modo Desktop
 // e todo `max-width` do modo estreito passam para a quebra do case. Uma fonte só.
 export function comQuebra(css, quebra) {
@@ -66,6 +70,15 @@ ${bloco('Grade', Grade.variaveis, 'Tela pequena')}
   :root {
 ${bloco('Tipografia', Tipografia.variaveis, 'Desktop').replaceAll('\n  ', '\n    ').replace(/^  /, '    ')}
 ${bloco('Grade', Grade.variaveis, 'Desktop').replaceAll('\n  ', '\n    ').replace(/^  /, '    ')}
+  }
+}
+
+/* A barra e as sobreposições ficam no modo de tela estreita até a quebra da barra, em toda
+   página (decisão 230), mesmo onde o conteúdo já está no modo Desktop. */
+@media (max-width: ${QUEBRA_DA_BARRA - 0.02}px) {
+  .barra, .caixa {
+${bloco('Tipografia', Tipografia.variaveis, 'Tela pequena').replaceAll('\n  ', '\n    ').replace(/^  /, '    ')}
+${bloco('Grade', Grade.variaveis, 'Tela pequena').replaceAll('\n  ', '\n    ').replace(/^  /, '    ')}
   }
 }
 

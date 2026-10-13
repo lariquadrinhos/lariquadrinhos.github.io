@@ -7,7 +7,7 @@
 
 import { escapar, inline, ehFraseInteiraEmNegrito, semNegrito } from './markdown.mjs';
 import { dimensoes, resolverMidia, resolverCapa } from './midias.mjs';
-import { QUEBRA_DESKTOP, QUEBRA_DO_CASE } from './tokens.mjs';
+import { QUEBRA_DESKTOP, QUEBRA_DO_CASE, QUEBRA_DA_BARRA } from './tokens.mjs';
 import {
   t, TEXTOS, FRASE_DA_HOME, MARCA_TEXTO_DO_CASE, COR_DO_CASE, BLOCO_DE_DESTAQUE, COLUNAS_SEPARADAS,
   QUEBRA_DO_TITULO_ESTREITA, caminhoDoCase,
@@ -40,10 +40,10 @@ function barra(ctx, atual) {
     <nav class="barra__nav" aria-label="Principal">
       <ul class="barra__itens">
         <li><a class="barra__item" href="${base}trabalhos/"${marca('trabalhos')}>${t('trabalhos')}</a></li>
-        <li class="so-largo"><a class="barra__item" href="${base}quem-sou-eu/"${marca('quem-sou-eu')}>${t('quemSouEu')}</a></li>
+        <li class="so-barra-larga"><a class="barra__item" href="${base}quem-sou-eu/"${marca('quem-sou-eu')}>${t('quemSouEu')}</a></li>
         <li><button class="barra__item" type="button" popovertarget="contato" aria-expanded="false">${t('contato')}</button></li>
-        <li class="so-largo so-com-js"><button class="barra__item" type="button" popovertarget="tema" aria-expanded="false">${t('tema')}</button></li>
-        <li class="so-estreito"><button class="barra__item${sublinhaMenu}" type="button" popovertarget="menu" aria-expanded="false">${t('menu')}</button></li>
+        <li class="so-barra-larga so-com-js"><button class="barra__item" type="button" popovertarget="tema" aria-expanded="false">${t('tema')}</button></li>
+        <li class="so-barra-estreita"><button class="barra__item${sublinhaMenu}" type="button" popovertarget="menu" aria-expanded="false">${t('menu')}</button></li>
       </ul>
     </nav>
   </div>
@@ -90,7 +90,7 @@ function documento(ctx, { titulo, atual, corpo, classeDoCorpo = '' }) {
   const ehCase = classeDoCorpo === 'pagina-case';
   const quebra = ehCase ? QUEBRA_DO_CASE : QUEBRA_DESKTOP;
   return `<!doctype html>
-<html lang="pt-BR" class="sem-js" data-quebra="${quebra}">
+<html lang="pt-BR" class="sem-js" data-quebra="${quebra}" data-quebra-barra="${QUEBRA_DA_BARRA}">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">

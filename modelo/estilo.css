@@ -92,6 +92,9 @@ em { font-style: normal; }
 
 @media (max-width: 1023.98px) { .so-largo { display: none !important; } }
 @media (min-width: 1024px) { .so-estreito { display: none !important; } }
+/* A barra troca em 1280 em toda página (decisão 230; ver QUEBRA_DA_BARRA em tokens.mjs). */
+@media (max-width: 1279.98px) { .so-barra-larga { display: none !important; } }
+@media (min-width: 1280px) { .so-barra-estreita { display: none !important; } }
 
 .grade {
   display: grid;
@@ -269,7 +272,8 @@ em { font-style: normal; }
 }
 .caixa--etapas::backdrop { top: calc(var(--altura-barra) + var(--altura-faixa)); }
 
-@media (min-width: 1024px) {
+/* As sobreposições seguem a barra: o modo Desktop delas começa em 1280 (decisão 230). */
+@media (min-width: 1280px) {
   .caixa {
     left: auto;
     right: max(var(--margem), calc((100% - var(--largura-quadro)) / 2 + var(--margem)));

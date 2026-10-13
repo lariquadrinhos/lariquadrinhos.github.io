@@ -9,6 +9,8 @@
   var raiz = document.documentElement;
   // A largura do modo Desktop vem da página: 1024, ou 1280 no case (decisão 225).
   var largo = window.matchMedia('(min-width: ' + (document.documentElement.getAttribute('data-quebra') || '1024') + 'px)');
+  // A barra e as sobreposições têm a quebra delas, a mesma em toda página (decisão 230).
+  var barraLarga = window.matchMedia('(min-width: ' + (document.documentElement.getAttribute('data-quebra-barra') || '1280') + 'px)');
   var escuroNoSistema = window.matchMedia('(prefers-color-scheme: dark)');
   var semMovimento = window.matchMedia('(prefers-reduced-motion: reduce)');
 
@@ -63,7 +65,7 @@
   function posicionar(caixa) {
     var gatilho = quemAbriu[caixa.id];
     caixa.style.top = caixa.style.left = caixa.style.right = '';
-    if (!largo.matches || !gatilho || caixa.id === 'etapas' || caixa.id === 'menu') return;
+    if (!barraLarga.matches || !gatilho || caixa.id === 'etapas' || caixa.id === 'menu') return;
     var r = gatilho.getBoundingClientRect();
     var barra = gatilho.closest('.barra');
     if (barra) {

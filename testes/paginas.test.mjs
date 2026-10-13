@@ -9,7 +9,7 @@ import { raizTemporaria, construirEm, texto, RAIZ } from './ajuda.mjs';
 import { TEXTOS, caminhoDoCase } from '../construcao/interface.mjs';
 import { lerCase } from '../construcao/conteudo.mjs';
 import { escapar } from '../construcao/markdown.mjs';
-import { comQuebra, QUEBRA_DESKTOP, QUEBRA_DO_CASE } from '../construcao/tokens.mjs';
+import { comQuebra, QUEBRA_DESKTOP, QUEBRA_DO_CASE, QUEBRA_DA_BARRA } from '../construcao/tokens.mjs';
 
 // O endereço de cada case, lido de onde a construção lê (decisão 221): o teste não o fixa.
 const enderecoDoCase = (arquivo) => caminhoDoCase(lerCase(RAIZ, arquivo));
@@ -399,6 +399,42 @@ test('Leitor escolhe o LinkedIn', () => {
   }
   assert.deepEqual([...site.pagina('quem-sou-eu/index.html').matchAll(link)].map((m) => m[1]).sort(), ['LinkedIn', 'Ver LinkedIn']);
   assert.doesNotMatch(site.pagina('index.html'), /FALTA · o endereço do LinkedIn/);
+});
+
+test('A barra é a mesma em todas as páginas na mesma largura', () => {
+  // Decisão 230, moldura/botao-contato.md. A barra e as sobreposições trocam de modo na quebra
+  // da barra em toda página; o conteúdo segue a quebra da página.
+  const paginas = ['index.html', 'trabalhos/index.html', 'quem-sou-eu/index.html', '404.html', `${FINANCAS}index.html`, `${REEMBOLSO}index.html`];
+  const barras = paginas.map((p) => {
+    const html = site.pagina(p);
+    assert.match(html, new RegExp(`<html [^>]*data-quebra-barra="${QUEBRA_DA_BARRA}"`), `${p}: a página diz a quebra da barra`);
+    return html.match(/<header class="barra">[\s\S]*?<\/header>/)[0];
+  });
+  // Tirando a marca da página atual, a barra é a mesma em todas.
+  const semMarca = (b) => b.replace(/ aria-current="page"/g, '').replace(/ barra__item--atual/g, '');
+  for (const [i, b] of barras.entries()) assert.equal(semMarca(b), semMarca(barras[0]), `${paginas[i]}: a mesma barra`);
+  const barra = barras[0];
+  assert.match(barra, /<li class="so-barra-larga">[^\n]*quem-sou-eu/, 'Quem sou eu só na barra larga');
+  assert.match(barra, /<li class="so-barra-larga so-com-js">[^\n]*popovertarget="tema"/, 'Tema só na barra larga');
+  assert.match(barra, /<li class="so-barra-estreita">[^\n]*popovertarget="menu"/, 'Menu só na barra estreita');
+  assert.doesNotMatch(barra, /"so-largo|"so-estreito|so-largo"|so-estreito"/, 'a barra não troca na quebra do conteúdo');
+  // Em Quem sou eu, abaixo da quebra da barra, o sublinhado vai para o Menu.
+  assert.match(barras[2], /class="barra__item barra__item--atual" type="button" popovertarget="menu"/);
+  for (const arquivo of ['estilo.css', 'estilo-case.css']) {
+    const css = readFileSync(join(site.saida, arquivo), 'utf8');
+    assert.ok(css.includes(`@media (max-width: ${QUEBRA_DA_BARRA - 0.02}px) { .so-barra-larga { display: none !important; } }`), `${arquivo}: barra larga só a partir da quebra`);
+    assert.ok(css.includes(`@media (min-width: ${QUEBRA_DA_BARRA}px) { .so-barra-estreita { display: none !important; } }`), `${arquivo}: barra estreita só abaixo da quebra`);
+    // Abaixo da quebra da barra, a barra e as sobreposições usam os valores da tela estreita,
+    // gerados dos tokens.
+    const bloco = css.match(new RegExp(`@media \\(max-width: ${QUEBRA_DA_BARRA - 0.02}px\\) \\{\\n  \\.barra, \\.caixa \\{([\\s\\S]*?)\\n  \\}`))?.[1] ?? '';
+    const margemEstreita = JSON.parse(readFileSync(join(RAIZ, 'docs/spec/tokens.json'), 'utf8')).colecoes.Grade.variaveis.margem['Tela pequena'];
+    assert.match(bloco, new RegExp(`--margem: ${margemEstreita}px;`), `${arquivo}: a margem da barra estreita`);
+    // A caixa só se posiciona como no desktop a partir da quebra da barra.
+    assert.match(css, new RegExp(`@media \\(min-width: ${QUEBRA_DA_BARRA}px\\) \\{\\n  \\.caixa \\{\\n    left: auto;`), `${arquivo}: a caixa de desktop`);
+  }
+  const moldura = readFileSync(join(RAIZ, 'modelo/moldura.js'), 'utf8');
+  assert.match(moldura, /var barraLarga = window\.matchMedia\('\(min-width: ' \+ [^;]*getAttribute\('data-quebra-barra'\)/);
+  assert.match(moldura, /if \(!barraLarga\.matches \|\| !gatilho/, 'a caixa se posiciona pela quebra da barra');
 });
 
 test('O script de tema não executa', () => {
