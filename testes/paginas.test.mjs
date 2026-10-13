@@ -197,7 +197,7 @@ function semRolagem() {
 // Nenhum valor escrito à mão nos degraus: eles só trocam uma variável por outra.
 function soVariaveis(porAltura, filtro) {
   for (const [altura, regras] of Object.entries(porAltura)) {
-    if (altura === 'larguraDoMinimo' || altura === 'porLargura') continue;
+    if (altura === 'larguraDoMinimo' || altura === 'porLargura' || altura === 'faixaDaBarra') continue;
     for (const [seletor, corpo] of Object.entries(regras)) {
       if (!filtro.test(seletor)) continue;
       for (const [, prop, valor] of corpo.matchAll(/([\w-]+):\s*([^;]+);/g)) {
@@ -266,7 +266,7 @@ test('A janela é mais baixa que o mínimo', () => {
     assert.match(largo[pagina], /padding-block: var\(--space-24\)[^}]*$/, `${pagina}: abaixo do mínimo, o respiro não fica menor que 24`);
   }
   assert.equal(porAltura.foraDoDesktop, undefined, 'nenhum degrau de altura vale fora do desktop');
-  assert.deepEqual(Object.keys(porAltura).filter((k) => !['larguraDoMinimo', 'porLargura'].includes(k)).sort(), ['1010', '790', '980']);
+  assert.deepEqual(Object.keys(porAltura).filter((k) => !['larguraDoMinimo', 'porLargura', 'faixaDaBarra'].includes(k)).sort(), ['1010', '790', '980']);
   assert.deepEqual(porAltura.larguraDoMinimo, ['790 abaixo de 1280', '790 abaixo de 1280'], 'Home e Trabalhos: abaixo de 1280 de largura, o desenho de 650');
 });
 
@@ -429,6 +429,10 @@ test('A barra é a mesma em todas as páginas na mesma largura', () => {
     const bloco = css.match(new RegExp(`@media \\(max-width: ${QUEBRA_DA_BARRA - 0.02}px\\) \\{\\n  \\.barra, \\.caixa \\{([\\s\\S]*?)\\n  \\}`))?.[1] ?? '';
     const margemEstreita = JSON.parse(readFileSync(join(RAIZ, 'docs/spec/tokens.json'), 'utf8')).colecoes.Grade.variaveis.margem['Tela pequena'];
     assert.match(bloco, new RegExp(`--margem: ${margemEstreita}px;`), `${arquivo}: a margem da barra estreita`);
+    // A partir da quebra do Desktop, a barra tem a margem do Desktop, igual em toda página,
+    // também no CSS do case (decisão 232). As caixas, não: continuam de margem a margem.
+    const margemDesktop = JSON.parse(readFileSync(join(RAIZ, 'docs/spec/tokens.json'), 'utf8')).colecoes.Grade.variaveis.margem.Desktop;
+    assert.match(css, new RegExp(`@media \\(${QUEBRA_DESKTOP}px <= width < ${QUEBRA_DA_BARRA}px\\) \\{\\n  \\.barra \\{\\n    --margem: ${margemDesktop}px;\\n  \\}`), `${arquivo}: a barra alinhada ao conteúdo do desktop`);
     // A caixa só se posiciona como no desktop a partir da quebra da barra.
     assert.match(css, new RegExp(`@media \\(min-width: ${QUEBRA_DA_BARRA}px\\) \\{\\n  \\.caixa \\{\\n    left: auto;`), `${arquivo}: a caixa de desktop`);
   }
@@ -574,6 +578,12 @@ function regrasPorLargura(css) {
           const salvo = i;
           i = abre + 1;
           lerBloco((porAltura.porLargura ??= {})[largura] ??= {}, j - 1);
+          i = salvo;
+        } else if (/^@media \(1024px <= width < 1280px\)$/.test(seletor)) {
+          // A faixa da barra (decisão 232): é do desktop, e não é degrau de altura.
+          const salvo = i;
+          i = abre + 1;
+          lerBloco(porAltura.faixaDaBarra ??= {}, j - 1);
           i = salvo;
         } else if (/height|width </.test(seletor)) {
           porAltura.foraDoDesktop = seletor;

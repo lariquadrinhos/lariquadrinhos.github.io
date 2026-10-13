@@ -82,6 +82,16 @@ ${bloco('Grade', Grade.variaveis, 'Tela pequena').replaceAll('\n  ', '\n    ').r
   }
 }
 
+/* A partir da quebra do Desktop, a barra estreita tem a margem do Desktop, para se alinhar ao
+   conteúdo (decisão 232); as sobreposições continuam de margem a margem. Escrito em intervalo,
+   e não em min-width, para o CSS do case (comQuebra) não mover esta quebra: a barra é a mesma
+   em toda página. */
+@media (${QUEBRA_DESKTOP}px <= width < ${QUEBRA_DA_BARRA}px) {
+  .barra {
+    ${nomeCss('margem')}: ${valorCss('Grade', 'margem', Grade.variaveis.margem.Desktop)};
+  }
+}
+
 /* Tema. Sem escolha salva, segue o sistema; com escolha, data-tema manda. */
 :root,
 :root[data-tema="claro"] {
