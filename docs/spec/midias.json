@@ -1,6 +1,6 @@
 {
   "_": "Fundo e moldura de cada mídia de prova, lidos do Figma. A decisão 157 diz que mídia sangra na página: o fundo do material é bg/page do tema dela, sem borda, raio, sombra ou superfície própria. Fundo 'raster' não é conferível daqui, a cor está nos pixels, e só o PNG exportado responde. Campo 'origem': 'figma' quando o material é exportado direto do Figma, 'video' quando é um quadro extraído de gravação de tela. A distinção importa porque gravação de tela converte de Display P3 para sRGB, o que preserva branco e preto e desloca os tons médios de 2 a 4 pontos. Campo 'arquivo': o PNG a amostrar, quando não é <nome>.png.",
-  "exportado": "2026-10-01; o par do capítulo 6 do Finanças relido em 2026-10-13 (decisão 236)",
+  "exportado": "2026-10-01; o par do capítulo 6 do Finanças relido em 2026-10-13 (decisão 236); os pôsteres do vídeo do capítulo 1 do Finanças relidos em 2026-10-13, iguais em id, tamanho e moldura (decisão 237)",
   "tokenBgPage": {
     "claro": "#F4EFE4",
     "escuro": "#1A1715"

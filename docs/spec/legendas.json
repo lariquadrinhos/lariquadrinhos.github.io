@@ -1,6 +1,6 @@
 {
   "_": "Legenda de cada lacuna de mídia, por case, capítulo e tela. Serve para a checagem 14, que confere três coisas que nenhum arquivo sozinho revela: se toda lacuna existe nas quatro telas do case, se a legenda diz a mesma coisa nas quatro, e se a legenda escrita bate palavra por palavra com a linha 'Legenda:' do arquivo de conteúdo. 'Legenda: a escrever' é o marcador de lacuna ainda não redigida e não é comparado com o conteúdo.",
-  "exportado": "2026-10-01; a legenda do par do capítulo 6 do Finanças relida em 2026-10-13 nas quatro telas (decisão 236)",
+  "exportado": "2026-10-01; a legenda do par do capítulo 6 do Finanças relida em 2026-10-13 nas quatro telas (decisão 236); a do vídeo do capítulo 1 relida em 2026-10-13, sem mudança (decisão 237)",
   "marcadorDeNaoEscrita": "Legenda: a escrever",
   "cases": {
     "case-study-financas-pf-pj.md": {
