@@ -30,7 +30,8 @@ altura da leitura.
   | `/trabalhos/reembolso/` | `/en/work/reembolso/` |
   | `/quem-sou-eu/` | `/en/about/` |
 
-  A página de erro responde no idioma do endereço pedido: abaixo de `/en/`, em inglês.
+  **A página de erro é bilíngue**: o GitHub Pages serve uma só para o site inteiro, então ela traz
+  o texto em português e em inglês, sem depender de script. Ver decisão 243.
 - **Sempre abre em português.** O site não adivinha o idioma pelo navegador: num site estático, isso
   pediria um redirecionamento automático, e a página piscaria. Quem quer inglês troca na barra, ou
   chega por um endereço `/en/`.
@@ -48,7 +49,9 @@ altura da leitura.
   Mesmos marcadores, mesmas mídias, na mesma ordem. Eu traduzo, ela revisa e aprova.
 - **As mídias são as mesmas nos dois idiomas.** As telas dos produtos ficam em português, porque são
   os produtos reais. Legendas e textos alternativos são traduzidos.
-- **O currículo tem uma versão em inglês**, em PDF, produzida por ela. Até existir, é falta.
+- **O currículo tem uma versão em inglês**, em PDF, produzida por ela. Até existir, a página About
+  linka o currículo em português, com o rótulo *"Download résumé (PDF, in Portuguese)"*: nada fica
+  faltando, e a publicação não é recusada. Ver decisão 243.
 - **A página declara o idioma** (`lang="pt-BR"` ou `lang="en"`) e aponta a sua versão no outro
   idioma, para buscadores e leitores de tela.
 
@@ -81,6 +84,7 @@ Texto de interface em inglês. O português de cada item continua no contrato da
 | {n} de {total} | {n} of {total} |
 | Mais sobre mim: | More about me: |
 | Baixar currículo em PDF | Download résumé (PDF) |
+| (enquanto não há o PDF em inglês) | Download résumé (PDF, in Portuguese) |
 | Ver LinkedIn | See LinkedIn |
 | Ou fale direto comigo: | Or reach me directly: |
 | Esse endereço não leva a lugar nenhum. | This address doesn't lead anywhere. |
@@ -129,10 +133,11 @@ Funcionalidade: Segundo idioma
     Quando o leitor abre o Menu
     Então o controle de idioma está dentro dele, como uma palavra
 
-  Cenário: Endereço inexistente em inglês
-    Dado que o endereço pedido está sob "/en/" e não existe
+  Cenário: A página de erro nos dois idiomas
+    Dado que o endereço pedido não existe, em qualquer idioma
     Quando a página de erro aparece
-    Então ela está em inglês
+    Então ela traz o texto em português e em inglês
+    E as saídas levam às páginas de cada idioma
 ```
 
 ## Transições

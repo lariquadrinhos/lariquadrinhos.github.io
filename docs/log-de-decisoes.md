@@ -7729,3 +7729,28 @@ de conteúdo. As telas dos produtos ficam em português dentro do site em inglê
 inglês e os cenários. A P09 sai da lista, que fica com 1 (a P21). As traduções dos três arquivos de
 conteúdo esperam a revisão dela antes de entrar no repositório, que é público. O controle de idioma
 ainda não está desenhado no Figma.
+
+---
+
+## 243 · A página de erro é bilíngue, e a About em inglês linka o currículo em português até o PDF existir
+
+**Quando** 2026-10-13 · **Fase** 4 · **Domínio** moldura
+
+**Gatilho.** Duas dúvidas do dev ao montar a 242. O GitHub Pages serve uma única página de erro para o
+site inteiro, então não há 404 só para `/en/`. E, com a 240, a publicação recusa qualquer falta: o
+currículo em inglês, que ainda não existe, travaria toda publicação.
+
+**Decisão.** *"sim, vai com a A nas duas"*, propostas minhas:
+1. A página de erro traz o texto em português e em inglês, sem script.
+2. Até o PDF em inglês existir, a página About linka o currículo em português, com o rótulo
+   *"Download résumé (PDF, in Portuguese)"*.
+
+**Alternativa descartada.** *Trocar o idioma do 404 por script*: sem script, ficaria em português, e
+o HTML deixaria de entregar o produto. *Erro só em português.* *Esperar o PDF para publicar o inglês.*
+*Tirar o link do currículo da About.*
+
+**Custo aceito.** A página de erro fica mais longa. Quem lê em inglês baixa um currículo em português
+até o PDF dela chegar.
+
+**Consequência.** `idioma/segundo-idioma.md` atualizado, com o cenário "A página de erro nos dois
+idiomas" no lugar do anterior.
