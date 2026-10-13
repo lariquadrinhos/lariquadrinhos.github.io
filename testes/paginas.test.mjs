@@ -456,6 +456,28 @@ test('A barra é a mesma em todas as páginas na mesma largura', () => {
   assert.match(moldura, /if \(!barraLarga\.matches \|\| !gatilho/, 'a caixa se posiciona pela quebra da barra');
 });
 
+test('A caixa não cabe embaixo do que a abriu', () => {
+  // Decisão 241. A conta da moldura, tirada do próprio arquivo, com as medidas do defeito: em
+  // 1440×900, o "Falar comigo" no pé do case vai de 742 a 804, e a caixa tem 126.
+  const moldura = readFileSync(join(RAIZ, 'modelo/moldura.js'), 'utf8');
+  const VAO = Number(moldura.match(/var VAO = (\d+);/)[1]);
+  const fonte = moldura.match(/function topoDaCaixa\([^)]*\) \{[\s\S]*?\n  \}/)?.[0];
+  assert.ok(fonte, 'moldura.js sem a função topoDaCaixa');
+  const topoDaCaixa = new Function('VAO', `${fonte}; return topoDaCaixa;`)(VAO);
+  assert.equal(VAO, 12);
+  // Sem espaço embaixo: abre 12 acima e fica inteira na janela.
+  const acima = topoDaCaixa(126, { top: 742, bottom: 804 }, 900);
+  assert.equal(acima + 126, 742 - 12, 'termina 12 acima do botão');
+  assert.ok(acima >= 0);
+  // Com espaço embaixo, como na barra: abre 12 abaixo.
+  assert.equal(topoDaCaixa(126, { top: 0, bottom: 64 }, 900), 64 + 12, 'a barra abre embaixo');
+  assert.equal(topoDaCaixa(126, { top: 300, bottom: 362 }, 900), 362 + 12, 'com espaço, embaixo');
+  // Sem espaço em nenhum dos dois lados, fica embaixo, como antes.
+  assert.equal(topoDaCaixa(126, { top: 60, bottom: 122 }, 200), 122 + 12);
+  // E a página usa a conta para toda sobreposição ancorada.
+  assert.match(moldura, /caixa\.style\.top = topoDaCaixa\(caixa\.offsetHeight, ancora, window\.innerHeight\) \+ 'px';/);
+});
+
 test('O script de tema não executa', () => {
   const home = site.pagina('index.html');
   assert.match(home, /<html lang="pt-BR" class="sem-js"[ >]/, 'sem script, a página começa marcada como sem script');

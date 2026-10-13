@@ -68,13 +68,22 @@
     if (!barraLarga.matches || !gatilho || caixa.id === 'etapas' || caixa.id === 'menu') return;
     var r = gatilho.getBoundingClientRect();
     var barra = gatilho.closest('.barra');
+    var ancora = barra ? barra.getBoundingClientRect() : r;
     if (barra) {
-      caixa.style.top = (barra.getBoundingClientRect().bottom + VAO) + 'px';
       caixa.style.right = (document.documentElement.clientWidth - r.right) + 'px';
     } else {
-      caixa.style.top = (r.bottom + VAO) + 'px';
       caixa.style.left = r.left + 'px';
     }
+    caixa.style.top = topoDaCaixa(caixa.offsetHeight, ancora, window.innerHeight) + 'px';
+  }
+
+  // A caixa abre 12 abaixo do que a abriu; se ali ela passa do pé da janela e cabe acima,
+  // abre 12 acima (decisão 241). Na barra não há espaço acima, e ela fica embaixo.
+  function topoDaCaixa(alto, ancora, alturaDaJanela) {
+    var embaixo = ancora.bottom + VAO;
+    var acima = ancora.top - VAO - alto;
+    if (embaixo + alto > alturaDaJanela && acima >= 0) return acima;
+    return embaixo;
   }
 
   document.querySelectorAll('[popover]').forEach(function (caixa) {
