@@ -7670,3 +7670,30 @@ como falta no site.
 
 **Consequência.** O dev muda o workflow de publicação. O comentário dele, que pedia entrada nova no log
 para voltar, aponta para esta.
+
+---
+
+## 241 · A caixa abre acima quando não cabe embaixo; os commits passam a usar o e-mail privado do GitHub
+
+**Quando** 2026-10-13 · **Fase** 4 · **Domínio** moldura
+
+**Gatilho.** Ela: *"quando clico em falar comigo no final dos cases no modo desktop aparece cortado"*.
+Reproduzido no ar: a caixa de contato abre 12 abaixo do botão, como manda a regra do desktop, mas no
+fim do case não há espaço, e ela termina 42 abaixo do fim da janela, em 1440×900 e em 1366×768, sem a
+página ter mais para onde rolar. E o tester, na rodada 40: o e-mail `tesouraet` não está em nenhum
+arquivo do `case-financas`, mas assina o commit, e já assina quase todos os do repositório do site.
+
+**Decisão.** *"sim, vai com as duas sugestões"*, propostas minhas:
+1. Quando não há espaço embaixo, a sobreposição ancorada abre acima do que a abriu, a 12 de distância.
+2. Daqui para frente, os commits usam o e-mail privado do GitHub
+   (`265298098+lariquadrinhos@users.noreply.github.com`), configurado neste repositório e nas cópias
+   dos dois repositórios de case. O histórico não é reescrito.
+
+**Alternativa descartada.** *Espaço extra no pé dos cases*, que aumentaria todos. *Rolar a página
+sozinha*, contra a regra de nada se mover sem a pessoa pedir. *Reescrever o histórico* para esconder
+o e-mail dos commits antigos, destrutivo.
+
+**Custo aceito.** O e-mail continua visível nos commits já publicados.
+
+**Consequência.** `moldura/botao-contato.md` ganha a regra e o cenário "A caixa não cabe embaixo do que
+a abriu".

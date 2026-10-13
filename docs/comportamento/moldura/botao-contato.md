@@ -83,6 +83,10 @@ e-mail escrito por extenso e o LinkedIn.
 - **Toda sobreposição fica a 12px do que a abriu**: contato, menu e tema, nas duas larguras.
   Quando o gatilho é item da barra, a caixa pende da borda de baixo da barra, não da palavra:
   a palavra acaba dentro da barra, e uma caixa saindo do meio dela cobriria a própria barra.
+- **Quando não há espaço embaixo, a caixa abre acima do que a abriu**, à mesma distância de 12.
+  Acontece com o "Falar comigo" no fim de um case, perto do pé da página, onde a caixa passaria do
+  fim da janela e a página não teria mais para onde rolar. Vale para toda sobreposição ancorada.
+  Ver decisão 241.
 - **A caixa se comporta diferente nas duas larguras, e o que decide é o dedo.** No desktop
   ela ancora logo abaixo do que a abriu e não tem véu: o clique fora tem mira precisa. Em
   tela estreita ela ocupa a largura e ganha véu, que é o alvo grande para recolher.
@@ -216,6 +220,13 @@ Funcionalidade: Contato na barra
     Dado que a janela tem menos de 1280 de largura
     Quando a pessoa vai de qualquer página para outra
     Então a barra mostra Larissa, Trabalhos, Contato e Menu nas duas
+
+  Cenário: A caixa não cabe embaixo do que a abriu
+    Dado que o leitor aciona o contato perto do pé da página, num computador
+    E que não há espaço para a caixa abaixo dele
+    Quando a caixa aparece
+    Então ela abre acima do que a abriu, a 12 de distância
+    E aparece inteira na janela
 ```
 
 ## Transições
