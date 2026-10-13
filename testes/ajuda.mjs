@@ -22,6 +22,24 @@ export function raizTemporaria(trocas = {}) {
   return raiz;
 }
 
+// Uma raiz com o inglês (decisão 242): os três .en.md são cópias do português, para provar o
+// mecanismo (endereços, idioma, controle, âncoras, interface) sem depender da tradução, que
+// é dela e entra no repositório só depois de aprovada. Trocas valem depois da cópia.
+export function raizComIngles(trocas = {}) {
+  const raiz = raizTemporaria();
+  for (const arquivo of ['quem-sou-eu.md', 'case-study-financas-pf-pj.md', 'case-study-reembolso-sulamerica.md']) {
+    // Os rótulos da trilha mudam na cópia, como mudam na tradução: as âncoras têm de vir do
+    // português mesmo assim.
+    const copia = readFileSync(join(raiz, arquivo), 'utf8').replace(/<!-- trilha: ([^>]*?) -->/g, '<!-- trilha: $1 in English -->');
+    writeFileSync(join(raiz, arquivo.replace(/\.md$/, '.en.md')), copia);
+  }
+  for (const [arquivo, mudar] of Object.entries(trocas)) {
+    const original = readFileSync(join(raiz, arquivo), 'utf8');
+    writeFileSync(join(raiz, arquivo), typeof mudar === 'function' ? mudar(original) : mudar);
+  }
+  return raiz;
+}
+
 export function construirEm(raiz, modo = 'local') {
   const saida = join(raiz, 'site');
   const resultado = construir({ raiz, saida, modo });

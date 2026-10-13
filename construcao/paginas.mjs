@@ -11,6 +11,8 @@ import { QUEBRA_DESKTOP, QUEBRA_DO_CASE, QUEBRA_DA_BARRA } from './tokens.mjs';
 import {
   t, TEXTOS, FRASE_DA_HOME, MARCA_TEXTO_DO_CASE, COR_DO_CASE, BLOCO_DE_DESTAQUE, COLUNAS_SEPARADAS,
   QUEBRA_DO_TITULO_ESTREITA, caminhoDoCase,
+  idioma, comIdioma, enderecoDe, LANG, DOMINIO, FRASE_DA_HOME_EN, MARCA_TEXTO_DO_CASE_EN,
+  QUEBRA_DO_TITULO_ESTREITA_EN, QUEBRA_DO_TITULO_TRABALHOS,
 } from './interface.mjs';
 
 const ATRIBUTOS_EXTERNOS = 'target="_blank" rel="noopener"';
@@ -30,20 +32,27 @@ function linkExterno(rotulo, url, classe = 'link-externo') {
   return `<a class="${classe}" href="${escapar(url)}" ${ATRIBUTOS_EXTERNOS}>${rotulo}<span class="aviso-nova-aba"> ${t('abreEmNovaAba')}</span></a>`;
 }
 
-function barra(ctx, atual) {
+// O controle de idioma: o nome do outro idioma, na língua dele, levando à mesma página
+// (decisão 242). Com script, a moldura acrescenta o capítulo em que a pessoa está.
+function linkDeIdioma(ctx, outro, classe, conteudo) {
+  return `<a class="${classe}" href="${ctx.base}${outro.endereco}" hreflang="${LANG[outro.idioma]}" lang="${LANG[outro.idioma]}" data-idioma>${conteudo}</a>`;
+}
+
+function barra(ctx, atual, outro) {
   const { base, nomeCurto } = ctx;
   const marca = (pagina) => (atual === pagina ? ' aria-current="page"' : '');
   const sublinhaMenu = atual === 'quem-sou-eu' ? ' barra__item--atual' : '';
   return `<header class="barra">
   <div class="barra__dentro">
-    <a class="barra__item barra__nome" href="${base}">${escapar(nomeCurto)}</a>
-    <nav class="barra__nav" aria-label="Principal">
+    <a class="barra__item barra__nome" href="${base}${enderecoDe('home')}">${escapar(nomeCurto)}</a>
+    <nav class="barra__nav" aria-label="${t('rotuloNavegacao')}">
       <ul class="barra__itens">
-        <li><a class="barra__item" href="${base}trabalhos/"${marca('trabalhos')}>${t('trabalhos')}</a></li>
-        <li class="so-barra-larga"><a class="barra__item" href="${base}quem-sou-eu/"${marca('quem-sou-eu')}>${t('quemSouEu')}</a></li>
+        <li><a class="barra__item" href="${base}${enderecoDe('trabalhos')}"${marca('trabalhos')}>${t('trabalhos')}</a></li>
+        <li class="so-barra-larga"><a class="barra__item" href="${base}${enderecoDe('quem-sou-eu')}"${marca('quem-sou-eu')}>${t('quemSouEu')}</a></li>
         <li><button class="barra__item" type="button" popovertarget="contato" aria-expanded="false">${t('contato')}</button></li>
         <li class="so-barra-larga so-com-js"><button class="barra__item" type="button" popovertarget="tema" aria-expanded="false">${t('tema')}</button></li>
-        <li class="so-barra-estreita"><button class="barra__item${sublinhaMenu}" type="button" popovertarget="menu" aria-expanded="false">${t('menu')}</button></li>
+${outro ? `        <li class="so-barra-larga">${linkDeIdioma(ctx, outro, 'barra__item', t('outroIdioma'))}</li>
+` : ''}        <li class="so-barra-estreita"><button class="barra__item${sublinhaMenu}" type="button" popovertarget="menu" aria-expanded="false">${t('menu')}</button></li>
       </ul>
     </nav>
   </div>
@@ -59,7 +68,7 @@ function opcoesDeTema(curtas) {
   }).join('\n    ');
 }
 
-function sobreposicoes(ctx, atual) {
+function sobreposicoes(ctx, atual, outro) {
   const { base, ausencias, linkedin } = ctx;
   const email = t('email');
   const linhaLinkedin = linkedin
@@ -74,23 +83,37 @@ function sobreposicoes(ctx, atual) {
     ${opcoesDeTema(true)}
   </div>
   <div class="caixa caixa--menu" id="menu" popover>
-    <a class="caixa__linha" href="${base}quem-sou-eu/"${atualNoMenu}><span class="caixa__sinal" aria-hidden="true"></span>${t('quemSouEu')}</a>
+    <a class="caixa__linha" href="${base}${enderecoDe('quem-sou-eu')}"${atualNoMenu}><span class="caixa__sinal" aria-hidden="true"></span>${t('quemSouEu')}</a>
     <div class="caixa__divisoria so-com-js" role="presentation"></div>
     <div class="so-com-js">
     ${opcoesDeTema(false)}
-    </div>
+    </div>${outro ? `
+    <div class="caixa__divisoria" role="presentation"></div>
+    ${linkDeIdioma(ctx, outro, 'caixa__linha', `<span class="caixa__sinal" aria-hidden="true"></span>${t('outroIdioma')}`)}` : ''}
   </div>`;
 }
 
-function documento(ctx, { titulo, atual, corpo, classeDoCorpo = '' }) {
+// O endereço de uma página num idioma: a página é o nome dela ou o case.
+function enderecoNoIdioma(pagina, i) {
+  return comIdioma(i, () => (typeof pagina === 'string' ? enderecoDe(pagina) : caminhoDoCase(pagina)));
+}
+
+function documento(ctx, { titulo, atual, corpo, classeDoCorpo = '', pagina }) {
   const { base, temaJs } = ctx;
+  // Com o inglês, cada página aponta a sua versão no outro idioma (decisão 242). A página de
+  // erro não tem par: o controle leva à home do outro idioma.
+  const outroIdioma = ctx.idiomas.find((i) => i !== idioma());
+  const outro = outroIdioma && { idioma: outroIdioma, endereco: enderecoNoIdioma(pagina === 'erro' ? 'home' : pagina, outroIdioma) };
+  const alternativas = outroIdioma && pagina !== 'erro'
+    ? ctx.idiomas.map((i) => `\n<link rel="alternate" hreflang="${LANG[i]}" href="${DOMINIO}/${enderecoNoIdioma(pagina, i)}">`).join('')
+    : '';
   const tituloDaAba = titulo ? `${titulo} · ${ctx.nome}` : ctx.nome;
   // O case troca de modo em outra largura (decisão 225): ele leva o CSS com a quebra dele, e
   // os scripts leem a quebra da própria página.
   const ehCase = classeDoCorpo === 'pagina-case';
   const quebra = ehCase ? QUEBRA_DO_CASE : QUEBRA_DESKTOP;
   return `<!doctype html>
-<html lang="pt-BR" class="sem-js" data-quebra="${quebra}" data-quebra-barra="${QUEBRA_DA_BARRA}">
+<html lang="${LANG[idioma()]}" class="sem-js" data-quebra="${quebra}" data-quebra-barra="${QUEBRA_DA_BARRA}">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -102,14 +125,14 @@ function documento(ctx, { titulo, atual, corpo, classeDoCorpo = '' }) {
 <link rel="apple-touch-icon" href="${base}publico/icone/apple-touch-icon.png">
 <link rel="manifest" href="${base}manifest.webmanifest">
 <link rel="preload" href="${base}publico/fontes/dm-sans.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="${base}${ehCase ? 'estilo-case.css' : 'estilo.css'}">
+<link rel="stylesheet" href="${base}${ehCase ? 'estilo-case.css' : 'estilo.css'}">${alternativas}
 <script src="${base}moldura.js" defer></script>
 </head>
 <body class="${classeDoCorpo}">
 <div id="topo" tabindex="-1"></div>
 <a class="atalho" href="#conteudo">${t('pularParaConteudo')}</a>
-${barra(ctx, atual)}
-${sobreposicoes(ctx, atual)}
+${barra(ctx, atual, outro)}
+${sobreposicoes(ctx, atual, outro)}
 ${corpo}
 <a class="voltar-ao-topo" href="#topo" hidden>${t('voltarAoTopo')}</a>
 </body>
@@ -120,20 +143,19 @@ ${corpo}
 // ── Home ───────────────────────────────────────────────────────────────────────
 
 function fraseComQuebras(frase, linhas, marca, classe) {
+  // O trecho do marca-texto é uma faixa da frase; em cada linha, marca-se o pedaço da faixa
+  // que cai nela. Assim o trecho pode atravessar uma quebra (na estreita, "forma melhor" /
+  // "de fazer,"), e uma palavra do trecho que se repete fora dele não é marcada.
+  const inicio = frase.indexOf(marca);
+  const fim = inicio + marca.length;
+  let pos = 0;
   return linhas.map((linha) => {
-    const i = linha.indexOf(marca);
-    // O trecho pode atravessar uma quebra (na estreita, "forma melhor" / "de fazer,").
-    const pedacoDaMarca = marca.split(' ').filter((p) => linha.split(' ').includes(p));
-    let html = escapar(linha);
-    if (i >= 0) {
-      html = escapar(linha.slice(0, i)) + `<mark class="marca-texto">${escapar(marca)}</mark>` + escapar(linha.slice(i + marca.length));
-    } else if (pedacoDaMarca.length) {
-      const trecho = pedacoDaMarca.join(' ');
-      const j = linha.indexOf(trecho);
-      if (j >= 0 && marca.includes(trecho)) {
-        html = escapar(linha.slice(0, j)) + `<mark class="marca-texto">${escapar(trecho)}</mark>` + escapar(linha.slice(j + trecho.length));
-      }
-    }
+    const de = Math.max(inicio, pos) - pos;
+    const ate = Math.min(fim, pos + linha.length) - pos;
+    pos += linha.length + 1;
+    const html = inicio >= 0 && de < ate
+      ? escapar(linha.slice(0, de)) + `<mark class="marca-texto">${escapar(linha.slice(de, ate))}</mark>` + escapar(linha.slice(ate))
+      : escapar(linha);
     return `<span class="${classe}">${html}</span>`;
   }).join(' ');
 }
@@ -146,10 +168,11 @@ export function paginaHome(ctx, qse) {
   let frase;
   if (!h.frase) frase = falta('a frase de abertura');
   else {
+    const quebras = idioma() === 'en' ? FRASE_DA_HOME_EN : FRASE_DA_HOME;
     const confere = (linhas) => linhas.join(' ') === h.frase;
-    if (confere(FRASE_DA_HOME.desktop) && confere(FRASE_DA_HOME.estreita)) {
-      frase = `<span class="quebra-larga">${fraseComQuebras(h.frase, FRASE_DA_HOME.desktop, FRASE_DA_HOME.marcaTexto, 'linha')}</span>`
-        + `<span class="quebra-estreita" aria-hidden="true">${fraseComQuebras(h.frase, FRASE_DA_HOME.estreita, FRASE_DA_HOME.marcaTexto, 'linha')}</span>`;
+    if (confere(quebras.desktop) && confere(quebras.estreita)) {
+      frase = `<span class="quebra-larga">${fraseComQuebras(h.frase, quebras.desktop, quebras.marcaTexto, 'linha')}</span>`
+        + `<span class="quebra-estreita" aria-hidden="true">${fraseComQuebras(h.frase, quebras.estreita, quebras.marcaTexto, 'linha')}</span>`;
     } else {
       // A frase mudou no arquivo: a quebra escolhida deixou de valer, o navegador quebra.
       frase = escapar(h.frase);
@@ -165,10 +188,10 @@ export function paginaHome(ctx, qse) {
   <div class="home__bloco">
     <p class="home__paragrafo">${h.paragrafo ? escapar(h.paragrafo) : falta('o parágrafo')}</p>
     <p class="home__identificacao">${identificacao}</p>
-    <a class="botao" href="${ctx.base}trabalhos/">${t('verTrabalhos')}</a>
+    <a class="botao" href="${ctx.base}${enderecoDe('trabalhos')}">${t('verTrabalhos')}</a>
   </div>
 </main>`;
-  return documento(ctx, { titulo: null, atual: 'home', corpo, classeDoCorpo: 'pagina-home' });
+  return documento(ctx, { titulo: null, atual: 'home', corpo, classeDoCorpo: 'pagina-home', pagina: 'home' });
 }
 
 // ── Card de case (índice e próximo case) ───────────────────────────────────────
@@ -200,14 +223,18 @@ function card(ctx, c, onde, nivel = 'h2') {
 }
 
 export function paginaTrabalhos(ctx, cases) {
-  const [antes, depois] = t('tituloTrabalhos').split(/(?<=perto,) /);
+  // A quebra escolhida, se as duas linhas juntas forem o título; senão, o navegador quebra.
+  const quebra = QUEBRA_DO_TITULO_TRABALHOS[idioma()];
+  const tituloHtml = quebra.join(' ') === t('tituloTrabalhos')
+    ? `${escapar(quebra[0])}<br class="so-largo"> ${escapar(quebra[1])}`
+    : escapar(t('tituloTrabalhos'));
   const corpo = `<main id="conteudo" class="trabalhos grade" tabindex="-1">
-  <h1 class="trabalhos__titulo">${escapar(antes)}<br class="so-largo"> ${escapar(depois)}</h1>
+  <h1 class="trabalhos__titulo">${tituloHtml}</h1>
   <div class="trabalhos__cards">
   ${cases.map((c) => card(ctx, c, 'trabalhos')).join('\n  ')}
   </div>
 </main>`;
-  return documento(ctx, { titulo: 'Trabalhos', atual: 'trabalhos', corpo, classeDoCorpo: 'pagina-trabalhos' });
+  return documento(ctx, { titulo: t('trabalhos'), atual: 'trabalhos', corpo, classeDoCorpo: 'pagina-trabalhos', pagina: 'trabalhos' });
 }
 
 // ── Case ───────────────────────────────────────────────────────────────────────
@@ -336,21 +363,36 @@ function tabela(no, titulo) {
         </table>`;
 }
 
+// O endereço de âncora de cada capítulo é o do português nos dois idiomas (decisão 242): o
+// case em inglês leva, em c.ref, o case em português.
+const idDoCapitulo = (c, i) => slugificar((c.ref ?? c).capitulos[i].rotulo);
+
+// Qual parágrafo recebe o bloco de destaque é escrito pelo começo do texto em português
+// (BLOCO_DE_DESTAQUE). No inglês vale a mesma posição: o mesmo parágrafo do mesmo capítulo.
+function posicoesDeDestaque(c, indice) {
+  const ref = c.ref ?? c;
+  const destaques = BLOCO_DE_DESTAQUE[ref.prefixo] ?? [];
+  return ref.capitulos[indice].nos.filter((n) => n.tipo === 'paragrafo')
+    .map((n, i) => (destaques.some((d) => n.texto.startsWith(d)) ? i : -1)).filter((i) => i >= 0);
+}
+
 function capitulo(ctx, c, cap, indice) {
-  const id = slugificar(cap.rotulo);
+  const id = idDoCapitulo(c, indice);
   const leitura = [];
   const provas = [];
   const largos = [];
   const par = [];
   let noPar = false;
   let soDesktop = true;
-  const destaques = BLOCO_DE_DESTAQUE[c.prefixo] ?? [];
+  const destaques = posicoesDeDestaque(c, indice);
+  let paragrafo = -1;
 
   for (const no of cap.nos) {
     if (no.tipo === 'paragrafo') {
+      paragrafo += 1;
       if (ehFraseInteiraEmNegrito(no.texto)) {
         leitura.push(`<p class="frase-de-abertura">${inline(semNegrito(no.texto))}</p>`);
-      } else if (destaques.some((d) => no.texto.startsWith(d))) {
+      } else if (destaques.includes(paragrafo)) {
         leitura.push(`<p class="bloco-de-destaque">${inline(no.texto)}</p>`);
       } else {
         leitura.push(`<p>${inline(no.texto)}</p>`);
@@ -404,9 +446,9 @@ function capitulo(ctx, c, cap, indice) {
 
 function trilha(c) {
   const itens = c.capitulos.map((cap, i) => `<li class="trilha__item" data-etapa="${i}">
-          <a class="trilha__link" href="#${slugificar(cap.rotulo)}"><span class="trilha__marcador" aria-hidden="true"></span><span class="trilha__rotulo">${escapar(cap.rotulo)}</span></a>
+          <a class="trilha__link" href="#${idDoCapitulo(c, i)}"><span class="trilha__marcador" aria-hidden="true"></span><span class="trilha__rotulo">${escapar(cap.rotulo)}</span></a>
         </li>`).join('\n        ');
-  return `<nav class="trilha" aria-label="Etapas do case">
+  return `<nav class="trilha" aria-label="${t('rotuloTrilha')}">
       <ol class="trilha__lista">
         ${itens}
       </ol>
@@ -417,11 +459,11 @@ function faixa(c) {
   const total = c.capitulos.length;
   const primeira = c.capitulos[0]?.rotulo ?? '';
   const posicao = t('posicaoNaTrilha').replace('{n}', '1').replace('{total}', String(total));
-  const linhas = c.capitulos.map((cap, i) => `<a class="caixa__linha" href="#${slugificar(cap.rotulo)}" data-etapa="${i}"><span class="caixa__sinal" aria-hidden="true"></span>${escapar(cap.rotulo)}</a>`).join('\n      ');
+  const linhas = c.capitulos.map((cap, i) => `<a class="caixa__linha" href="#${idDoCapitulo(c, i)}" data-etapa="${i}"><span class="caixa__sinal" aria-hidden="true"></span>${escapar(cap.rotulo)}</a>`).join('\n      ');
   return `<div class="faixa">
     <button class="faixa__botao" type="button" popovertarget="etapas" aria-expanded="false" data-total="${total}">
       <span class="faixa__etapa">${escapar(primeira)}</span>
-      <span class="faixa__posicao">${posicao}</span>
+      <span class="faixa__posicao" data-modelo="${escapar(t('posicaoNaTrilha'))}">${posicao}</span>
       <span class="faixa__trilho" aria-hidden="true"><span class="faixa__progresso"></span></span>
     </button>
     <div class="caixa caixa--etapas" id="etapas" popover>
@@ -463,7 +505,7 @@ export function paginaCase(ctx, c, proximo) {
   const { ausencias } = ctx;
   const onde = c.arquivo;
   const cor = COR_DO_CASE[c.prefixo];
-  const quebra = QUEBRA_DO_TITULO_ESTREITA[c.prefixo];
+  const quebra = (idioma() === 'en' ? QUEBRA_DO_TITULO_ESTREITA_EN : QUEBRA_DO_TITULO_ESTREITA)[c.prefixo];
   let titulo;
   if (!c.hero.titulo) titulo = ausencias.marcar('o título do case', onde);
   else if (quebra && quebra.join(' ') === c.hero.titulo) {
@@ -471,7 +513,7 @@ export function paginaCase(ctx, c, proximo) {
     titulo = quebra.map((l) => `<span class="linha-estreita">${escapar(l)}</span>`).join(' ');
   } else titulo = escapar(c.hero.titulo);
   const abertura = c.hero.abertura
-    ? aberturaComMarca(c.hero.abertura, MARCA_TEXTO_DO_CASE[c.prefixo])
+    ? aberturaComMarca(c.hero.abertura, (idioma() === 'en' ? MARCA_TEXTO_DO_CASE_EN : MARCA_TEXTO_DO_CASE)[c.prefixo])
     : ausencias.marcar('a frase de abertura', onde);
 
   const colunas = COLUNAS_SEPARADAS.includes(c.prefixo) ? ' case--colunas-separadas' : '';
@@ -505,7 +547,7 @@ export function paginaCase(ctx, c, proximo) {
     </section>
   </div>
 </main>`;
-  return documento(ctx, { titulo: c.hero.titulo ?? c.slug, atual: 'trabalhos', corpo, classeDoCorpo: 'pagina-case' });
+  return documento(ctx, { titulo: c.hero.titulo ?? c.slug, atual: 'trabalhos', corpo, classeDoCorpo: 'pagina-case', pagina: c });
 }
 
 // ── Quem sou eu ────────────────────────────────────────────────────────────────
@@ -520,7 +562,9 @@ export function paginaQuemSouEu(ctx, qse) {
   else if (!versoes.length) foto = ausencias.marcar('a foto', onde, { classe: 'falta falta--midia' });
   else foto = imagemTemada(ctx, versoes, qse.foto.alt, { classe: 'quem__foto-img', carregamento: 'eager' });
 
-  const curriculo = ctx.curriculo
+  const curriculo = ctx.curriculo && ctx.curriculoEmPortugues
+    ? `<a class="sublinhado" href="${base}${ctx.curriculo}" hreflang="pt-BR">${t('baixarCurriculoEmPortugues')}</a>`
+    : ctx.curriculo
     ? `<a class="sublinhado" href="${base}${ctx.curriculo}">${t('baixarCurriculo')}</a>`
     : `<span class="sublinhado sublinhado--inerte">${t('baixarCurriculo')}</span>${ausencias.marcar('o arquivo do currículo', onde, { classe: 'falta falta--linha' })}`;
   const linkedin = ctx.linkedin
@@ -548,24 +592,32 @@ export function paginaQuemSouEu(ctx, qse) {
     <p class="mais__item mais__direto">${t('faleDireto')} <a class="sublinhado" href="mailto:${t('email')}">${t('email')}</a></p>
   </section>
 </main>`;
-  return documento(ctx, { titulo: t('quemSouEu'), atual: 'quem-sou-eu', corpo, classeDoCorpo: 'pagina-quem' });
+  return documento(ctx, { titulo: t('quemSouEu'), atual: 'quem-sou-eu', corpo, classeDoCorpo: 'pagina-quem', pagina: 'quem-sou-eu' });
 }
 
 // ── Erro ───────────────────────────────────────────────────────────────────────
 
-export function paginaErro(ctx) {
-  const corpo = `<main id="conteudo" class="erro grade" tabindex="-1">
-  <div class="erro__explicacao">
-    <h1 class="erro__titulo">${t('erroTitulo')}</h1>
+// O GitHub Pages serve uma só página de erro para o site inteiro: com o inglês, ela traz os
+// dois idiomas, sem script, e as saídas de cada um levam às páginas dele (decisão 243). O
+// português abre, com o título da página; o inglês vem embaixo, marcado com a língua dele.
+function erroNoIdioma(ctx, i, nivel) {
+  const lang = i === idioma() ? '' : ` lang="${LANG[i]}"`;
+  return comIdioma(i, () => `<div class="erro__explicacao"${lang}>
+    <h${nivel} class="erro__titulo">${t('erroTitulo')}</h${nivel}>
     <p class="erro__corpo">${t('erroCorpo')}</p>
   </div>
-  <ul class="erro__saidas">
-    <li><a class="erro__saida" href="${ctx.base}trabalhos/">${t('erroVerTrabalhos')}</a></li>
-    <li><a class="erro__saida" href="${ctx.base}">${t('erroVoltarHome')}</a></li>
+  <ul class="erro__saidas"${lang}>
+    <li><a class="erro__saida" href="${ctx.base}${enderecoDe('trabalhos')}">${t('erroVerTrabalhos')}</a></li>
+    <li><a class="erro__saida" href="${ctx.base}${enderecoDe('home')}">${t('erroVoltarHome')}</a></li>
     <li><button class="erro__saida" type="button" popovertarget="contato" aria-expanded="false">${t('falarComigo')}</button></li>
-  </ul>
+  </ul>`);
+}
+
+export function paginaErro(ctx) {
+  const corpo = `<main id="conteudo" class="erro grade" tabindex="-1">
+  ${ctx.idiomas.map((i, k) => erroNoIdioma(ctx, i, k === 0 ? 1 : 2)).join('\n  ')}
 </main>`;
-  return documento(ctx, { titulo: t('erroTitulo'), atual: null, corpo, classeDoCorpo: 'pagina-erro' });
+  return documento(ctx, { titulo: t('erroTitulo'), atual: null, corpo, classeDoCorpo: 'pagina-erro', pagina: 'erro' });
 }
 
 export { TEXTOS };

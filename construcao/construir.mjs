@@ -13,7 +13,7 @@ import { fileURLToPath } from 'node:url';
 import { lerTokens, gerarCssDeTokens, comQuebra, QUEBRA_DO_CASE } from './tokens.mjs';
 import { lerQuemSouEu, lerCase, ErroDeConteudo } from './conteudo.mjs';
 import { criarAusencias } from './ausencia.mjs';
-import { ORDEM_DOS_CASES, t, caminhoDoCase } from './interface.mjs';
+import { ORDEM_DOS_CASES, BLOCO_DE_DESTAQUE, t, caminhoDoCase, comIdioma, enderecoDe } from './interface.mjs';
 import { paginaHome, paginaTrabalhos, paginaCase, paginaQuemSouEu, paginaErro } from './paginas.mjs';
 
 const RAIZ = join(dirname(fileURLToPath(import.meta.url)), '..');
@@ -24,6 +24,12 @@ export function construir({ modo = 'local', base = '/', raiz = RAIZ, saida = joi
 
   const qse = lerQuemSouEu(raiz);
   const cases = ORDEM_DOS_CASES.map((arquivo) => lerCase(raiz, arquivo));
+
+  // O inglês (decisão 242): os três arquivos com .en antes da extensão. Sem os três, o site
+  // sai só em português, sem o controle de idioma.
+  const emIngles = (arquivo) => arquivo.replace(/\.md$/, '.en.md');
+  const arquivosEn = ['quem-sou-eu.md', ...ORDEM_DOS_CASES].map(emIngles);
+  const temIngles = arquivosEn.every((a) => existsSync(join(raiz, a)));
 
   const ctx = {
     raiz,
@@ -41,7 +47,8 @@ export function construir({ modo = 'local', base = '/', raiz = RAIZ, saida = joi
     curriculo: existsSync(join(raiz, 'publico/curriculo.pdf')) ? 'publico/curriculo.pdf' : null,
     linkedin: t('linkedinEndereco'),
     legendaNaoEscrita: legendas.marcadorDeNaoEscrita,
-    slotsDeMidia: (arquivo) => (legendas.cases[arquivo]?.slots ?? []).map((s) => s.capitulo),
+    slotsDeMidia: (arquivo) => (legendas.cases[arquivo.replace(/\.en\.md$/, '.md')]?.slots ?? []).map((s) => s.capitulo),
+    idiomas: temIngles ? ['pt', 'en'] : ['pt'],
   };
 
   const paginas = {
@@ -54,6 +61,47 @@ export function construir({ modo = 'local', base = '/', raiz = RAIZ, saida = joi
   cases.forEach((c, i) => {
     paginas[`${caminhoDoCase(c)}index.html`] = paginaCase(ctx, c, cases[(i + 1) % cases.length]);
   });
+
+  if (temIngles) {
+    comIdioma('en', () => {
+      const qseEn = lerQuemSouEu(raiz, emIngles('quem-sou-eu.md'));
+      const casesEn = ORDEM_DOS_CASES.map((arquivo, i) => {
+        const c = lerCase(raiz, emIngles(arquivo));
+        const pt = cases[i];
+        // Mesmo número de capítulos, para as âncoras serem as mesmas nos dois idiomas, e o
+        // mesmo número de parágrafos onde há bloco de destaque, que vai pela posição.
+        if (c.capitulos.length !== pt.capitulos.length) {
+          throw new ErroDeConteudo(`${c.arquivo}: ${c.capitulos.length} capítulos, e ${pt.arquivo} tem ${pt.capitulos.length}`);
+        }
+        c.capitulos.forEach((cap, k) => {
+          const conta = (x) => x.nos.filter((n) => n.tipo === 'paragrafo').length;
+          const temDestaque = (BLOCO_DE_DESTAQUE[pt.prefixo] ?? []).some((d) => pt.capitulos[k].nos.some((n) => n.tipo === 'paragrafo' && n.texto.startsWith(d)));
+          if (temDestaque && conta(cap) !== conta(pt.capitulos[k])) {
+            throw new ErroDeConteudo(`${c.arquivo}, capítulo ${k + 1}: ${conta(cap)} parágrafos, e ${pt.arquivo} tem ${conta(pt.capitulos[k])}`);
+          }
+        });
+        c.ref = pt;
+        return c;
+      });
+      const ctxEn = {
+        ...ctx,
+        curriculo: ctx.curriculo,
+        nome: qseEn.home.nome ?? ctx.nome,
+        nomeCurto: qseEn.home.nomeCurto ?? ausencias.marcar('o nome curto da barra', qseEn.arquivo),
+        // O currículo em inglês é outro PDF, produzido por ela. Até existir, a About linka o
+        // português, dizendo que está em português (decisão 243).
+        ...(existsSync(join(raiz, 'publico/curriculo.en.pdf'))
+          ? { curriculo: 'publico/curriculo.en.pdf' }
+          : { curriculoEmPortugues: true }),
+      };
+      paginas[`${enderecoDe('home')}index.html`] = paginaHome(ctxEn, qseEn);
+      paginas[`${enderecoDe('trabalhos')}index.html`] = paginaTrabalhos(ctxEn, casesEn);
+      paginas[`${enderecoDe('quem-sou-eu')}index.html`] = paginaQuemSouEu(ctxEn, qseEn);
+      casesEn.forEach((c, i) => {
+        paginas[`${caminhoDoCase(c)}index.html`] = paginaCase(ctxEn, c, casesEn[(i + 1) % casesEn.length]);
+      });
+    });
+  }
 
   if (modo === 'publicar' && ausencias.faltas.length) {
     return { ok: false, ausencias, paginas: {} };

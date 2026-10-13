@@ -130,8 +130,15 @@
     return atual;
   }
 
+  // O controle de idioma leva ao mesmo capítulo: as âncoras são as mesmas nos dois idiomas
+  // (decisão 242). Antes do primeiro capítulo, ao topo.
+  var controlesDeIdioma = document.querySelectorAll('[data-idioma]');
+
   function atualizarTrilha() {
     var atual = etapaAtual();
+    controlesDeIdioma.forEach(function (link) {
+      link.hash = atual >= 0 ? capitulos[atual].id : '';
+    });
     itens.forEach(function (item, i) {
       var estado = atual < 0 ? 'por-vir' : i < atual ? 'percorrido' : i === atual ? 'atual' : 'por-vir';
       item.setAttribute('data-estado', estado);
@@ -145,7 +152,10 @@
       var total = Number(faixaBotao.getAttribute('data-total'));
       faixaBotao.querySelector('.faixa__etapa').textContent =
         itens[mostrada].querySelector('.trilha__rotulo').textContent;
-      faixaBotao.querySelector('.faixa__posicao').textContent = (mostrada + 1) + ' de ' + total;
+      // O texto vem da página, no idioma dela ("{n} de {total}", "{n} of {total}").
+      var posicao = faixaBotao.querySelector('.faixa__posicao');
+      posicao.textContent = posicao.getAttribute('data-modelo')
+        .replace('{n}', String(mostrada + 1)).replace('{total}', String(total));
       // A barra mede quanto da leitura já passou, não a proporção de etapas (decisão 080).
       var rolavel = document.documentElement.scrollHeight - window.innerHeight;
       var fracao = rolavel > 0 ? Math.min(Math.max(window.scrollY / rolavel, 0), 1) : 0;

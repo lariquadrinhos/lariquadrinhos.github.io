@@ -65,8 +65,7 @@ const conteudoSemReguas = (nos) => nos.filter((n) => n.tipo !== 'regua');
 
 // ── quem-sou-eu.md: a home e a página "Quem sou eu" ─────────────────────────────
 
-export function lerQuemSouEu(raiz) {
-  const arquivo = 'quem-sou-eu.md';
+export function lerQuemSouEu(raiz, arquivo = 'quem-sou-eu.md') {
   const blocos = emBlocos(lerArquivo(raiz, arquivo));
   const bloco = (nome) => blocos.find((b) => b.nome === nome);
 

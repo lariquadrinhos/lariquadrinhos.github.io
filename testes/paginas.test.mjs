@@ -601,10 +601,37 @@ test('O vídeo ocupa a coluna na proporção dele, e só o vídeo em pé tem ár
 
 test('Todo texto de interface que cita um contrato está escrito nele', () => {
   for (const [chave, { texto: t, fonte }] of Object.entries(TEXTOS)) {
-    if (!fonte.startsWith('contrato:')) continue;
+    if (!fonte.startsWith('contrato:') || t === null) continue;
     const contrato = readFileSync(join(RAIZ, 'docs/comportamento', fonte.slice('contrato:'.length)), 'utf8')
       .replace(/\s+/g, ' ');
     assert.ok(contrato.includes(t), `${chave}: "${t}" não está em ${fonte}`);
+  }
+});
+
+test('Todo texto de interface em inglês está na tabela do contrato, ao lado do português', () => {
+  // Decisão 242: o inglês de cada texto vive só na tabela de idioma/segundo-idioma.md, em pares
+  // "português | inglês". A conferência é par a par: o inglês tem de estar na mesma linha e
+  // na mesma posição do português ("Claro · Escuro | Light · Dark").
+  const contrato = readFileSync(join(RAIZ, 'docs/comportamento/idioma/segundo-idioma.md'), 'utf8');
+  // Cada célula vale como está e sem a nota entre parênteses ("English (controle, …)"), porque
+  // há parênteses que são texto ("Download résumé (PDF)").
+  const formas = (celula) => {
+    const crua = celula.replace(/`/g, '').trim();
+    return [...new Set([crua, crua.replace(/\s*\([^)]*\)/g, '').trim()])];
+  };
+  const pares = new Set();
+  for (const linha of contrato.split('\n')) {
+    const m = linha.match(/^\s*\|([^|]*)\|([^|]*)\|\s*$/);
+    if (!m) continue;
+    for (const ptCelula of formas(m[1])) for (const enCelula of formas(m[2])) {
+      const [pt, en] = [ptCelula.split(' · '), enCelula.split(' · ')];
+      if (pt.length === en.length) pt.forEach((p, i) => pares.add(`${p}|${en[i]}`));
+    }
+  }
+  for (const [chave, item] of Object.entries(TEXTOS)) {
+    if (item.neutro || item.fonte === 'código') continue;
+    assert.ok(item.en !== undefined, `${chave}: sem inglês`);
+    assert.ok(pares.has(`${item.texto ?? ''}|${item.en}`), `${chave}: o par "${item.texto} | ${item.en}" não está na tabela`);
   }
 });
 
