@@ -96,8 +96,8 @@ Texto de interface em inglês. O português de cada item continua no contrato da
 
 O marca-texto da Home em inglês cobre *"a better way to do it,"*, o equivalente de *"forma melhor de
 fazer,"* (decisão 181). A frase quebra onde ela escolheu: no desktop *"If there's / a better way to do
-it, / I want to find out what it is."*; na tela estreita *"If there's / a better way / to do it, I want /
-to find out what it is."*
+it, / I want to find out what it is."*; na tela estreita *"If there's / a better way to / do it, I want to /
+find out what it is."* (decisão 247)
 
 O marca-texto do hero de cada case em inglês é a mesma virada da frase de abertura: no Finanças, *"I
 decided to turn that scene into a desktop app."*; no Reembolso, *"I decided to redesign the flow so the

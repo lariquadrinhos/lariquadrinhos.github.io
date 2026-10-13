@@ -7820,3 +7820,29 @@ product"*, no card e no case, para continuarem iguais como no português. Na tel
 **Custo aceito.** O título em inglês deixa de ser a tradução literal do português.
 
 **Consequência.** `case-study-financas-pf-pj.en.md` e `idioma/segundo-idioma.md` atualizados.
+
+---
+
+## 247 · A frase da Home em inglês muda de quebra no celular, e o card do Finanças quebra como o título
+
+**Quando** 2026-10-13 · **Fase** 4 · **Domínio** home
+
+**Gatilho.** Rodada 43 do tester: na tela estreita, a quebra aprovada na 244 só cabia em quatro linhas a
+partir de 406 de largura; em 375 e 390, os iPhones de hoje, o "is." ficava sozinho numa quinta linha. O
+dev mediu quatro quebras. E o card do Finanças quebrava sozinho na estreita, nos dois idiomas, porque a
+186 fixou só o título do case.
+
+**Decisão.** *"sim, vai com a B e quebra o card também"*, propostas minhas:
+1. A frase em inglês na estreita passa a *"If there's / a better way to / do it, I want to / find out
+   what it is."*, que cabe a partir de 362, como o português (366). O marca-texto atravessa duas linhas,
+   *"a better way to"* e *"do it,"*.
+2. Na estreita, o título do card do Finanças quebra como o do case: *"A planilha que / virou produto"* e
+   *"From spreadsheet / to product"*.
+
+**Alternativa descartada.** As quebras C (*"If there's a / better way to do it, / I want to find out /
+what it is."*, a partir de 383) e D (a partir de 520). *Deixar o card quebrar sozinho.*
+
+**Custo aceito.** Duas linhas da frase em inglês terminam em "to", e a quebra fecha menos por sentido.
+Abaixo de 362, nenhum dos idiomas fica em quatro linhas, como já era no português.
+
+**Consequência.** `idioma/segundo-idioma.md` e `trabalhos/indice-de-trabalhos.md` atualizados.
