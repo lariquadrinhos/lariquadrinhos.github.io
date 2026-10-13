@@ -235,7 +235,7 @@ export function paginaTrabalhos(ctx, cases) {
   // A quebra escolhida, se as duas linhas juntas forem o título; senão, o navegador quebra.
   const quebra = QUEBRA_DO_TITULO_TRABALHOS[idioma()];
   const tituloHtml = quebra.join(' ') === t('tituloTrabalhos')
-    ? `${escapar(quebra[0])}<br class="so-largo"> ${escapar(quebra[1])}`
+    ? `<span class="trabalhos__linha">${escapar(quebra[0])}</span><br class="so-largo"> <span class="trabalhos__linha">${escapar(quebra[1])}</span>`
     : escapar(t('tituloTrabalhos'));
   const corpo = `<main id="conteudo" class="trabalhos grade" tabindex="-1">
   <h1 class="trabalhos__titulo">${tituloHtml}</h1>

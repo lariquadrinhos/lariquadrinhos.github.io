@@ -248,9 +248,15 @@ test('O título de Trabalhos numa janela estreita', () => {
   // Abaixo de 1120 de largura, a quebra escolhida volta, em qualquer altura (decisão 213).
   const { porAltura } = semRolagem();
   const html = site.pagina('trabalhos/index.html');
-  const [, primeira, segunda] = html.match(/<h1 class="trabalhos__titulo">([^<]+)<br class="so-largo">([^<]+)<\/h1>/) ?? [];
+  const [, primeira, segunda] = html.match(/<h1 class="trabalhos__titulo"><span class="trabalhos__linha">([^<]+)<\/span><br class="so-largo"> <span class="trabalhos__linha">([^<]+)<\/span><\/h1>/) ?? [];
   assert.equal(primeira?.trim(), 'Dois problemas que eu vi de perto,');
   assert.equal(segunda?.trim(), 'e o que fiz com eles.');
+  // No desktop, cada linha escolhida fica inteira: quando o título não cabe numa linha, ele
+  // só quebra onde foi escolhido, nunca com uma palavra sozinha, nos dois idiomas. Na tela
+  // estreita, corre pela largura.
+  const { base: estreita, largo } = regrasPorLargura(readFileSync(join(site.saida, 'estilo.css'), 'utf8'));
+  assert.match(largo['.trabalhos__linha'] ?? '', /white-space:\s*nowrap/, 'no desktop, só a quebra escolhida');
+  assert.doesNotMatch(estreita['.trabalhos__linha'] ?? '', /nowrap/, 'na estreita, o título corre');
   assert.deepEqual(Object.keys(porAltura.porLargura ?? {}), ['1120'], 'a regra vale abaixo de 1120 de largura');
   assert.match(porAltura.porLargura['1120']['.trabalhos__titulo br'], /display: revert/, 'abaixo de 1120, a quebra aparece');
   // A regra vem depois do degrau que esconde a quebra, para vencer em qualquer altura.
