@@ -72,6 +72,10 @@ sistema sem vínculo, e por isso a única cuja conferência não pode ser autom�
 **Nível se marca pelo tamanho, nunca pela cor.** Cor marca outra coisa (interatividade,
 estado) e as duas não devem se misturar. Foi essa regra que corrigiu o rótulo do menu.
 
+**Título nunca termina com uma palavra sozinha.** Onde a quebra não é escolhida, o título pede ao
+navegador que evite deixar a última palavra isolada (`text-wrap: pretty`). Navegador antigo só não
+recebe a melhoria. Onde há quebra escolhida, ela manda. Ver decisão 250.
+
 **Cor sozinha nunca basta.** Todo estado marcado por cor vem acompanhado de forma: sublinhado
 na página atual, sinal na opção escolhida, tamanho no marcador ativo da trilha.
 

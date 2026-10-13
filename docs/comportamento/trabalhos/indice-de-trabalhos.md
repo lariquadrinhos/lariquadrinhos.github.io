@@ -39,7 +39,7 @@ Os cases em cards. É para onde a home leva e para onde a barra aponta. Existe p
   respiro. Sobram 33 acima e abaixo. **Em 790 px:** título em duas linhas de **56/62**, **48** até
   os cards, capa com **314**, título do card em 36/44. **O tamanho original**, capa em 3:2 com
   419, volta perto de 1010 px de altura. Abaixo do mínimo, a página rola; em tela estreita,
-  nada muda. Abaixo de 1280 de largura, vale sempre o desenho do mínimo, como na Home. **No desktop, o título nunca deixa uma palavra sozinha**: quando não cabe numa linha, quebra nas duas linhas escolhidas, em qualquer idioma; em inglês, *"Two problems I saw up close, / and what I did about them."* (decisão 249). **Abaixo de 1120 de largura, o título quebra em duas linhas escolhidas**, *"Dois problemas que eu vi de perto, / e o que fiz com eles."*, nunca sozinho. **Abaixo de 1120 de largura e de 790 de altura ao mesmo tempo, a página pode rolar** (até 62 em 1024×650): fora da referência de 1366×768. Ver decisão 213. **A capa mais baixa vale só aqui**: o card do próximo case, ao fim de um case,
+  nada muda. Abaixo de 1280 de largura, vale sempre o desenho do mínimo, como na Home. **No desktop, o título nunca deixa uma palavra sozinha**: quando não cabe numa linha, quebra nas duas linhas escolhidas, em qualquer idioma; em inglês, *"Two problems I saw up close, / and what I did about them."* (decisão 249). **Abaixo de 1120 de largura, o título quebra em duas linhas escolhidas**, *"Dois problemas que eu vi de perto, / e o que fiz com eles."*, nunca sozinho. **Abaixo de 1120 de largura e de 790 de altura ao mesmo tempo, a página pode rolar** (até 62 em 1024×650): fora da referência de 1366×768. Em inglês, a faixa vai até 1128 de largura, onde o título ainda não cabe numa linha: até 31 de rolagem (decisão 250). Ver decisão 213. **A capa mais baixa vale só aqui**: o card do próximo case, ao fim de um case,
   continua em 3:2. Ver decisão 211.
 
 **Por que ordem fixa e não "mais recente primeiro":** uma regra automática decide para
@@ -108,7 +108,7 @@ Funcionalidade: Índice de trabalhos
 
   Cenário: Trabalhos cabe na janela do desktop
     Dado que a janela é de desktop, com pelo menos 650 de altura visível
-    E com pelo menos 1120 de largura ou 790 de altura
+    E com pelo menos 1120 de largura (1129 em inglês) ou 790 de altura
     Quando a página de Trabalhos abre
     Então o título e os dois cards cabem na janela, sem rolagem
     E o respiro acima do título é igual ao respiro abaixo dos cards

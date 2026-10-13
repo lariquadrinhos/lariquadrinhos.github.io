@@ -7886,3 +7886,27 @@ Publicado em `371a544`.
 tinha descrito mal uma das opções, dizendo que tirava a rolagem, e corrigi antes de mandar ao dev.
 
 **Consequência.** `trabalhos/indice-de-trabalhos.md` atualizado.
+
+---
+
+## 250 · A rolagem do inglês em 1120 a 1128 fica, e os títulos evitam palavra sozinha
+
+**Quando** 2026-10-13 · **Fase** 4 · **Domínio** sistema visual
+
+**Gatilho.** Duas coisas da rodada do `371a544`. Em inglês, de 1120 a 1128 de largura e abaixo de 790 de
+altura, Trabalhos rola 31, porque o título ainda não cabe numa linha. E, abaixo de 1024, onde o título
+corre livre, a última palavra ficava sozinha em algumas faixas de largura, nos dois idiomas (*"them."*
+e *"eles."*), embora não em 375 e 390.
+
+**Decisão.** *"1 aceita, 2 aplica"*:
+1. A rolagem de até 31 nessa faixa do inglês fica, como a do português abaixo de 1120 (213). O cenário
+   passa a dizer 1129 em inglês.
+2. Proposta minha: onde a quebra não é escolhida, os títulos pedem ao navegador que não deixe a última
+   palavra sozinha (`text-wrap: pretty`). Regra geral, em `design-system.md`.
+
+**Alternativa descartada.** *Encurtar o título em inglês.* *Fixar a quebra do título em cada largura da
+tela estreita.*
+
+**Custo aceito.** Navegadores antigos continuam podendo deixar a palavra sozinha.
+
+**Consequência.** `trabalhos/indice-de-trabalhos.md` e `design-system.md` atualizados.
