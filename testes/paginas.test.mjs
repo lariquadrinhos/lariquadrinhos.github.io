@@ -353,6 +353,21 @@ test('A pessoa pede um endereço que não existe', () => {
   for (const saida of ['Ver os trabalhos', 'Voltar para a home', 'Falar comigo']) assert.match(erro, new RegExp(saida));
 });
 
+test('Como a hospedagem entrega a página de erro', () => {
+  // Decisão 233. O GitHub Pages responde 404 e entrega o 404.html da raiz do site para todo
+  // endereço que não existe. O status é do servidor e se confere no ar; aqui, a parte do site:
+  // o arquivo está na raiz, e é a página de erro do site, com a barra e as saídas.
+  assert.ok(existsSync(join(site.saida, '404.html')), 'o 404.html está na raiz do site');
+  const erro = site.pagina('404.html');
+  assert.match(erro, /<header class="barra">/);
+  assert.ok(texto(erro).includes(TEXTOS.erroTitulo.texto), 'é a página de erro do site, não a do servidor');
+  // Servido em qualquer profundidade, ele só pode usar endereços a partir da raiz.
+  for (const [, alvo] of erro.matchAll(/(?:href|src)="([^"#]*)"/g)) {
+    if (/^(https?:|mailto:)/.test(alvo)) continue;
+    assert.match(alvo, /^\//, `endereço relativo no 404.html quebraria em /a/b/: ${alvo}`);
+  }
+});
+
 test('As saídas não se disfarçam de outra coisa', () => {
   const erro = site.pagina('404.html');
   assert.doesNotMatch(erro, /aria-current="page"/, 'nenhum item da barra aparece como página atual');
