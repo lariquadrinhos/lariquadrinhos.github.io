@@ -137,7 +137,7 @@ entrar depois sem refazer nada.
 | **Card do próximo case** | Quem terminou de ler está no pico de interesse e não deveria voltar ao índice. O objetivo é que ninguém leia só um |
 | **Convite ao contato no fim do case** | Mesmo motivo: momento de maior interesse |
 | **Voltar ao topo** | Leitura longa. Discreto, aparece só depois que a rolagem começa |
-| **Tema claro e escuro** | Conforto de leitura. Segue a preferência do sistema; o controle na barra sobrescreve |
+| **Tema claro e escuro** | Conforto de leitura. Abre sempre no claro; o controle na barra troca para o escuro (decisão 234) |
 | **Currículo em PDF** | "Baixar o currículo", e tira a cronologia de emprego do site |
 
 ---
