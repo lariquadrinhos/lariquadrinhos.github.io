@@ -22,7 +22,7 @@ Desenvolvi uma aplicação desktop para organização financeira para pessoas PF
 
 **Status** · Em uso, sendo testado por um usuário real
 
-**Repositório** · Projeto inteiro aberto, do documento de produto às regras de implementação, [link]
+**Repositório** · Projeto inteiro aberto, do documento de produto às regras de implementação, [link](https://github.com/lariquadrinhos/case-financas)
 
 Estive em todas as etapas, da primeira conversa até o código: defini o problema, modelei o domínio, desenhei o produto inteiro, construí o design system e segui na implementação ao lado de um desenvolvedor, aprendendo versionamento e programação assistida por IA no caminho.
 
@@ -106,7 +106,7 @@ Legenda: A Home e a Evolução Mensal no produto, já com as melhorias que viera
 
 <!-- bloco: provas -->
 As decisões de UX, a especificação de cada tela e o modelo de dados
-[Ver o repositório]()
+[Ver o repositório](https://github.com/lariquadrinhos/case-financas)
 
 As 46 telas em claro e escuro, o style guide e os tokens
 [Ver o arquivo no Figma](https://www.figma.com/design/7IZBeQV15kgZp7Shcqh4c8)

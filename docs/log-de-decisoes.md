@@ -7593,3 +7593,34 @@ com os mesmos nomes. O texto alternativo do vídeo foi reescrito para o roteiro 
 valendo. No Figma: os pôsteres em `536:1397` e `536:1398` e nas quatro telas, e o par da estreita
 (`488:57`, `488:110`) com 537,5, igual ao site. Uma consequência da 237 é que a base usada passa a ser a
 do produto, e não mais uma base separada.
+
+---
+
+## 238 · O repositório do Finanças vai a público numa cópia limpa, `case-financas`
+
+**Quando** 2026-10-13 · **Fase** 4 · **Domínio** case · `#restricao`
+
+**Gatilho.** Ela mandou o endereço do repositório do produto, `lariquadrinhos/bigorna`, para a falta do
+case. Ele estava público. Antes de linkar, achei `docs/reference/meu-dre.xlsx`, a planilha de origem,
+com centenas de valores, linhas com detalhes da vida de quem a usava (assinaturas, academia, a ração
+de um pet com nome, as operadoras), no histórico desde julho. E 80 dos 83 commits assinados com o nome
+da pessoa, o mesmo das capturas reais do Reembolso, que a 214 e a 215 tiraram de tudo: linkar os dois
+repositórios ligaria esse nome aos documentos do Reembolso.
+
+**Decisão.** *"Publicar uma cópia limpa, como fizemos com o Reembolso"*, proposta minha. O `bigorna`
+voltou a privado (sem forks). O **`lariquadrinhos/case-financas`** foi criado com o estado atual da
+`main`, num commit só, assinado por Larissa Quadros, sem a planilha. E com as três trocas que ela
+aprovou (*"sim, vai com as três trocas e esse nome"*):
+- o nome da pessoa vira "a pessoa" ou "a pessoa usuária", a regra que ela mesma deu no playbook;
+- os detalhes da planilha viram termos genéricos (assinaturas, streaming, ração do pet, academia);
+- o contato em `SECURITY.md` e `CODE_OF_CONDUCT.md` passa a ser o do site.
+O README diz que a planilha não está na cópia pública porque traz as finanças reais de quem a usava.
+
+**Alternativa descartada.** *Limpar o histórico do repositório original*: destrutivo, e quem já clonou
+fica com a versão antiga. *Linkar como está.*
+
+**Custo aceito.** A cópia pública não tem o histórico de commits. O original ficou público por um tempo
+que não sei medir, com a planilha e o nome; não tinha forks. Algumas menções à planilha seguem nos
+documentos como história, sem link.
+
+**Consequência.** O endereço entra na tira e nas provas do Finanças. As duas últimas faltas do site somem.
