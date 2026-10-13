@@ -42,6 +42,8 @@
     var tema = botao.getAttribute('data-tema-opcao');
     try { localStorage.setItem('tema', tema); } catch (erro) {}
     raiz.setAttribute('data-tema', tema);
+    var cor = document.querySelector('meta[name="theme-color"]');
+    if (cor) cor.setAttribute('content', cor.getAttribute(tema === 'escuro' ? 'data-escuro' : 'data-claro'));
     marcarOpcoes();
   });
 

@@ -95,6 +95,7 @@ function documento(ctx, { titulo, atual, corpo, classeDoCorpo = '' }) {
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>${escapar(tituloDaAba)}</title>
+<meta name="theme-color" content="${ctx.fundoDaPagina.Claro}" data-claro="${ctx.fundoDaPagina.Claro}" data-escuro="${ctx.fundoDaPagina.Escuro}">
 <script>${temaJs}</script>
 <link rel="icon" href="${base}publico/icone/favicon.ico">
 <link rel="icon" href="${base}publico/icone/icone.svg" type="image/svg+xml">

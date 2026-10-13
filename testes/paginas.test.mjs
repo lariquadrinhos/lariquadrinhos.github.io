@@ -486,6 +486,26 @@ test('Primeira visita, qualquer que seja o sistema', () => {
   assert.doesNotMatch(String(fundo), /^#?(fff|ffffff)$/i, 'o fundo do claro não é branco puro');
 });
 
+test('A barra do navegador acompanha o tema', () => {
+  // Decisão 235. A cor é o bg/page de cada tema, lida dos tokens; o claro é o padrão, também
+  // sem script, e o escuro só vem da escolha guardada ou da troca no controle.
+  const fundo = JSON.parse(readFileSync(join(RAIZ, 'docs/spec/tokens.json'), 'utf8')).colecoes.Cor.variaveis['bg/page'];
+  const meta = `<meta name="theme-color" content="${fundo.Claro}" data-claro="${fundo.Claro}" data-escuro="${fundo.Escuro}">`;
+  for (const p of ['index.html', 'trabalhos/index.html', 'quem-sou-eu/index.html', '404.html', `${FINANCAS}index.html`, `${REEMBOLSO}index.html`]) {
+    const html = site.pagina(p);
+    assert.ok(html.includes(meta), `${p}: a barra do navegador no claro, com as duas cores do tema`);
+    // A meta vem antes do script do <head>, para ele trocar a cor antes da primeira pintura.
+    assert.ok(html.indexOf(meta) < html.indexOf('<script>'), `${p}: a cor antes do script de tema`);
+  }
+  const temaJs = readFileSync(join(RAIZ, 'modelo/tema.js'), 'utf8');
+  assert.match(temaJs, /if \(cor && tema === 'escuro'\) cor\.setAttribute\('content', cor\.getAttribute\('data-escuro'\)\);/, 'a escolha escura guardada já abre com a cor do escuro');
+  const moldura = readFileSync(join(RAIZ, 'modelo/moldura.js'), 'utf8');
+  assert.match(moldura, /cor\.setAttribute\('content', cor\.getAttribute\(tema === 'escuro' \? 'data-escuro' : 'data-claro'\)\);/, 'a troca no controle troca a cor');
+  const manifesto = JSON.parse(readFileSync(join(site.saida, 'manifest.webmanifest'), 'utf8'));
+  assert.equal(manifesto.theme_color, fundo.Claro, 'o manifesto no claro');
+  assert.equal(manifesto.background_color, fundo.Claro);
+});
+
 test('O leitor muda a preferência do sistema', () => {
   // Decisão 234. Nada no site escuta o sistema: mudar a preferência dele não muda a página.
   const moldura = readFileSync(join(RAIZ, 'modelo/moldura.js'), 'utf8').replace(/\/\/.*$/gm, '');

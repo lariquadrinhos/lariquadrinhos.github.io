@@ -31,6 +31,8 @@ export function construir({ modo = 'local', base = '/', raiz = RAIZ, saida = joi
     ausencias,
     nome: qse.home.nome ?? '',
     nomeCurto: qse.home.nomeCurto ?? ausencias.marcar('o nome curto da barra', 'quem-sou-eu.md'),
+    // A cor da barra do navegador no celular é o fundo da página em cada tema (decisão 235).
+    fundoDaPagina: lerTokens(join(raiz, 'docs/spec/tokens.json')).colecoes.Cor.variaveis['bg/page'],
     temaJs: readFileSync(join(raiz, 'modelo/tema.js'), 'utf8').replace(/^\s*\/\/.*$/gm, '').replace(/\s*\n\s*/g, ''),
     // Roda na hora, logo depois dos capítulos de um case com colunas separadas (decisão 208).
     colunasJs: readFileSync(join(raiz, 'modelo/colunas.js'), 'utf8').replace(/^\s*\/\/.*\n/gm, ''),
