@@ -8,7 +8,7 @@
   "telas": {
     "Case · desktop 1440": {
       "largura": "desktop",
-      "pagina": 6585,
+      "pagina": 6528.5,
       "capitulos": [
         [
           "Introdução",
@@ -38,13 +38,13 @@
         [
           "Resultados",
           3972,
-          4828
+          4771.5
         ]
       ]
     },
     "Case · tela estreita 375": {
       "largura": "estreita",
-      "pagina": 11092,
+      "pagina": 11044,
       "capitulos": [
         [
           "Introdução",
@@ -74,7 +74,7 @@
         [
           "Resultados",
           8513,
-          9632
+          9584
         ]
       ]
     },

@@ -1,6 +1,6 @@
 {
   "_": "Fundo e moldura de cada mídia de prova, lidos do Figma. A decisão 157 diz que mídia sangra na página: o fundo do material é bg/page do tema dela, sem borda, raio, sombra ou superfície própria. Fundo 'raster' não é conferível daqui, a cor está nos pixels, e só o PNG exportado responde. Campo 'origem': 'figma' quando o material é exportado direto do Figma, 'video' quando é um quadro extraído de gravação de tela. A distinção importa porque gravação de tela converte de Display P3 para sRGB, o que preserva branco e preto e desloca os tons médios de 2 a 4 pontos. Campo 'arquivo': o PNG a amostrar, quando não é <nome>.png.",
-  "exportado": "2026-10-01",
+  "exportado": "2026-10-01; o par do capítulo 6 do Finanças relido em 2026-10-13 (decisão 236)",
   "tokenBgPage": {
     "claro": "#F4EFE4",
     "escuro": "#1A1715"
@@ -353,12 +353,12 @@
       "origem": "figma"
     },
     {
-      "id": "581:1397",
-      "nome": "financas-6-mockup-evolucao-claro",
+      "id": "611:1544",
+      "nome": "financas-6-produto-home-claro",
       "caso": "financas",
       "capitulo": 6,
       "tema": "claro",
-      "tamanho": "515×376 (arquivo em 1030×752); no Figma, as duas lado a lado em 1063×376",
+      "tamanho": "515×320 (arquivo em 1030×639); no Figma, as duas lado a lado em 1063×320",
       "fundo": {
         "tipo": "raster"
       },
@@ -371,12 +371,12 @@
       "origem": "figma"
     },
     {
-      "id": "581:1398",
-      "nome": "financas-6-mockup-evolucao-escuro",
+      "id": "611:1545",
+      "nome": "financas-6-produto-home-escuro",
       "caso": "financas",
       "capitulo": 6,
       "tema": "escuro",
-      "tamanho": "515×376 (arquivo em 1030×752); no Figma, as duas lado a lado em 1063×376",
+      "tamanho": "515×320 (arquivo em 1030×639); no Figma, as duas lado a lado em 1063×320",
       "fundo": {
         "tipo": "raster"
       },
@@ -389,12 +389,12 @@
       "origem": "figma"
     },
     {
-      "id": "581:1397",
-      "nome": "financas-6-mockup-dre-claro",
+      "id": "611:1546",
+      "nome": "financas-6-produto-evolucao-claro",
       "caso": "financas",
       "capitulo": 6,
       "tema": "claro",
-      "tamanho": "515×376 (arquivo em 1030×752); no Figma, as duas lado a lado em 1063×376",
+      "tamanho": "515×320 (arquivo em 1030×639); no Figma, as duas lado a lado em 1063×320",
       "fundo": {
         "tipo": "raster"
       },
@@ -407,12 +407,12 @@
       "origem": "figma"
     },
     {
-      "id": "581:1398",
-      "nome": "financas-6-mockup-dre-escuro",
+      "id": "611:1547",
+      "nome": "financas-6-produto-evolucao-escuro",
       "caso": "financas",
       "capitulo": 6,
       "tema": "escuro",
-      "tamanho": "515×376 (arquivo em 1030×752); no Figma, as duas lado a lado em 1063×376",
+      "tamanho": "515×320 (arquivo em 1030×639); no Figma, as duas lado a lado em 1063×320",
       "fundo": {
         "tipo": "raster"
       },

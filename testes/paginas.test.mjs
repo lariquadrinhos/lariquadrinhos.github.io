@@ -279,7 +279,7 @@ test('O par de telas é uma peça só', () => {
   const [par] = pares;
   assert.equal((par.match(/<div class="par__tela">/g) ?? []).length, 2, 'duas telas');
   assert.equal((par.match(/<figcaption/g) ?? []).length, 1, 'uma legenda só');
-  for (const nome of ['financas-6-mockup-evolucao', 'financas-6-mockup-dre']) {
+  for (const nome of ['financas-6-produto-home', 'financas-6-produto-evolucao']) {
     for (const tema of ['claro', 'escuro']) assert.match(par, new RegExp(`${nome}-${tema}\\.png`));
   }
   const alts = [...par.matchAll(/alt="([^"]+)"/g)].map((m) => m[1]);
