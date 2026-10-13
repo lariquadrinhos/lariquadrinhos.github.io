@@ -20,7 +20,7 @@ const escaparRegex = (texto) => texto.replace(/[.*+?^${}()|[\]\\/]/g, '\\$&');
 test('Construir a página de um case', () => {
   const { pagina } = construirEm(raizTemporaria());
   const indice = pagina('trabalhos/index.html');
-  assert.match(indice, /A planilha que virou produto/, 'o bloco do card vira o card no índice');
+  assert.match(texto(indice), /A planilha que virou produto/, 'o bloco do card vira o card no índice');
 
   const caso = pagina(`${PAGINA_FINANCAS}index.html`);
   const rotulos = [...caso.matchAll(/class="trilha__rotulo">([^<]+)</g)].map((m) => m[1]);

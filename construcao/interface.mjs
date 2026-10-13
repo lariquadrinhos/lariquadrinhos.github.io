@@ -111,7 +111,7 @@ export function caminhoDoCase(c) {
 export const FRASE_DA_HOME_EN = {
   marcaTexto: 'a better way to do it,',
   desktop: ["If there's", 'a better way to do it,', 'I want to find out what it is.'],
-  estreita: ["If there's", 'a better way', 'to do it, I want', 'to find out what it is.'],
+  estreita: ["If there's", 'a better way to', 'do it, I want to', 'find out what it is.'], // decisão 247
 };
 
 export const FRASE_DA_HOME = {

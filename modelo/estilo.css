@@ -527,7 +527,7 @@ em { font-style: normal; }
   letter-spacing: var(--rastreio-titulo-case);
 }
 /* Quebra escolhida do título, só na tela estreita (decisão 186). */
-.case__titulo .linha-estreita { display: block; }
+.case__titulo .linha-estreita, .card__titulo .linha-estreita { display: block; }
 .case__abertura {
   --marca-linha: var(--line-abertura);
   font-size: var(--size-abertura);
@@ -554,7 +554,7 @@ em { font-style: normal; }
 
 @media (min-width: 1024px) {
   .case__hero { row-gap: var(--space-32); padding-top: var(--space-96); }
-  .case__titulo .linha-estreita { display: inline; }
+  .case__titulo .linha-estreita, .card__titulo .linha-estreita { display: inline; }
   .case__abertura { grid-column: 1 / 7; }
   .tira { flex-direction: row; gap: var(--calha); }
   .tira__item { flex: 1 1 0; min-width: 0; }

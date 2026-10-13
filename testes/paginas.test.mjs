@@ -6,8 +6,8 @@ import assert from 'node:assert/strict';
 import { readFileSync, existsSync, statSync } from 'node:fs';
 import { join } from 'node:path';
 import { raizTemporaria, construirEm, texto, RAIZ } from './ajuda.mjs';
-import { TEXTOS, caminhoDoCase } from '../construcao/interface.mjs';
-import { lerCase } from '../construcao/conteudo.mjs';
+import { TEXTOS, caminhoDoCase, QUEBRA_DO_TITULO_ESTREITA_EN, FRASE_DA_HOME_EN } from '../construcao/interface.mjs';
+import { lerCase, lerQuemSouEu } from '../construcao/conteudo.mjs';
 import { escapar } from '../construcao/markdown.mjs';
 import { comQuebra, QUEBRA_DESKTOP, QUEBRA_DO_CASE, QUEBRA_DA_BARRA } from '../construcao/tokens.mjs';
 
@@ -647,6 +647,23 @@ test('O título do case quebra onde o Figma quebra', () => {
   const { base, largo } = regrasPorLargura(css);
   assert.match(base['.case__titulo .linha-estreita'] ?? '', /display:\s*block/, 'na tela estreita cada linha é bloco');
   assert.match(largo['.case__titulo .linha-estreita'] ?? '', /display:\s*inline/, 'no desktop o título corre numa linha');
+  // O card do case quebra como o título, em Trabalhos e no próximo case (decisão 247).
+  const quebrado = '<h2 class="card__titulo"><span class="linha-estreita">A planilha que</span> <span class="linha-estreita">virou produto</span></h2>';
+  assert.ok(site.pagina('trabalhos/index.html').includes(quebrado), 'o card em Trabalhos');
+  assert.ok(site.pagina(`${REEMBOLSO}index.html`).includes(quebrado), 'o card do próximo case');
+  assert.match(base['.card__titulo .linha-estreita'] ?? '', /display:\s*block/, 'o card quebra na tela estreita');
+  assert.match(largo['.card__titulo .linha-estreita'] ?? '', /display:\s*inline/, 'e corre numa linha no desktop');
+  // As quebras aprovadas em inglês são do texto dos arquivos em inglês: se o texto mudar, o
+  // teste avisa, em vez de a quebra deixar de valer em silêncio (decisões 244, 246 e 247).
+  const tituloEn = lerCase(RAIZ, 'case-study-financas-pf-pj.en.md').hero.titulo;
+  assert.equal(QUEBRA_DO_TITULO_ESTREITA_EN.financas.join(' '), tituloEn, 'a quebra do título em inglês é do título do arquivo');
+  const fraseEn = lerQuemSouEu(RAIZ, 'quem-sou-eu.en.md').home.frase;
+  for (const linhas of [FRASE_DA_HOME_EN.desktop, FRASE_DA_HOME_EN.estreita]) assert.equal(linhas.join(' '), fraseEn, 'as quebras da frase em inglês são da frase do arquivo');
+  // E as quebras são as escritas no contrato de idioma, com " / " entre as linhas.
+  const contratoIdioma = readFileSync(join(RAIZ, 'docs/comportamento/idioma/segundo-idioma.md'), 'utf8').replace(/\s+/g, ' ');
+  for (const linhas of [FRASE_DA_HOME_EN.desktop, FRASE_DA_HOME_EN.estreita, QUEBRA_DO_TITULO_ESTREITA_EN.financas]) {
+    assert.ok(contratoIdioma.includes(`"${linhas.join(' / ')}"`), `a quebra "${linhas.join(' / ')}" não está no contrato`);
+  }
   const mudou = raizTemporaria({ 'case-study-financas-pf-pj.md': (t) => t.replace('# A planilha que virou produto\n\n**Vi', '# A planilha virou produto\n\n**Vi') });
   assert.match(construirEm(mudou).pagina(`${FINANCAS}index.html`), /<h1 class="case__titulo">A planilha virou produto<\/h1>/,
     'se o título muda no arquivo, a quebra escolhida deixa de valer');

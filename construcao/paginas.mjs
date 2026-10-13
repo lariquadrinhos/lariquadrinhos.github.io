@@ -205,13 +205,22 @@ function imagemTemada(ctx, versoes, alt, { classe = '', carregamento = 'lazy' } 
   }).join('');
 }
 
+// O título do case quebra onde o desenho escolheu, só na tela estreita (decisão 186), no case e
+// no card dele (decisão 247), nos dois idiomas. Se as linhas juntas não forem o título, a
+// quebra deixou de valer e o navegador quebra.
+function tituloComQuebra(c, titulo) {
+  const quebra = (idioma() === 'en' ? QUEBRA_DO_TITULO_ESTREITA_EN : QUEBRA_DO_TITULO_ESTREITA)[c.prefixo];
+  if (quebra && quebra.join(' ') === titulo) return quebra.map((l) => `<span class="linha-estreita">${escapar(l)}</span>`).join(' ');
+  return escapar(titulo);
+}
+
 function card(ctx, c, onde, nivel = 'h2') {
   const { ausencias } = ctx;
   const capas = resolverCapa(ctx.raiz, c.prefixo);
   const capa = capas.length
     ? imagemTemada(ctx, capas, '', { classe: 'card__capa-img' })
     : ausencias.marcar(`a capa do case ${c.card.titulo ?? c.slug}`, onde);
-  const titulo = c.card.titulo ? escapar(c.card.titulo) : ausencias.marcar('o título do card', onde);
+  const titulo = c.card.titulo ? tituloComQuebra(c, c.card.titulo) : ausencias.marcar('o título do card', onde);
   const linha = c.card.linha ? escapar(c.card.linha) : ausencias.marcar('a linha do card', onde);
   return `<a class="card cor-${COR_DO_CASE[c.prefixo]}" href="${ctx.base}${caminhoDoCase(c)}">
     <div class="card__capa">${capa}</div>
@@ -505,13 +514,8 @@ export function paginaCase(ctx, c, proximo) {
   const { ausencias } = ctx;
   const onde = c.arquivo;
   const cor = COR_DO_CASE[c.prefixo];
-  const quebra = (idioma() === 'en' ? QUEBRA_DO_TITULO_ESTREITA_EN : QUEBRA_DO_TITULO_ESTREITA)[c.prefixo];
-  let titulo;
-  if (!c.hero.titulo) titulo = ausencias.marcar('o título do case', onde);
-  else if (quebra && quebra.join(' ') === c.hero.titulo) {
-    // Um texto só: na tela estreita cada linha vira bloco, no desktop corre numa linha.
-    titulo = quebra.map((l) => `<span class="linha-estreita">${escapar(l)}</span>`).join(' ');
-  } else titulo = escapar(c.hero.titulo);
+  // Um texto só: na tela estreita cada linha vira bloco, no desktop corre numa linha.
+  const titulo = c.hero.titulo ? tituloComQuebra(c, c.hero.titulo) : ausencias.marcar('o título do case', onde);
   const abertura = c.hero.abertura
     ? aberturaComMarca(c.hero.abertura, (idioma() === 'en' ? MARCA_TEXTO_DO_CASE_EN : MARCA_TEXTO_DO_CASE)[c.prefixo])
     : ausencias.marcar('a frase de abertura', onde);
