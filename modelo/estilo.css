@@ -80,9 +80,12 @@ body { margin: 0; background: var(--bg-page); }
 
 h1, h2, h3, h4, h5, h6, p, figure, dl, dd, ul, ol { margin: 0; }
 /* Título nunca termina com uma palavra sozinha: onde a quebra não é escolhida, o navegador
-   evita isolar a última (design-system.md, decisão 250). Onde há quebra escolhida, ela manda.
-   Navegador sem suporte só não recebe a melhoria. */
-h1, h2, h3, h4, h5, h6 { text-wrap: pretty; }
+   equilibra as linhas (design-system.md, decisões 250 e 251). Onde há quebra escolhida, ela
+   manda. Navegador sem suporte só não recebe a melhoria. */
+h1, h2, h3, h4, h5, h6 { text-wrap: balance; }
+/* Cada linha escolhida do título da página de erro fica inteira enquanto cabe na coluna; se
+   não cabe, quebra por dentro em vez de vazar (decisão 251). */
+.erro__linha { display: inline-block; }
 img, video, svg { display: block; max-width: 100%; }
 button { font: inherit; color: inherit; }
 

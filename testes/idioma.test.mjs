@@ -6,7 +6,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync, existsSync } from 'node:fs';
 import { join } from 'node:path';
-import { raizTemporaria, raizComIngles, construirEm, RAIZ } from './ajuda.mjs';
+import { raizTemporaria, raizComIngles, construirEm, texto, RAIZ } from './ajuda.mjs';
 import { TEXTOS, comIdioma, enderecoDe, caminhoDoCase } from '../construcao/interface.mjs';
 import { lerCase } from '../construcao/conteudo.mjs';
 
@@ -93,7 +93,8 @@ test('A página de erro nos dois idiomas', () => {
   for (const [i, nivel] of [['pt', 1], ['en', 2]]) {
     const lang = i === 'en' ? ' lang="en"' : '';
     const t = (chave) => (i === 'en' ? TEXTOS[chave].en : TEXTOS[chave].texto);
-    assert.ok(erro.includes(`<div class="erro__explicacao"${lang}>\n    <h${nivel} class="erro__titulo">${t('erroTitulo').replace(/'/g, "'")}</h${nivel}>`), `${i}: o texto`);
+    const bloco = erro.match(new RegExp(`<div class="erro__explicacao"${lang}>\\s*<h${nivel} class="erro__titulo">([\\s\\S]*?)</h${nivel}>`))?.[1] ?? '';
+    assert.equal(texto(bloco), t('erroTitulo'), `${i}: o texto`);
     const saidas = comIdioma(i, () => [enderecoDe('trabalhos'), enderecoDe('home')]);
     for (const s of saidas) assert.match(erro, new RegExp(`<ul class="erro__saidas"${lang}>[\\s\\S]*?href="/${s}"`), `${i}: a saída /${s}`);
   }

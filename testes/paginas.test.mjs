@@ -5,8 +5,8 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync, existsSync, statSync } from 'node:fs';
 import { join } from 'node:path';
-import { raizTemporaria, construirEm, texto, RAIZ } from './ajuda.mjs';
-import { TEXTOS, caminhoDoCase, QUEBRA_DO_TITULO_ESTREITA_EN, FRASE_DA_HOME_EN } from '../construcao/interface.mjs';
+import { raizTemporaria, raizComIngles, construirEm, texto, RAIZ } from './ajuda.mjs';
+import { TEXTOS, caminhoDoCase, QUEBRA_DO_TITULO_ESTREITA_EN, FRASE_DA_HOME_EN, QUEBRA_DO_TITULO_DO_ERRO } from '../construcao/interface.mjs';
 import { lerCase, lerQuemSouEu } from '../construcao/conteudo.mjs';
 import { escapar } from '../construcao/markdown.mjs';
 import { comQuebra, QUEBRA_DESKTOP, QUEBRA_DO_CASE, QUEBRA_DA_BARRA } from '../construcao/tokens.mjs';
@@ -245,14 +245,21 @@ test('Trabalhos cabe na janela do desktop', () => {
 });
 
 test('Título nunca termina com uma palavra sozinha', () => {
-  // Regra de design-system.md (decisão 250), sem cenário. Todo título pede ao navegador que
-  // não isole a última palavra; onde há quebra escolhida, ela manda. A medida em cada largura
-  // fica com a conferência no navegador.
-  const { base } = regrasPorLargura(readFileSync(join(site.saida, 'estilo.css'), 'utf8'));
-  assert.match(base['h1'] ?? '', /text-wrap:\s*pretty/, 'em todos os títulos, nos dois CSS');
-  for (const nivel of ['h2', 'h3', 'h4', 'h5', 'h6']) assert.match(base[nivel] ?? '', /text-wrap:\s*pretty/, nivel);
-  const regras = regrasPorLargura(readFileSync(join(site.saida, 'estilo-case.css'), 'utf8')).base;
-  assert.match(regras['h1'] ?? '', /text-wrap:\s*pretty/, 'também no CSS do case');
+  // Regra de design-system.md (decisões 250 e 251), sem cenário. Todo título equilibra as
+  // linhas; onde há quebra escolhida, ela manda. A medida em cada largura fica com a
+  // conferência no navegador.
+  for (const arquivo of ['estilo.css', 'estilo-case.css']) {
+    const { base } = regrasPorLargura(readFileSync(join(site.saida, arquivo), 'utf8'));
+    for (const nivel of ['h1', 'h2', 'h3', 'h4', 'h5', 'h6']) assert.match(base[nivel] ?? '', /text-wrap:\s*balance/, `${arquivo}: ${nivel}`);
+    // As linhas escolhidas do 404 em inglês ficam inteiras enquanto cabem, sem vazar.
+    assert.match(base['.erro__linha'] ?? '', /display:\s*inline-block/, `${arquivo}: o 404 em inglês`);
+  }
+  // O título do 404 em inglês quebra onde a tabela do contrato diz (decisão 251).
+  const contrato = readFileSync(join(RAIZ, 'docs/comportamento/idioma/segundo-idioma.md'), 'utf8').replace(/\s+/g, ' ');
+  assert.ok(contrato.includes(`"${QUEBRA_DO_TITULO_DO_ERRO.en.join(' / ')}"`), 'a quebra do 404 está no contrato');
+  assert.equal(QUEBRA_DO_TITULO_DO_ERRO.en.join(' '), TEXTOS.erroTitulo.en, 'e forma o título');
+  const erro = construirEm(raizComIngles()).pagina('404.html');
+  assert.ok(erro.includes(`<h2 class="erro__titulo">${QUEBRA_DO_TITULO_DO_ERRO.en.map((l) => `<span class="erro__linha">${escapar(l)}</span>`).join(' ')}</h2>`), 'o 404 usa a quebra');
 });
 
 test('O título de Trabalhos numa janela estreita', () => {

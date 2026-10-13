@@ -12,7 +12,7 @@ import {
   t, TEXTOS, FRASE_DA_HOME, MARCA_TEXTO_DO_CASE, COR_DO_CASE, BLOCO_DE_DESTAQUE, COLUNAS_SEPARADAS,
   QUEBRA_DO_TITULO_ESTREITA, caminhoDoCase,
   idioma, comIdioma, enderecoDe, LANG, DOMINIO, FRASE_DA_HOME_EN, MARCA_TEXTO_DO_CASE_EN,
-  QUEBRA_DO_TITULO_ESTREITA_EN, QUEBRA_DO_TITULO_TRABALHOS,
+  QUEBRA_DO_TITULO_ESTREITA_EN, QUEBRA_DO_TITULO_TRABALHOS, QUEBRA_DO_TITULO_DO_ERRO,
 } from './interface.mjs';
 
 const ATRIBUTOS_EXTERNOS = 'target="_blank" rel="noopener"';
@@ -606,15 +606,22 @@ export function paginaQuemSouEu(ctx, qse) {
 // português abre, com o título da página; o inglês vem embaixo, marcado com a língua dele.
 function erroNoIdioma(ctx, i, nivel) {
   const lang = i === idioma() ? '' : ` lang="${LANG[i]}"`;
-  return comIdioma(i, () => `<div class="erro__explicacao"${lang}>
-    <h${nivel} class="erro__titulo">${t('erroTitulo')}</h${nivel}>
+  return comIdioma(i, () => {
+    // Quando não cabe numa linha, só quebra onde foi escolhido (decisão 251).
+    const quebra = QUEBRA_DO_TITULO_DO_ERRO[i];
+    const titulo = quebra && quebra.join(' ') === t('erroTitulo')
+      ? quebra.map((l) => `<span class="erro__linha">${escapar(l)}</span>`).join(' ')
+      : t('erroTitulo');
+    return `<div class="erro__explicacao"${lang}>
+    <h${nivel} class="erro__titulo">${titulo}</h${nivel}>
     <p class="erro__corpo">${t('erroCorpo')}</p>
   </div>
   <ul class="erro__saidas"${lang}>
     <li><a class="erro__saida" href="${ctx.base}${enderecoDe('trabalhos')}">${t('erroVerTrabalhos')}</a></li>
     <li><a class="erro__saida" href="${ctx.base}${enderecoDe('home')}">${t('erroVoltarHome')}</a></li>
     <li><button class="erro__saida" type="button" popovertarget="contato" aria-expanded="false">${t('falarComigo')}</button></li>
-  </ul>`);
+  </ul>`;
+  });
 }
 
 export function paginaErro(ctx) {
