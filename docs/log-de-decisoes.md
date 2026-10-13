@@ -7495,3 +7495,23 @@ pessoais da Cloudflare.
 **Consequência.** A P15 sai da lista, que fica com 2. O dev configura o domínio no GitHub Pages e o
 HTTPS. `lariquadrinhos.github.io` e `www.larissaquadros.com` passam a redirecionar para
 `larissaquadros.com`.
+
+---
+
+## 234 · O site abre sempre no tema claro
+
+**Quando** 2026-10-13 · **Fase** 4 · **Domínio** tema
+
+**Gatilho.** *"quero que abra sempre no modo claro e se o usuario quiser pode alterar para escuro"*. Até
+aqui, a primeira visita seguia a preferência de tema do sistema da pessoa.
+
+**Decisão.** Na primeira visita, o site abre no tema claro, qualquer que seja o sistema, e sem JavaScript
+também. O controle na barra troca para o escuro, e a escolha continua lembrada entre visitas, como antes.
+A preferência do sistema deixa de ser lida.
+
+**Alternativa descartada.** *Seguir o sistema na primeira visita*, a regra que vinha desde o começo.
+
+**Custo aceito.** Quem usa o sistema no escuro chega num site claro e precisa trocar à mão.
+
+**Consequência.** `tema/tema-claro-e-escuro.md` reescrito: regras, a explicação do script e os
+cenários. Os dois cenários de primeira visita viram um só, e os dois de mudança no sistema também.
