@@ -7563,3 +7563,33 @@ mockups. O capítulo 6 encolhe 56 no desktop e 48 na tela estreita.
 {claro,escuro}.png` entram, e os quatro `financas-6-mockup-*` saem. O `.md` muda o par, com textos
 alternativos novos, e a legenda. Figma: as quatro telas do case atualizadas, e as imagens soltas em
 `611:1540` a `611:1547`.
+
+---
+
+## 237 · O vídeo do capítulo 1 do Finanças é regravado na versão atual, e o par volta a 48 no Figma
+
+**Quando** 2026-10-13 · **Fase** 4 · **Domínio** case
+
+**Gatilho.** *"quero refazer o video também"*, logo depois da 236. E o dev achou que, na composição da
+tela estreita que eu montei para o par do capítulo 6 (`611:1542`, `611:1543`), o vão entre as imagens
+ficou em uns 25, contra os 48 que o site usa desde a 205.
+
+**Decisão.** *"sim, só dados de demonstração, pode gravar com o mesmo roteiro para os dois temas"*: o
+vídeo foi regravado no produto que ela deixou rodando em `localhost:3000`, sobre a base dele, que ela
+confirmou ser só de demonstração. Mesmo roteiro da 189 (Home; DRE em PF, PJ e Consolidado; Indicadores
+Financeiros, um mês atrás; Histórico filtrado por pagos em Alimentação), mesmo formato (822×688, em 2x,
+cursor desenhado, o indicador de desenvolvimento escondido), uns 23 segundos. Aprovado: *"aprovado,
+corrige o figma e manda pro dev"*. No Figma, o par da estreita volta a 48, a regra da 205, e o site não
+muda.
+
+**Alternativa descartada.** *A estreita passar a 24*, que seguiria o erro da composição.
+
+**Custo aceito.** A barra lateral do produto não tem mais a aba Relatórios que abria e fechava, então o
+vídeo vai direto ao DRE. No Histórico, a tabela é mais larga que a janela, e a coluna de valores aparece
+cortada à direita.
+
+**Consequência.** `publico/midias/financas-1-produto-em-uso-{claro,escuro}.mp4` e os pôsteres trocados,
+com os mesmos nomes. O texto alternativo do vídeo foi reescrito para o roteiro novo; a legenda continua
+valendo. No Figma: os pôsteres em `536:1397` e `536:1398` e nas quatro telas, e o par da estreita
+(`488:57`, `488:110`) com 537,5, igual ao site. Uma consequência da 237 é que a base usada passa a ser a
+do produto, e não mais uma base separada.
