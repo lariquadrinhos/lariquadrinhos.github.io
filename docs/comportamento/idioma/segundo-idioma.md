@@ -58,7 +58,7 @@ altura da leitura.
 ## Texto
 
 Texto de interface em inglês. O português de cada item continua no contrato da tela que o exibe; este
-é o único lugar do inglês. Rascunho meu, à espera da aprovação dela.
+é o único lugar do inglês. Aprovado por ela (decisão 244).
 
 | Português | Inglês |
 |---|---|
@@ -93,8 +93,16 @@ Texto de interface em inglês. O português de cada item continua no contrato da
 | Voltar para a home | Back to the home page |
 
 O marca-texto da Home em inglês cobre *"a better way to do it,"*, o equivalente de *"forma melhor de
-fazer,"* (decisão 181). A quebra da frase em inglês é escolhida como a do português, quando houver
-desenho.
+fazer,"* (decisão 181). A frase quebra onde ela escolheu: no desktop *"If there's / a better way to do
+it, / I want to find out what it is."*; na tela estreita *"If there's / a better way / to do it, I want /
+to find out what it is."*
+
+O marca-texto do hero de cada case em inglês é a mesma virada da frase de abertura: no Finanças, *"I
+decided to turn that scene into a desktop app."*; no Reembolso, *"I decided to redesign the flow so the
+second time would be different from the first."*
+
+O título do Finanças, na tela estreita, quebra em *"The spreadsheet that / became a product"*, como o
+português (decisão 186).
 
 A quebra escolhida do título de Trabalhos em inglês: *"Two problems I saw up close, / and what I did
 about them."*

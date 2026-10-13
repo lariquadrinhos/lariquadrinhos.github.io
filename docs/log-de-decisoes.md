@@ -7754,3 +7754,26 @@ até o PDF dela chegar.
 
 **Consequência.** `idioma/segundo-idioma.md` atualizado, com o cenário "A página de erro nos dois
 idiomas" no lugar do anterior.
+
+---
+
+## 244 · As traduções para o inglês são dela
+
+**Quando** 2026-10-13 · **Fase** 4 · **Domínio** conteudo
+
+**Gatilho.** Pela 242, eu traduzi os três arquivos de conteúdo e o texto de interface, e ela revisava. Junto,
+três propostas de forma: o marca-texto dos cases em inglês, as quebras da frase da Home e a quebra do
+título do Finanças na tela estreita.
+
+**Decisão.** *"aprovo as traduções e as três propostas"*. `quem-sou-eu.en.md`,
+`case-study-financas-pf-pj.en.md` e `case-study-reembolso-sulamerica.en.md` entram no repositório e
+passam a ser texto autoral dela. Inclui o parágrafo que eu acrescentei no Finanças, só em inglês,
+explicando PF, PJ e DRE para quem lê de fora do Brasil. As propostas ficam no contrato
+`idioma/segundo-idioma.md`.
+
+**Alternativa descartada.** Nenhuma.
+
+**Custo aceito.** O Finanças em inglês tem um parágrafo que o português não tem.
+
+**Consequência.** O dev publica o inglês. O controle de idioma na barra continua sem desenho no Figma:
+é um item igual aos outros.
