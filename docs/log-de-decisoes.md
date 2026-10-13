@@ -7449,3 +7449,24 @@ véu, que eu levantei porque nessa largura quem usa costuma estar com mouse.
 **Custo aceito.** Entre 1024 e 1279, quem usa mouse recebe a caixa pensada para o dedo, com véu.
 
 **Consequência.** `moldura/botao-contato.md` registra a regra junto da 230.
+
+---
+
+## 232 · A barra estreita fica com a margem de 80 a partir de 1024
+
+**Quando** 2026-10-13 · **Fase** 4 · **Domínio** moldura
+
+**Gatilho.** Rodada 33 do tester: entre 1024 e 1279, na Home, em Trabalhos e em Quem sou eu, a barra
+tinha a margem de 24 da tela estreita (231) e o conteúdo a de 80 do desktop. Barra e conteúdo não se
+alinhavam à esquerda, numa combinação que não está desenhada.
+
+**Decisão.** *"1, manda pro dev"*, proposta minha: a partir de 1024, a barra volta à margem de 80. Ela
+continua com Menu e com as caixas da tela estreita. Reverte a parte da margem da 231.
+
+**Alternativa descartada.** *O conteúdo dessas três páginas passar a 24 abaixo de 1280*: mudaria
+telas aprovadas. *Deixar como está.*
+
+**Custo aceito.** No case, entre 1024 e 1279, a barra a 80 não se alinha com a coluna centralizada,
+que nunca se alinhou com ela.
+
+**Consequência.** `moldura/botao-contato.md` atualizado.
