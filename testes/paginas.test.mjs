@@ -244,6 +244,17 @@ test('Trabalhos cabe na janela do desktop', () => {
   }
 });
 
+test('Título nunca termina com uma palavra sozinha', () => {
+  // Regra de design-system.md (decisão 250), sem cenário. Todo título pede ao navegador que
+  // não isole a última palavra; onde há quebra escolhida, ela manda. A medida em cada largura
+  // fica com a conferência no navegador.
+  const { base } = regrasPorLargura(readFileSync(join(site.saida, 'estilo.css'), 'utf8'));
+  assert.match(base['h1'] ?? '', /text-wrap:\s*pretty/, 'em todos os títulos, nos dois CSS');
+  for (const nivel of ['h2', 'h3', 'h4', 'h5', 'h6']) assert.match(base[nivel] ?? '', /text-wrap:\s*pretty/, nivel);
+  const regras = regrasPorLargura(readFileSync(join(site.saida, 'estilo-case.css'), 'utf8')).base;
+  assert.match(regras['h1'] ?? '', /text-wrap:\s*pretty/, 'também no CSS do case');
+});
+
 test('O título de Trabalhos numa janela estreita', () => {
   // Abaixo de 1120 de largura, a quebra escolhida volta, em qualquer altura (decisão 213).
   const { porAltura } = semRolagem();
