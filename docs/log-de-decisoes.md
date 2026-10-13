@@ -7910,3 +7910,27 @@ tela estreita.*
 **Custo aceito.** Navegadores antigos continuam podendo deixar a palavra sozinha.
 
 **Consequência.** `trabalhos/indice-de-trabalhos.md` e `design-system.md` atualizados.
+
+---
+
+## 251 · Os títulos equilibram as linhas, e o 404 em inglês ganha quebra escolhida
+
+**Quando** 2026-10-13 · **Fase** 4 · **Domínio** sistema visual
+
+**Gatilho.** Medido pelo dev e pelo tester depois da 250: o `text-wrap: pretty` resolveu o título de
+Trabalhos, mas não age em títulos curtos. Treze títulos ainda terminavam com uma palavra sozinha em alguma
+largura, alguns em larguras comuns: *"Every week, from scratch"* em 375 e 390, dois capítulos e o *"Leia
+mais sobre o produto"* em 375, *"Ensinei a ferramenta antes de usá-la"* de 1280 a 1364, e o título do 404
+nos dois idiomas de 1024 a ~1210. Com `text-wrap: balance`, sobrava só o título em inglês do 404.
+
+**Decisão.** *"sim, vai com a 2"*, proposta minha: os títulos usam `text-wrap: balance`, e o título em
+inglês da página de erro, quando não cabe numa linha, quebra em *"This address doesn't / lead anywhere."*.
+Onde há quebra escolhida, ela continua mandando.
+
+**Alternativa descartada.** *Manter o `pretty`.* *`balance` só nos títulos curtos*, que pediria um limite
+de tamanho arbitrário.
+
+**Custo aceito.** Todo título de duas linhas ou mais muda de desenho: as linhas passam a ter tamanho
+parecido, em vez de uma cheia e outra curta.
+
+**Consequência.** `design-system.md` e `idioma/segundo-idioma.md` atualizados.

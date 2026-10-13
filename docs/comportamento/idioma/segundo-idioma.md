@@ -89,7 +89,7 @@ Texto de interface em inglês. O português de cada item continua no contrato da
 | (enquanto não há o PDF em inglês) | Download résumé (PDF, in Portuguese) |
 | Ver LinkedIn | See LinkedIn |
 | Ou fale direto comigo: | Or reach me directly: |
-| Esse endereço não leva a lugar nenhum. | This address doesn't lead anywhere. |
+| Esse endereço não leva a lugar nenhum. | This address doesn't lead anywhere. (quando não cabe numa linha, quebra em *"This address doesn't / lead anywhere."*, decisão 251) |
 | Pode ser um link meu que envelheceu, ou um erro de digitação. De qualquer forma, o que você procurava deve estar em um desses caminhos. | It may be an old link of mine, or a typo. Either way, what you were looking for should be down one of these paths. |
 | Ver os trabalhos | See the work |
 | Voltar para a home | Back to the home page |
