@@ -7515,3 +7515,23 @@ A preferência do sistema deixa de ser lida.
 
 **Consequência.** `tema/tema-claro-e-escuro.md` reescrito: regras, a explicação do script e os
 cenários. Os dois cenários de primeira visita viram um só, e os dois de mudança no sistema também.
+
+---
+
+## 235 · A barra do navegador no celular acompanha o fundo do tema
+
+**Quando** 2026-10-13 · **Fase** 4 · **Domínio** tema
+
+**Gatilho.** Ao aplicar a 234, o dev notou que o site não define a cor da barra do navegador no celular,
+que ficava com a cor padrão de cada navegador.
+
+**Decisão.** *"pode pintar com o creme, manda pro dev"* e, perguntada sobre o escuro, *"acompanha a cor
+do tema"*. A barra tem a cor de `bg/page` do tema em uso, e troca junto com ele.
+
+**Alternativa descartada.** *A cor padrão do navegador.* *Sempre creme*, que no escuro deixaria uma
+faixa clara acima da página escura.
+
+**Custo aceito.** Nenhum.
+
+**Consequência.** `tema/tema-claro-e-escuro.md` ganha a regra e o cenário "A barra do navegador
+acompanha o tema".

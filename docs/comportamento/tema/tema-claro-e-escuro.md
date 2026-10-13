@@ -51,6 +51,9 @@ apareceu.
 - **Sem JavaScript, o site fica no tema claro e o conteúdo permanece legível.**
   O script é reforço que falha em segurança, não dependência.
 - O tema claro usa fundo cinza claro, não branco puro.
+- **A barra do navegador no celular tem a cor do fundo da página no tema em uso**: `bg/page` claro
+  na primeira visita, e o escuro quando a pessoa escolhe o escuro. A página parece contínua até o
+  topo da tela. Ver decisão 235.
 - Os dois modos foram escolhidos e verificados em separado. **Nenhum valor de um deriva
   automaticamente do outro**, nem no Figma nem no código.
 - Contraste mínimo de 4,5:1 em texto e 3:1 em elemento interativo, **nos dois temas**.
@@ -139,6 +142,12 @@ Funcionalidade: Tema claro e escuro
     Quando a barra é montada
     Então o controle de tema fica dentro do menu, não na barra
     E continua tendo duas posições
+
+  Cenário: A barra do navegador acompanha o tema
+    Dado que o leitor está num celular
+    Quando a página aparece em qualquer um dos dois temas
+    Então a barra do navegador tem a cor do fundo da página nesse tema
+    E troca junto quando o leitor troca o tema
 ```
 
 ## Transições
