@@ -7624,3 +7624,21 @@ que não sei medir, com a planilha e o nome; não tinha forks. Algumas menções
 documentos como história, sem link.
 
 **Consequência.** O endereço entra na tira e nas provas do Finanças. As duas últimas faltas do site somem.
+
+---
+
+## 239 · A aceitação dos pôsteres que não sangram vale para os do vídeo novo
+
+**Quando** 2026-10-13 · **Fase** 4 · **Domínio** case
+
+**Gatilho.** Com a 237, os pôsteres do vídeo do capítulo 1 do Finanças foram trocados. Como os
+antigos, os cantos deles são o fundo do app gravado, não `bg/page`, e a checagem 13 acusa. A aceitação
+fora dada aos pôsteres antigos.
+
+**Decisão.** *"sim, vale para os pôsteres novos"*.
+
+**Alternativa descartada.** *Pôr moldura ou faixa de `bg/page` no vídeo e no pôster.*
+
+**Custo aceito.** A checagem 13 segue vermelha nas mesmas duas vagas, dentro das 7 falhas conhecidas.
+
+**Consequência.** Nada a construir.
