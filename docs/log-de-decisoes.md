@@ -7470,3 +7470,28 @@ telas aprovadas. *Deixar como está.*
 que nunca se alinhou com ela.
 
 **Consequência.** `moldura/botao-contato.md` atualizado.
+
+---
+
+## 233 · O site ganha o domínio larissaquadros.com
+
+**Quando** 2026-10-13 · **Fase** 4 · **Domínio** conteudo · `#escopo`
+
+**Gatilho.** P15: "domínio próprio" era critério de liberação, e nenhum tinha sido escolhido. Ela decidiu
+comprar agora.
+
+**Decisão.** *"acho que vou comprar o .com entao porque quero me candidatar para fora do brasil
+também"*. Comprou **`larissaquadros.com`** na Cloudflare, o nome que proponho por bater com o site e
+o currículo. O DNS aponta o domínio para os quatro endereços do GitHub Pages e o `www` para
+`lariquadrinhos.github.io`, sem o proxy da Cloudflare ("DNS only"), para o GitHub poder emitir o
+certificado. O endereço principal é o domínio sem `www`.
+
+**Alternativa descartada.** *`.com.br` no registro.br*: mais barato, mas menos reconhecido fora do
+Brasil. *`lariquadros.com`*: não bate com o nome do site nem do currículo.
+
+**Custo aceito.** Renovação anual, por conta dela. O registro precisa continuar com a proteção de dados
+pessoais da Cloudflare.
+
+**Consequência.** A P15 sai da lista, que fica com 2. O dev configura o domínio no GitHub Pages e o
+HTTPS. `lariquadrinhos.github.io` e `www.larissaquadros.com` passam a redirecionar para
+`larissaquadros.com`.

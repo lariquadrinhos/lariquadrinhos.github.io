@@ -9,7 +9,7 @@
 > e entrada no log se tiver alternativa real. Lista com metade dos itens riscados deixa de
 > ser consultável.
 
-**Atualizado:** 9 de outubro de 2026 · **3 perguntas**, nenhuma travando
+**Atualizado:** 9 de outubro de 2026 · **2 perguntas**, nenhuma travando
 
 ---
 
@@ -124,13 +124,6 @@ se move porque a pessoa rolou. A terceira opção estava certa e virou regra ger
 categorias: o que é derivado da rolagem **não anima nunca**; o que a pessoa aciona e move a
 página **salta sem transição** com movimento reduzido; o que aparece ou some **nunca tem
 transição**. O sistema não precisa de token de duração.
-
-### P15 · Qual domínio
-"Domínio próprio" é critério de liberação; nenhum foi escolhido. Publicar em
-`lariquadrinhos.github.io` funciona desde já, e apontar um domínio depois não gera
-retrabalho: por isso espera.
-**Momento:** antes da Fase 6. Comprar leva minutos, mas a propagação de DNS e a emissão do
-certificado levam horas.
 
 ---
 
