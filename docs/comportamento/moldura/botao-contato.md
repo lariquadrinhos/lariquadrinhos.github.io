@@ -52,7 +52,8 @@ e-mail escrito por extenso e o LinkedIn.
 - **Abaixo de 1280 de largura, todas as páginas usam a barra da tela estreita**, com Menu. É
   a fronteira em que o case passa ao modo estreito (decisão 225), e a barra não troca quando a
   pessoa vai de uma página para outra na mesma janela. O conteúdo da Home, de Trabalhos e de Quem
-  sou eu não muda com isso. Ver decisão 230.
+  sou eu não muda com isso. Com a barra vem o resto da tela estreita: a margem de 24 e as
+  caixas de contato e do Menu de margem a margem, com véu. Ver decisões 230 e 231.
 - **O que decide a divisão é a largura, medida, não a arrumação.** A barra estreita tem
   327px úteis. "Quem sou eu" é o rótulo mais longo do site, 113px, e a combinação que cabe
 (Larissa · Trabalhos · Contato · Menu, 308px) deixa 19px de folga. Nenhum arranjo com

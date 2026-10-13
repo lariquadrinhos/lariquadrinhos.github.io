@@ -7430,3 +7430,22 @@ desenho de 1440.
 
 **Consequência.** `moldura/botao-contato.md` ganha a regra e o cenário "A barra é a mesma em todas as
 páginas na mesma largura".
+
+---
+
+## 231 · Com a barra estreita, abaixo de 1280, vêm a margem e as caixas da tela estreita
+
+**Quando** 2026-10-13 · **Fase** 4 · **Domínio** moldura
+
+**Gatilho.** Ao aplicar a 230 (`2ac511d`), o dev levou junto, para a barra ser de fato a mesma em toda
+página, a margem de 24 da tela estreita ("Larissa" a 24 da borda, não a 80) e a caixa de contato da
+tela estreita, de margem a margem e com véu. Antes, na Home em 1100, ela abria sob o botão.
+
+**Decisão.** *"pode ficar como o dev fez"*.
+
+**Alternativa descartada.** *A barra estreita com as caixas do desktop*, abrindo sob o botão e sem
+véu, que eu levantei porque nessa largura quem usa costuma estar com mouse.
+
+**Custo aceito.** Entre 1024 e 1279, quem usa mouse recebe a caixa pensada para o dedo, com véu.
+
+**Consequência.** `moldura/botao-contato.md` registra a regra junto da 230.
