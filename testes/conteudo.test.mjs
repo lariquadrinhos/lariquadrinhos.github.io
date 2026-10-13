@@ -111,7 +111,7 @@ test('Uma peça esperada não está no arquivo', () => {
   // O caminho de publicação é a automação, e ela constrói em modo de publicação (decisões
   // 023 e 240). Com o conteúdo de hoje, sem faltas, a publicação passa.
   const automacao = readFileSync(join(RAIZ, '.github/workflows/publicar.yml'), 'utf8');
-  const construcoes = [...automacao.matchAll(/node construcao\/construir\.mjs([^\n]*)/g)].map((m) => m[1]);
+  const construcoes = [...automacao.matchAll(/node construcao\/construir\.mjs([^\n]*)/g)].map((m) => m[1].replace(/\s+#.*$/, '')); // o que vem depois de " #" é comentário do YAML, não comando
   assert.ok(construcoes.length, 'a automação constrói o site');
   for (const argumentos of construcoes) assert.match(argumentos, /(^|\s)--publicar(\s|$)/, `a automação publica em modo de publicação: ${argumentos.trim()}`);
   assert.equal(construirEm(raizTemporaria(), 'publicar').ok, true, 'com o conteúdo de hoje, a publicação passa');
@@ -181,7 +181,7 @@ test('O endereço de um case não depende do nome do arquivo', () => {
   const prefixo = contrato.match(/o case de Finanças abre em "([^"]*?)trabalhos\//)?.[1];
   assert.ok(prefixo, 'o cenário diz o endereço do case a partir da raiz do site');
   const automacao = readFileSync(join(RAIZ, '.github/workflows/publicar.yml'), 'utf8');
-  const construcoes = [...automacao.matchAll(/node construcao\/construir\.mjs([^\n]*)/g)].map((m) => m[1]);
+  const construcoes = [...automacao.matchAll(/node construcao\/construir\.mjs([^\n]*)/g)].map((m) => m[1].replace(/\s+#.*$/, '')); // o que vem depois de " #" é comentário do YAML, não comando
   assert.ok(construcoes.length, 'a automação constrói o site');
   for (const argumentos of construcoes) {
     assert.equal(argumentos.match(/--base=(\S+)/)?.[1], prefixo, `a publicação constrói com o prefixo ${prefixo}: ${argumentos.trim()}`);
