@@ -26,9 +26,10 @@ Os cases em cards. É para onde a home leva e para onde a barra aponta. Existe p
 - Título e linha vêm do bloco `<!-- bloco: card -->` do arquivo de cada case.
 - **O site nasce com dois cases e sem card de "em breve".**
 - **A página tem título**, acima dos cards, convidando a olhá-los.
-- **Na tela estreita, o título do card do Finanças quebra onde o título do case quebra** (decisão
-  186): *"A planilha que / virou produto"*, e em inglês *"From spreadsheet / to product"*. Ver decisão
-  247.
+- **Sempre que o título do card do Finanças não cabe numa linha, ele quebra onde o título do case
+  quebra** (decisão 186): *"A planilha que / virou produto"*, e em inglês *"From spreadsheet / to
+  product"*. Vale na tela estreita e também no desktop logo acima de 1024, onde ele não cabe numa
+  linha. Nunca quebra sozinho. Ver decisões 247 e 248.
 - **A ordem dos cards é fixa e declarada, nunca derivada de data.** Hoje: Finanças PF+PJ,
   depois Reembolso SulAmérica.
 - **No desktop, a página ocupa a altura da janela e cabe inteira, sem rolagem**, com respiro

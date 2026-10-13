@@ -7846,3 +7846,22 @@ what it is."*, a partir de 383) e D (a partir de 520). *Deixar o card quebrar so
 Abaixo de 362, nenhum dos idiomas fica em quatro linhas, como já era no português.
 
 **Consequência.** `idioma/segundo-idioma.md` e `trabalhos/indice-de-trabalhos.md` atualizados.
+
+---
+
+## 248 · O título do card do Finanças nunca quebra sozinho
+
+**Quando** 2026-10-13 · **Fase** 4 · **Domínio** trabalhos
+
+**Gatilho.** Rodada 44 do tester: no desktop de Trabalhos, logo acima de 1024, o card do Finanças ainda
+quebrava pela largura, em *"A planilha que virou / produto"* (de 1024 a 1034), justo a quebra que a 186
+recusou, e em *"From spreadsheet to / product"* (de 1024 a 1066).
+
+**Decisão.** *"sim, vai com a 1"*, proposta minha: sempre que o título do card não cabe numa linha, ele
+usa a quebra escolhida, em qualquer largura.
+
+**Alternativa descartada.** *Deixar a faixa estreita do desktop como está.*
+
+**Custo aceito.** Nenhum.
+
+**Consequência.** `trabalhos/indice-de-trabalhos.md` atualizado.
