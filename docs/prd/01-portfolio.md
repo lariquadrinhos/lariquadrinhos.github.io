@@ -344,7 +344,7 @@ As que **travam** a Fase 1, nas palavras do próprio documento de definições:
 
 - `[?: stack e hospedagem, com alternativa considerada e motivo registrados]`
 - `[?: como o conteúdo em texto vira página]`
-- `[?: como a estrutura recebe um segundo idioma depois sem ser refeita]`
+- Segundo idioma: inglês, sob `/en/`, com o contrato `idioma/segundo-idioma.md` (decisão 242).
 - `[?: o que fica visível na barra em tela estreita, além do mínimo já definido, nome e Trabalhos]`
 - `[?: como os tokens do Figma entram no código, em um único lugar de onde tudo deriva]`
 

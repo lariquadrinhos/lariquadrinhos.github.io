@@ -9,7 +9,7 @@
 > e entrada no log se tiver alternativa real. Lista com metade dos itens riscados deixa de
 > ser consultável.
 
-**Atualizado:** 9 de outubro de 2026 · **2 perguntas**, nenhuma travando
+**Atualizado:** 9 de outubro de 2026 · **1 pergunta**, nenhuma travando
 
 ---
 
@@ -111,12 +111,6 @@ A decisão 003 resolve dois cases sem exceção, mas não define a ordem com tr�
 **Opções:** ordem fixa do índice, com o último voltando ao primeiro · o case ainda não lido
 nesta sessão · o mais recente primeiro.
 **Momento:** antes de o terceiro case existir. · *Contrato, `case/card-proximo-case.md`*
-
-### P09 · Como a estrutura recebe um segundo idioma
-**O comportamento já está definido:** trocar de idioma mantém a pessoa na mesma página e na
-mesma altura da leitura; o conteúdo já vive separado do código e o controle está previsto
-na barra. Falta só o mecanismo estrutural.
-**Momento:** Fase 1.
 
 ### ~~P11~~ · Resolvida pela decisão 138
 A tensão era falsa: *"nada se move sem o leitor pedir"* fala de movimento autônomo, e o marcador

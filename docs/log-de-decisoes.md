@@ -7697,3 +7697,35 @@ o e-mail dos commits antigos, destrutivo.
 
 **Consequência.** `moldura/botao-contato.md` ganha a regra e o cenário "A caixa não cabe embaixo do que
 a abriu".
+
+---
+
+## 242 · O site ganha o inglês, sob /en/
+
+**Quando** 2026-10-13 · **Fase** 4 · **Domínio** moldura · `#escopo`
+
+**Gatilho.** P09, aberta desde a Fase 1. As definições já previam o inglês *"como primeira evolução após
+o lançamento"*, e ela comprou o `.com` porque *"quero me candidatar para fora do brasil também"*.
+
+**Decisão.** *"aprovo o pacote inteiro"*, as sete propostas minhas:
+1. O segundo idioma é o inglês.
+2. Eu traduzo o conteúdo autoral, ela revisa e aprova, e a versão em inglês passa a ser dela; o texto de
+   interface eu traduzo e ela aprova em lista.
+3. O português fica na raiz, o inglês sob `/en/`, com os caminhos traduzidos (`/en/work/`,
+   `/en/work/financas/`, `/en/work/reembolso/`, `/en/about/`).
+4. Abre sempre em português; o site não adivinha o idioma pelo navegador.
+5. O controle é uma palavra na barra do desktop, depois de Tema, e fica dentro do Menu abaixo de 1280.
+6. As mídias são as mesmas; legendas e textos alternativos são traduzidos.
+7. O currículo ganha uma versão em inglês, produzida por ela.
+
+**Alternativa descartada.** *Detectar o idioma do navegador*: num site estático, pediria redirecionar
+depois de carregar, e a página piscaria. *Guardar a escolha*: o idioma passa a ser o do endereço, e um
+link em inglês abre em inglês sempre.
+
+**Custo aceito.** Todo texto novo passa a existir duas vezes, e a revisão dela vira passo de toda mudança
+de conteúdo. As telas dos produtos ficam em português dentro do site em inglês.
+
+**Consequência.** Contrato novo, `idioma/segundo-idioma.md`, com as regras, o texto de interface em
+inglês e os cenários. A P09 sai da lista, que fica com 1 (a P21). As traduções dos três arquivos de
+conteúdo esperam a revisão dela antes de entrar no repositório, que é público. O controle de idioma
+ainda não está desenhado no Figma.
