@@ -37,12 +37,12 @@ jobs:
         run: node scripts/checagens.mjs
         continue-on-error: true
 
-      # Modo local, e não --publicar: o site vai ao ar com as faltas visíveis enquanto os
-      # materiais não chegam (decisão 177). Voltar ao que a decisão 023 pede é trocar esta
-      # linha, e isso pede entrada nova no log. O site é de usuária e abre na raiz do
-      # domínio, então o prefixo é "/" (decisão 222).
+      # Modo de publicação: se faltar peça, a construção recusa e nada vai ao ar, como pede a
+      # decisão 023. Ficou em modo local enquanto os materiais chegavam (decisão 177); sem
+      # faltas, voltou (decisão 240). O site é de usuária e abre na raiz do domínio, então o
+      # prefixo é "/" (decisão 222).
       - name: Construção
-        run: node construcao/construir.mjs --base=/
+        run: node construcao/construir.mjs --publicar --base=/
 
       - uses: actions/configure-pages@v5
 

@@ -107,6 +107,14 @@ test('Uma peça esperada não está no arquivo', () => {
 
   const publicacao = construirEm(raiz, 'publicar');
   assert.equal(publicacao.ok, false, 'no caminho de publicação a construção recusa');
+
+  // O caminho de publicação é a automação, e ela constrói em modo de publicação (decisões
+  // 023 e 240). Com o conteúdo de hoje, sem faltas, a publicação passa.
+  const automacao = readFileSync(join(RAIZ, '.github/workflows/publicar.yml'), 'utf8');
+  const construcoes = [...automacao.matchAll(/node construcao\/construir\.mjs([^\n]*)/g)].map((m) => m[1]);
+  assert.ok(construcoes.length, 'a automação constrói o site');
+  for (const argumentos of construcoes) assert.match(argumentos, /(^|\s)--publicar(\s|$)/, `a automação publica em modo de publicação: ${argumentos.trim()}`);
+  assert.equal(construirEm(raizTemporaria(), 'publicar').ok, true, 'com o conteúdo de hoje, a publicação passa');
 });
 
 test('Marcador fora do vocabulário recusa a construção', () => {
