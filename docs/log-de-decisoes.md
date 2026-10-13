@@ -7865,3 +7865,24 @@ usa a quebra escolhida, em qualquer largura.
 **Custo aceito.** Nenhum.
 
 **Consequência.** `trabalhos/indice-de-trabalhos.md` atualizado.
+
+---
+
+## 249 · O título de Trabalhos nunca deixa uma palavra sozinha no desktop
+
+**Quando** 2026-10-13 · **Fase** 4 · **Domínio** trabalhos
+
+**Gatilho.** O dev achou, e o tester confirmou: em inglês, de 1120 a 1128 de largura, o título de
+Trabalhos em 40 não cabe numa linha e quebrava pela largura, com *"them."* sozinho, contra a 213. Existe
+desde que o inglês entrou. Com 650 de altura, nessa faixa, a página também rola 31.
+
+**Decisão.** *"sim, vai assim"*, para a proposta do dev: cada linha escolhida fica inteira, e quando o
+título não cabe numa linha, ele quebra em *"Two problems I saw up close, / and what I did about them."*.
+Publicado em `371a544`.
+
+**Alternativa descartada.** Nenhuma para a palavra sozinha.
+
+**Custo aceito.** A rolagem de 31 em 1120 a 1128 × menos de 790, no inglês, continua; está com ela. Eu
+tinha descrito mal uma das opções, dizendo que tirava a rolagem, e corrigi antes de mandar ao dev.
+
+**Consequência.** `trabalhos/indice-de-trabalhos.md` atualizado.
