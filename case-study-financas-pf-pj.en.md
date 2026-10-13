@@ -2,7 +2,7 @@
 
 <!-- bloco: card -->
 # The spreadsheet that became a product
-I built a desktop app for people who manage both their personal finances and a business.
+A desktop app for managing personal and business finances together.
 
 <!-- bloco: case -->
 

@@ -2,7 +2,7 @@
 
 <!-- bloco: card -->
 # Every week, from scratch
-I redesigned the user flow for recurring reimbursement requests in an insurance app.
+I redesigned recurring reimbursement requests in an insurance app.
 
 
 <!-- bloco: case -->

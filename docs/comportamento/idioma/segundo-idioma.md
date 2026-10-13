@@ -82,6 +82,8 @@ Texto de interface em inglês. O português de cada item continua no contrato da
 | Voltar ao topo | Back to top |
 | Pular para o conteúdo | Skip to content |
 | {n} de {total} | {n} of {total} |
+| Principal (nome da navegação da barra, só para leitor de tela) | Main |
+| Etapas do case (nome da trilha, só para leitor de tela) | Case steps |
 | Mais sobre mim: | More about me: |
 | Baixar currículo em PDF | Download résumé (PDF) |
 | (enquanto não há o PDF em inglês) | Download résumé (PDF, in Portuguese) |

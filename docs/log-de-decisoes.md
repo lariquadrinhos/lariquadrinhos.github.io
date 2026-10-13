@@ -7777,3 +7777,25 @@ explicando PF, PJ e DRE para quem lê de fora do Brasil. As propostas ficam no c
 
 **Consequência.** O dev publica o inglês. O controle de idioma na barra continua sem desenho no Figma:
 é um item igual aos outros.
+
+---
+
+## 245 · As linhas dos cards em inglês ficam mais curtas, para Trabalhos caber em 790
+
+**Quando** 2026-10-13 · **Fase** 4 · **Domínio** trabalhos
+
+**Gatilho.** Medido pelo dev antes de publicar a 244: em inglês, as linhas dos dois cards de Trabalhos
+iam a três linhas no degrau de 790, e a página rolava até 16 entre 790 e 805 de altura. E dois rótulos
+que só o leitor de tela ouve, "Principal" (a navegação da barra) e "Etapas do case" (a trilha), não
+tinham inglês no contrato.
+
+**Decisão.** *"sim, vai com a B e com Main e Case steps"*, propostas minhas. As linhas em inglês passam a
+*"A desktop app for managing personal and business finances together."* (Finanças) e *"I redesigned
+recurring reimbursement requests in an insurance app."* (Reembolso). Os rótulos ficam *"Main"* e
+*"Case steps"*, na tabela de `idioma/segundo-idioma.md`.
+
+**Alternativa descartada.** *Aceitar os até 16 de rolagem.* *O degrau de 790 começar em 806 só no inglês.*
+
+**Custo aceito.** As linhas em inglês dizem um pouco menos que as do português.
+
+**Consequência.** Os dois `.en.md` mudam o bloco `card`.
