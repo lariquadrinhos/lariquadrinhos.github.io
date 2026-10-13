@@ -7642,3 +7642,31 @@ fora dada aos pôsteres antigos.
 **Custo aceito.** A checagem 13 segue vermelha nas mesmas duas vagas, dentro das 7 falhas conhecidas.
 
 **Consequência.** Nada a construir.
+
+---
+
+## 240 · Sem faltas, a publicação volta a recusar peça que falta; e o case-financas deixa de citar a conta antiga
+
+**Quando** 2026-10-13 · **Fase** 4 · **Domínio** conteudo
+
+**Gatilho.** Dois pontos do dev depois da 238. Com zero faltas no site, a automação podia voltar ao que
+a 023 pedia: construir com `--publicar`, que recusa publicar se uma peça faltar; desde a 177, ela
+construía em modo local. E o `case-financas` ainda citava a conta `aipi`: em `.github/CODEOWNERS`, nos
+modelos de issue, com links para `github.com/aipi/bigorna`, que não abrem, e num caminho de pasta desta
+máquina no playbook.
+
+**Decisão.** *"sim, vai com as duas sugestões"*, propostas minhas:
+1. A publicação volta a construir com `--publicar`, como pedia a 023. A checagem 13 continua só avisando
+   (`continue-on-error`), por causa das 7 falhas aceitas.
+2. No `case-financas`, a conta vira `@lariquadrinhos`, os links apontam para o próprio repositório, e o
+   caminho de pasta vira uma descrição. Feito num segundo commit (`4cce001`).
+
+**Alternativa descartada.** *Manter o modo local.* *A checagem 13 passar a barrar*: as 7 aceitas
+travariam toda publicação.
+
+**Custo aceito.** O primeiro commit do `case-financas` ainda tem as referências à conta antiga; não é
+dado pessoal. Uma peça que suma de um arquivo de conteúdo agora impede a publicação, em vez de aparecer
+como falta no site.
+
+**Consequência.** O dev muda o workflow de publicação. O comentário dele, que pedia entrada nova no log
+para voltar, aponta para esta.
