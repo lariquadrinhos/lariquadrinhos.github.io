@@ -144,10 +144,13 @@ export const QUEBRA_DO_TITULO_ESTREITA_EN = {
   financas: ['From spreadsheet', 'to product'],
 };
 
-// A quebra escolhida do título da página de erro em inglês, quando ele não cabe numa linha
-// (decisão 251). O português não tem.
+// As quebras escolhidas do título da página de erro em inglês: duas linhas quando não cabe
+// numa (decisão 251), três quando nem as duas cabem (decisão 252). O português não tem.
 export const QUEBRA_DO_TITULO_DO_ERRO = {
-  en: ["This address doesn't", 'lead anywhere.'],
+  en: {
+    duas: ["This address doesn't", 'lead anywhere.'],
+    tres: ['This address', "doesn't lead", 'anywhere.'],
+  },
 };
 
 // A quebra escolhida do título de Trabalhos, nos dois idiomas (decisões 213 e 242).

@@ -83,9 +83,30 @@ h1, h2, h3, h4, h5, h6, p, figure, dl, dd, ul, ol { margin: 0; }
    equilibra as linhas (design-system.md, decisões 250 e 251). Onde há quebra escolhida, ela
    manda. Navegador sem suporte só não recebe a melhoria. */
 h1, h2, h3, h4, h5, h6 { text-wrap: balance; }
-/* Cada linha escolhida do título da página de erro fica inteira enquanto cabe na coluna; se
-   não cabe, quebra por dentro em vez de vazar (decisão 251). */
-.erro__linha { display: inline-block; }
+/* O título da página de erro em inglês: uma linha se cabe; senão as duas linhas escolhidas;
+   senão as três (decisões 251 e 252). O título é o contêiner, e as larguras são as das linhas
+   em em do próprio título, medidas na DM Sans: a linha inteira, 16,73em; "This address
+   doesn't", 9,47em. No desktop, o tamanho óptico deixa as letras mais estreitas: 16,20em e
+   9,15em. Sem suporte a contêiner, o título corre e quebra sozinho. */
+.erro__titulo { container-type: inline-size; }
+.erro__quebra--duas, .erro__quebra--tres { display: none; }
+@container (width < 16.74em) {
+  .erro__quebra--duas { display: revert; }
+}
+@container (width < 9.47em) {
+  .erro__quebra--duas { display: none; }
+  .erro__quebra--tres { display: revert; }
+}
+@media (min-width: 1024px) {
+  @container (width < 16.2em) {
+    .erro__quebra--duas { display: revert; }
+    .erro__quebra--tres { display: none; }
+  }
+  @container (width < 9.15em) {
+    .erro__quebra--duas { display: none; }
+    .erro__quebra--tres { display: revert; }
+  }
+}
 img, video, svg { display: block; max-width: 100%; }
 button { font: inherit; color: inherit; }
 

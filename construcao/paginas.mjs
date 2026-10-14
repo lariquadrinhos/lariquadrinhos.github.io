@@ -601,16 +601,35 @@ export function paginaQuemSouEu(ctx, qse) {
 
 // ── Erro ───────────────────────────────────────────────────────────────────────
 
+// O título com as quebras de duas e de três linhas marcadas por <br>, cada uma com a classe
+// da versão a que pertence. Um ponto comum às duas leva as duas classes.
+function tituloComQuebrasPorLargura(texto, quebras) {
+  const pontos = (linhas) => linhas.slice(0, -1).map((_, k) => linhas.slice(0, k + 1).join(' ').length);
+  const classes = new Map();
+  for (const [versao, linhas] of Object.entries(quebras)) {
+    for (const p of pontos(linhas)) classes.set(p, [...(classes.get(p) ?? []), `erro__quebra--${versao}`]);
+  }
+  let html = '';
+  let de = 0;
+  for (const p of [...classes.keys()].sort((a, b) => a - b)) {
+    html += `${escapar(texto.slice(de, p))}<br class="${classes.get(p).join(' ')}">`;
+    de = p;
+  }
+  return html + escapar(texto.slice(de));
+}
+
 // O GitHub Pages serve uma só página de erro para o site inteiro: com o inglês, ela traz os
 // dois idiomas, sem script, e as saídas de cada um levam às páginas dele (decisão 243). O
 // português abre, com o título da página; o inglês vem embaixo, marcado com a língua dele.
 function erroNoIdioma(ctx, i, nivel) {
   const lang = i === idioma() ? '' : ` lang="${LANG[i]}"`;
   return comIdioma(i, () => {
-    // Quando não cabe numa linha, só quebra onde foi escolhido (decisão 251).
-    const quebra = QUEBRA_DO_TITULO_DO_ERRO[i];
-    const titulo = quebra && quebra.join(' ') === t('erroTitulo')
-      ? quebra.map((l) => `<span class="erro__linha">${escapar(l)}</span>`).join(' ')
+    // Uma linha se cabe; senão as duas escolhidas; senão as três (decisões 251 e 252). As
+    // quebras vão no texto como <br>, e o CSS mostra as de duas ou as de três conforme a
+    // largura do próprio título. Sem isso, o texto corre numa só.
+    const quebras = QUEBRA_DO_TITULO_DO_ERRO[i];
+    const titulo = quebras && [quebras.duas, quebras.tres].every((q) => q.join(' ') === t('erroTitulo'))
+      ? tituloComQuebrasPorLargura(t('erroTitulo'), quebras)
       : t('erroTitulo');
     return `<div class="erro__explicacao"${lang}>
     <h${nivel} class="erro__titulo">${titulo}</h${nivel}>

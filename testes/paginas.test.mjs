@@ -251,15 +251,29 @@ test('Título nunca termina com uma palavra sozinha', () => {
   for (const arquivo of ['estilo.css', 'estilo-case.css']) {
     const { base } = regrasPorLargura(readFileSync(join(site.saida, arquivo), 'utf8'));
     for (const nivel of ['h1', 'h2', 'h3', 'h4', 'h5', 'h6']) assert.match(base[nivel] ?? '', /text-wrap:\s*balance/, `${arquivo}: ${nivel}`);
-    // As linhas escolhidas do 404 em inglês ficam inteiras enquanto cabem, sem vazar.
-    assert.match(base['.erro__linha'] ?? '', /display:\s*inline-block/, `${arquivo}: o 404 em inglês`);
   }
-  // O título do 404 em inglês quebra onde a tabela do contrato diz (decisão 251).
+  // O título do 404 em inglês: uma linha se cabe, senão as duas escolhidas, senão as três
+  // (decisões 251 e 252). As quebras estão na tabela do contrato e formam o título.
   const contrato = readFileSync(join(RAIZ, 'docs/comportamento/idioma/segundo-idioma.md'), 'utf8').replace(/\s+/g, ' ');
-  assert.ok(contrato.includes(`"${QUEBRA_DO_TITULO_DO_ERRO.en.join(' / ')}"`), 'a quebra do 404 está no contrato');
-  assert.equal(QUEBRA_DO_TITULO_DO_ERRO.en.join(' '), TEXTOS.erroTitulo.en, 'e forma o título');
+  for (const linhas of Object.values(QUEBRA_DO_TITULO_DO_ERRO.en)) {
+    assert.ok(contrato.includes(`"${linhas.join(' / ')}"`), `a quebra "${linhas.join(' / ')}" está no contrato`);
+    assert.equal(linhas.join(' '), TEXTOS.erroTitulo.en, 'e forma o título');
+  }
+  // Cada ponto de quebra vai no texto com a classe da sua versão, e o título é o contêiner que
+  // escolhe a versão pela largura.
   const erro = construirEm(raizComIngles()).pagina('404.html');
-  assert.ok(erro.includes(`<h2 class="erro__titulo">${QUEBRA_DO_TITULO_DO_ERRO.en.map((l) => `<span class="erro__linha">${escapar(l)}</span>`).join(' ')}</h2>`), 'o 404 usa a quebra');
+  const h2 = erro.match(/<h2 class="erro__titulo">([\s\S]*?)<\/h2>/)[1];
+  const versao = (classe) => h2.split(/<br class="([^"]+)">/).reduce((linhas, parte, k) => {
+    if (k % 2) { if (parte.split(' ').includes(classe)) linhas.push(''); } else linhas[linhas.length - 1] += parte;
+    return linhas;
+  }, ['']).map((l) => l.trim());
+  assert.deepEqual(versao('erro__quebra--duas'), QUEBRA_DO_TITULO_DO_ERRO.en.duas.map(escapar));
+  assert.deepEqual(versao('erro__quebra--tres'), QUEBRA_DO_TITULO_DO_ERRO.en.tres.map(escapar));
+  const css = readFileSync(join(site.saida, 'estilo.css'), 'utf8');
+  assert.match(css, /\.erro__titulo \{ container-type: inline-size; \}/);
+  assert.match(css, /\.erro__quebra--duas, \.erro__quebra--tres \{ display: none; \}/, 'numa linha quando cabe');
+  assert.match(css, /@container \(width < [\d.]+em\) \{\s*\.erro__quebra--duas \{ display: revert; \}/, 'duas quando uma não cabe');
+  assert.match(css, /@container \(width < [\d.]+em\) \{\s*\.erro__quebra--duas \{ display: none; \}\s*\.erro__quebra--tres \{ display: revert; \}/, 'três quando duas não cabem');
 });
 
 test('O título de Trabalhos numa janela estreita', () => {
