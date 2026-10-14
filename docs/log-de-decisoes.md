@@ -7680,7 +7680,7 @@ para voltar, aponta para esta.
 **Gatilho.** Ela: *"quando clico em falar comigo no final dos cases no modo desktop aparece cortado"*.
 Reproduzido no ar: a caixa de contato abre 12 abaixo do botão, como manda a regra do desktop, mas no
 fim do case não há espaço, e ela termina 42 abaixo do fim da janela, em 1440×900 e em 1366×768, sem a
-página ter mais para onde rolar. E o tester, na rodada 40: o e-mail `tesouraet` não está em nenhum
+página ter mais para onde rolar. E o tester, na rodada 40: o e-mail antigo da conta não está em nenhum
 arquivo do `case-financas`, mas assina o commit, e já assina quase todos os do repositório do site.
 
 **Decisão.** *"sim, vai com as duas sugestões"*, propostas minhas:
@@ -7964,7 +7964,7 @@ address / doesn't lead / anywhere."*.
 
 **Gatilho.** Ela: *"você precisa subir o repositório do case finanças com a minha conta lari quadrinho,
 você subiu com a conta do daniel?"*. Os repositórios estavam na conta `lariquadrinhos`, mas os commits
-saíram com o e-mail `tesouraet@gmail.com`, que no GitHub pertence à conta `aipi`: o GitHub mostrava essa
+saíram com o e-mail antigo da conta, que no GitHub pertence à conta `aipi`: o GitHub mostrava essa
 conta como autora. Erro meu: na 214 e na 238, copiei o e-mail da configuração local deste repositório
 sem conferir a quem ele pertencia.
 
@@ -8003,5 +8003,30 @@ projeto"*.
 **Alternativa descartada.** *Reescrever o histórico do site.*
 
 **Custo aceito.** Os commits antigos do site seguem mostrando a outra conta.
+
+**Consequência.** Os links do site não mudam.
+
+---
+
+## 255 · O case-financas fica com um commit só, e o e-mail antigo sai dos arquivos do site
+
+**Quando** 2026-10-14 · **Fase** 4 · **Domínio** case
+
+**Gatilho.** Ela perguntou se os repositórios ficaram limpos e se os erros ficam visíveis. Conferido: o
+primeiro commit do `case-financas` ainda mostrava o README com *"Repositório privado"* e a nota reservada ao
+dono do projeto; e o e-mail antigo da conta aparecia num arquivo de regras (`.claude/skills/diretrizes`) e
+em duas entradas deste log.
+
+**Decisão.** *"1 e 2 sim, 3 deixa no log"*, propostas minhas:
+1. O `case-financas` foi recriado de novo, com um commit só, no nome e no e-mail privado dela (`77a9154`).
+2. O e-mail antigo sai dos arquivos atuais: a linha das diretrizes passa a descrever a regra sem o
+   endereço, e as duas entradas deste log (a 241 e a 253) dizem "o e-mail antigo da conta". **É a única
+   vez em que entradas antigas deste log foram editadas**, por decisão dela, para tirar um dado.
+3. O relato dos incidentes fica no log.
+
+**Alternativa descartada.** *Guardar o log em `_privado/`.* *Reescrever o histórico do site.*
+
+**Custo aceito.** O histórico do repositório do site continua com o e-mail, nos commits antigos e nas
+versões anteriores destes arquivos.
 
 **Consequência.** Os links do site não mudam.

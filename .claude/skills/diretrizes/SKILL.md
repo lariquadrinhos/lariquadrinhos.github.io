@@ -452,4 +452,4 @@ Contexto que não é pendência e continua valendo:
 
 - Pasta `dente`, que contém o projeto. Significado desconhecido
 - "case" no nome do repositório. Motivo desconhecido
-- `tesouraet@gmail.com` é o e-mail da conta, não necessariamente o contato do site
+- O e-mail da conta desta máquina não é o contato do site, e pertence a outra conta no GitHub: commit dela sai com o e-mail privado da conta `lariquadrinhos` (decisões 253 e 255)
