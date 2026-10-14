@@ -7955,3 +7955,27 @@ address / doesn't lead / anywhere."*.
 **Custo aceito.** Nenhum.
 
 **Consequência.** `idioma/segundo-idioma.md` atualizado.
+
+---
+
+## 253 · O case-financas é refeito com os commits na conta dela
+
+**Quando** 2026-10-14 · **Fase** 4 · **Domínio** case · `#correcao`
+
+**Gatilho.** Ela: *"você precisa subir o repositório do case finanças com a minha conta lari quadrinho,
+você subiu com a conta do daniel?"*. Os repositórios estavam na conta `lariquadrinhos`, mas os commits
+saíram com o e-mail `tesouraet@gmail.com`, que no GitHub pertence à conta `aipi`: o GitHub mostrava essa
+conta como autora. Erro meu: na 214 e na 238, copiei o e-mail da configuração local deste repositório
+sem conferir a quem ele pertencia.
+
+**Decisão.** O `case-financas` foi apagado e recriado no mesmo endereço, com um commit só, assinado por
+Larissa Quadros com o e-mail privado da conta dela (o mesmo da 241), e voltou a público. O GitHub passa
+a mostrar `lariquadrinhos` como única autora. O conteúdo é o mesmo, já com as trocas da 240.
+
+**Alternativa descartada.** *Reescrever o autor dos commits*: com o repositório de um commit só,
+recriar era mais simples e não deixa rastro.
+
+**Custo aceito.** O `case-reembolso` e 80 commits do repositório do site também aparecem como da conta
+`aipi`; estão com ela.
+
+**Consequência.** Os links do site não mudam.
