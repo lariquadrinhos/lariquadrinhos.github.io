@@ -7934,3 +7934,24 @@ de tamanho arbitrário.
 parecido, em vez de uma cheia e outra curta.
 
 **Consequência.** `design-system.md` e `idioma/segundo-idioma.md` atualizados.
+
+---
+
+## 252 · O título em inglês do 404 ganha três linhas escolhidas onde duas não cabem
+
+**Quando** 2026-10-14 · **Fase** 4 · **Domínio** erro
+
+**Gatilho.** Depois da 251: de 320 a 368 e de 1024 a 1208 de largura, a linha escolhida *"This address
+doesn't"* não cabe na coluna, e o título saía em *"This address / doesn't / lead anywhere."*, com
+*"doesn't"* sozinho no meio. Eu sugeri aceitar; o tester lembrou que 1024 a 1208 é uma faixa larga de
+janelas comuns, e mudei a sugestão.
+
+**Decisão.** *"sim, vai com a 2"*: quando as duas linhas escolhidas não cabem, o título usa três, *"This
+address / doesn't lead / anywhere."*.
+
+**Alternativa descartada.** *Aceitar.* *Alargar a coluna do erro no desktop*, que só resolveria de 1024 a
+1208.
+
+**Custo aceito.** Nenhum.
+
+**Consequência.** `idioma/segundo-idioma.md` atualizado.
