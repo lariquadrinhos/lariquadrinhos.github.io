@@ -7979,3 +7979,29 @@ recriar era mais simples e não deixa rastro.
 `aipi`; estão com ela.
 
 **Consequência.** Os links do site não mudam.
+
+---
+
+## 254 · O case-reembolso também é refeito na conta dela, e o case-financas deixa de dizer que é privado
+
+**Quando** 2026-10-14 · **Fase** 4 · **Domínio** case
+
+**Gatilho.** Depois da 253, ela: *"refaz o case-reembolso, o histórico do site deixa como está. no finanças
+o readme diz que o repositório é privado e tem um origin.md com um texto que diz esperando o dono do
+projeto"*.
+
+**Decisão.**
+- O `case-reembolso` foi apagado e recriado no mesmo endereço, a partir da versão publicada (172
+  arquivos, sem o `.jam`), num commit só no nome e no e-mail privado dela. Público de novo; a autora é
+  `lariquadrinhos`.
+- No `case-financas`, num commit novo dela: o README diz que é a versão pública do repositório do produto,
+  parte do portfólio, em vez de *"Repositório privado"*; a seção de segurança fala em ambiente privado, e
+  a licença em repositório aberto para leitura. Em `ORIGIN.md`, saem os dois parágrafos e a nota que
+  reservavam espaço para a lembrança do dono do projeto; fica o significado do nome.
+- O histórico do repositório do site fica como está, com 80 commits atribuídos à conta `aipi`.
+
+**Alternativa descartada.** *Reescrever o histórico do site.*
+
+**Custo aceito.** Os commits antigos do site seguem mostrando a outra conta.
+
+**Consequência.** Os links do site não mudam.
