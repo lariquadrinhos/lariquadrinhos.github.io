@@ -8049,4 +8049,6 @@ forma mais completa a "o que essa pessoa sabe fazer" e de que redesenho de fluxo
 já viu muitas vezes. Perdeu para o julgamento dela sobre qual é o melhor trabalho.
 
 **Consequência.** Mudam o contrato `trabalhos/indice-de-trabalhos.md`, `ORDEM_DOS_CASES` em
-`construcao/interface.mjs` e o teste "A ordem dos cards". As telas Trabalhos no Figma não foram conferidas nem tocadas.
+`construcao/interface.mjs` e o teste "A ordem dos cards". No Figma, as quatro telas Trabalhos
+(desktop e tela estreita, claro e escuro) passaram a mostrar Reembolso primeiro; as propostas antigas
+da seção `592:1383` ficaram como estavam, por serem registro.
