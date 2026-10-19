@@ -6,7 +6,7 @@ import assert from 'node:assert/strict';
 import { readFileSync, existsSync, statSync } from 'node:fs';
 import { join } from 'node:path';
 import { raizTemporaria, raizComIngles, construirEm, texto, RAIZ } from './ajuda.mjs';
-import { TEXTOS, caminhoDoCase, QUEBRA_DO_TITULO_ESTREITA_EN, FRASE_DA_HOME_EN, QUEBRA_DO_TITULO_DO_ERRO } from '../construcao/interface.mjs';
+import { TEXTOS, caminhoDoCase, comIdioma, QUEBRA_DO_TITULO_ESTREITA_EN, FRASE_DA_HOME_EN, QUEBRA_DO_TITULO_DO_ERRO } from '../construcao/interface.mjs';
 import { lerCase, lerQuemSouEu } from '../construcao/conteudo.mjs';
 import { escapar } from '../construcao/markdown.mjs';
 import { comQuebra, QUEBRA_DESKTOP, QUEBRA_DO_CASE, QUEBRA_DA_BARRA } from '../construcao/tokens.mjs';
@@ -15,6 +15,8 @@ import { comQuebra, QUEBRA_DESKTOP, QUEBRA_DO_CASE, QUEBRA_DA_BARRA } from '../c
 const enderecoDoCase = (arquivo) => caminhoDoCase(lerCase(RAIZ, arquivo));
 const FINANCAS = enderecoDoCase('case-study-financas-pf-pj.md');
 const REEMBOLSO = enderecoDoCase('case-study-reembolso-sulamerica.md');
+const FINANCAS_EN = comIdioma('en', () => enderecoDoCase('case-study-financas-pf-pj.md'));
+const REEMBOLSO_EN = comIdioma('en', () => enderecoDoCase('case-study-reembolso-sulamerica.md'));
 const re = (caminho) => `/${caminho}`.replace(/[.*+?^${}()|[\]\\/]/g, '\\$&');
 
 const site = construirEm(raizTemporaria());
@@ -43,8 +45,15 @@ test('Um dos quatro textos da home falta no arquivo', () => {
 // ── trabalhos/indice-de-trabalhos.md ──────────────────────────────────────────
 
 test('A ordem dos cards', () => {
-  const indice = site.pagina('trabalhos/index.html');
-  assert.ok(indice.indexOf('A planilha que virou produto') < indice.indexOf('Toda semana, do zero'));
+  // O Reembolso primeiro, depois o Finanças, nos dois idiomas (decisão 256). Os cards são
+  // reconhecidos pelo endereço do case, não pelo título.
+  for (const [indice, cases] of [
+    [site.pagina('trabalhos/index.html'), [REEMBOLSO, FINANCAS]],
+    [construirEm(raizComIngles()).pagina('en/work/index.html'), [REEMBOLSO_EN, FINANCAS_EN]],
+  ]) {
+    const ordem = [...indice.matchAll(/<a class="card [^"]*" href="\/([^"]+)">/g)].map((m) => m[1]);
+    assert.deepEqual(ordem, cases);
+  }
 });
 
 test('A pessoa abre um case', () => {

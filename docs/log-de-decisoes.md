@@ -8030,3 +8030,23 @@ em duas entradas deste log.
 versões anteriores destes arquivos.
 
 **Consequência.** Os links do site não mudam.
+
+---
+
+## 256 · O case do Reembolso passa a vir primeiro
+
+**Quando** 2026-10-19 · **Fase** 4 · **Domínio** trabalhos
+
+**Gatilho.** Ela pediu: *"quero mudar a ordem dos cases, o case do reembolso deve aparecer primeiro,
+porque ele é o meu melhor"*.
+
+**Decisão.** A ordem fixa do índice de Trabalhos passa a ser Reembolso SulAmérica, depois Finanças PF+PJ,
+em português e em inglês. Continua fixa e declarada, nunca derivada de data. O card de próximo case segue
+circular, então com dois cases ele não muda: cada um aponta para o outro.
+
+**Alternativa descartada.** *Manter Finanças primeiro*, com o argumento do contrato de que ele responde de
+forma mais completa a "o que essa pessoa sabe fazer" e de que redesenho de fluxo é formato que a triagem
+já viu muitas vezes. Perdeu para o julgamento dela sobre qual é o melhor trabalho.
+
+**Consequência.** Mudam o contrato `trabalhos/indice-de-trabalhos.md`, `ORDEM_DOS_CASES` em
+`construcao/interface.mjs` e o teste "A ordem dos cards". As telas Trabalhos no Figma não foram conferidas nem tocadas.

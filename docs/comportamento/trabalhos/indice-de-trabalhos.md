@@ -30,8 +30,8 @@ Os cases em cards. É para onde a home leva e para onde a barra aponta. Existe p
   quebra** (decisão 186): *"A planilha que / virou produto"*, e em inglês *"From spreadsheet / to
   product"*. Vale na tela estreita e também no desktop logo acima de 1024, onde ele não cabe numa
   linha. Nunca quebra sozinho. Ver decisões 247 e 248.
-- **A ordem dos cards é fixa e declarada, nunca derivada de data.** Hoje: Finanças PF+PJ,
-  depois Reembolso SulAmérica.
+- **A ordem dos cards é fixa e declarada, nunca derivada de data.** Hoje: Reembolso
+  SulAmérica, depois Finanças PF+PJ. Ver decisão 256.
 - **No desktop, a página ocupa a altura da janela e cabe inteira, sem rolagem**, com respiro
   igual acima do título e abaixo dos cards. **Referência mínima: 1366×768**, uns 650 px
   visíveis. Nela: título numa linha só, em **40/48**; **32** até os cards; capa dos cards com
@@ -46,10 +46,9 @@ Os cases em cards. É para onde a home leva e para onde a barra aponta. Existe p
 sempre sem ninguém olhar, o terceiro case subiria ao topo sozinho, talvez certo, talvez
 não. Fixa, cada mudança de ordem é uma decisão que alguém tomou.
 
-**Por que Finanças primeiro:** o primeiro card é o que a maioria abre, e esse case é a
-resposta mais completa a "o que essa pessoa sabe fazer", vai da ideia ao código em uso por
-uma pessoa real. Reembolso é mais fácil de ler de relance, mas redesenho de fluxo é o
-formato que quem faz triagem já viu muitas vezes.
+**Por que Reembolso primeiro:** o primeiro card é o que a maioria abre, e ela considera o
+Reembolso o seu melhor case (decisão 256). Até a 256 a ordem era a inversa, com o argumento de
+que o Finanças responde de forma mais completa a "o que essa pessoa sabe fazer".
 
 ## Texto
 
@@ -95,8 +94,8 @@ Funcionalidade: Índice de trabalhos
 
   Cenário: A ordem dos cards
     Quando o índice abre
-    Então o card de Finanças PF+PJ aparece primeiro
-    E o card de Reembolso SulAmérica aparece em seguida
+    Então o card de Reembolso SulAmérica aparece primeiro
+    E o card de Finanças PF+PJ aparece em seguida
     E a ordem não é derivada de data de publicação
 
   Cenário: A imagem de capa não existe

@@ -168,7 +168,7 @@ export const COLUNAS_SEPARADAS = ['financas'];
 export const COR_DO_CASE = { financas: 'azul', reembolso: 'laranja' };
 
 // A ordem dos cards é fixa e declarada, nunca derivada de data (indice-de-trabalhos.md).
-export const ORDEM_DOS_CASES = ['case-study-financas-pf-pj.md', 'case-study-reembolso-sulamerica.md'];
+export const ORDEM_DOS_CASES = ['case-study-reembolso-sulamerica.md', 'case-study-financas-pf-pj.md']; // decisão 256
 
 // Qual parágrafo de cada capítulo recebe o bloco de destaque é decisão de conteúdo, e
 // está escrita no contrato case/pagina-de-case.md ("Os dois do case de Finanças", "Os três
