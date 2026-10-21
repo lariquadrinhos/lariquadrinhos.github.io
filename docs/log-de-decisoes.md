@@ -8052,3 +8052,25 @@ já viu muitas vezes. Perdeu para o julgamento dela sobre qual é o melhor traba
 `construcao/interface.mjs` e o teste "A ordem dos cards". No Figma, as quatro telas Trabalhos
 (desktop e tela estreita, claro e escuro) passaram a mostrar Reembolso primeiro; as propostas antigas
 da seção `592:1383` ficaram como estavam, por serem registro.
+
+---
+
+## 257 · O currículo em inglês entra no site
+
+**Quando** 2026-10-21 · **Fase** 4 · **Domínio** idioma
+
+**Gatilho.** Ela pôs na pasta do projeto o `Larissa_Quadros_Resume_English.pdf` e pediu: *"coloquei a
+versõ em ingles do meu curriculo na pasta, coloca no modo do ingles do site"*.
+
+**Decisão.** O PDF vai para `publico/curriculo.en.pdf`, com os mesmos bytes do arquivo dela, só com o
+nome trocado. A About em inglês passa a linkar essa versão, com o rótulo *"Download résumé (PDF)"*, como a
+decisão 243 previa. O retorno ao currículo em português continua valendo se o arquivo faltar.
+
+Conferido antes de entrar no repositório público: os dados pessoais do PDF (cidade, e-mail, telefone,
+LinkedIn) são os mesmos do currículo em português, que já está publicado. Nada novo.
+
+**Alternativa descartada.** *Publicar com o nome original do arquivo.* A construção procura
+`curriculo.en.pdf`, ao lado do `curriculo.pdf`.
+
+**Consequência.** Mudam o contrato `idioma/segundo-idioma.md` e o teste "Um link em inglês abre em
+inglês", que cobrava o estado provisório da 243.

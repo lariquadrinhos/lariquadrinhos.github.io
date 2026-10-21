@@ -49,9 +49,10 @@ altura da leitura.
   Mesmos marcadores, mesmas mídias, na mesma ordem. Eu traduzo, ela revisa e aprova.
 - **As mídias são as mesmas nos dois idiomas.** As telas dos produtos ficam em português, porque são
   os produtos reais. Legendas e textos alternativos são traduzidos.
-- **O currículo tem uma versão em inglês**, em PDF, produzida por ela. Até existir, a página About
-  linka o currículo em português, com o rótulo *"Download résumé (PDF, in Portuguese)"*: nada fica
-  faltando, e a publicação não é recusada. Ver decisão 243.
+- **O currículo tem uma versão em inglês**, em PDF, produzida por ela: `publico/curriculo.en.pdf`. A
+  página About linka essa versão, com o rótulo *"Download résumé (PDF)"*. Ver decisão 257. Se o
+  arquivo faltar, a About volta a linkar o currículo em português, com o rótulo *"Download résumé
+  (PDF, in Portuguese)"*: nada fica faltando, e a publicação não é recusada. Ver decisão 243.
 - **A página declara o idioma** (`lang="pt-BR"` ou `lang="en"`) e aponta a sua versão no outro
   idioma, para buscadores e leitores de tela.
 
@@ -86,7 +87,7 @@ Texto de interface em inglês. O português de cada item continua no contrato da
 | Etapas do case (nome da trilha, só para leitor de tela) | Case steps |
 | Mais sobre mim: | More about me: |
 | Baixar currículo em PDF | Download résumé (PDF) |
-| (enquanto não há o PDF em inglês) | Download résumé (PDF, in Portuguese) |
+| (se faltar o PDF em inglês) | Download résumé (PDF, in Portuguese) |
 | Ver LinkedIn | See LinkedIn |
 | Ou fale direto comigo: | Or reach me directly: |
 | Esse endereço não leva a lugar nenhum. | This address doesn't lead anywhere. (quando não cabe numa linha, quebra em *"This address doesn't / lead anywhere."*, decisão 251; quando nem assim cabe, em três: *"This address / doesn't lead / anywhere."*, decisão 252) |

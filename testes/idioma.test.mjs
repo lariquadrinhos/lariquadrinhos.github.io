@@ -4,7 +4,7 @@
 
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { readFileSync, existsSync } from 'node:fs';
+import { readFileSync, existsSync, rmSync } from 'node:fs';
 import { join } from 'node:path';
 import { raizTemporaria, raizComIngles, construirEm, texto, RAIZ } from './ajuda.mjs';
 import { TEXTOS, comIdioma, enderecoDe, caminhoDoCase } from '../construcao/interface.mjs';
@@ -75,9 +75,17 @@ test('Um link em inglês abre em inglês', () => {
   assert.match(pagina(EN[3]), /<span class="faixa__posicao" data-modelo="\{n\} of \{total\}">1 of \d+<\/span>/);
   const moldura = readFileSync(join(RAIZ, 'modelo/moldura.js'), 'utf8');
   assert.doesNotMatch(moldura.replace(/\/\/.*$/gm, ''), /' de '/, 'a moldura não escreve português');
-  // Enquanto não há o PDF em inglês, a About linka o português e diz isso (decisão 243).
-  assert.match(pagina(EN[2]), /<a class="sublinhado" href="\/publico\/curriculo\.pdf" hreflang="pt-BR">Download résumé \(PDF, in Portuguese\)<\/a>/);
-  assert.equal(construirEm(raizComIngles(), 'publicar').ok, true, 'e a publicação não recusa');
+  // A About em inglês linka o currículo em inglês (decisão 257) e, se ele faltar, volta ao
+  // português dizendo isso (decisão 243). Nos dois casos, nada falta e a publicação passa.
+  assert.ok(existsSync(join(RAIZ, 'publico/curriculo.en.pdf')), 'o currículo em inglês está no repositório');
+  assert.match(pagina(EN[2]), new RegExp(`<a class="sublinhado" href="/publico/curriculo\\.en\\.pdf">${TEXTOS.baixarCurriculo.en.replace(/[()]/g, '\\$&')}</a>`));
+  assert.equal(readFileSync(join(site.saida, 'publico/curriculo.en.pdf')).subarray(0, 5).toString('latin1'), '%PDF-', 'e chega ao site, como PDF');
+  assert.equal(construirEm(raizComIngles(), 'publicar').ok, true, 'a publicação não recusa');
+  const semPdf = raizComIngles();
+  rmSync(join(semPdf, 'publico/curriculo.en.pdf'));
+  const recuo = construirEm(semPdf, 'publicar');
+  assert.equal(recuo.ok, true, 'sem o PDF em inglês, a publicação também passa');
+  assert.match(recuo.pagina(`${EN[2]}index.html`), new RegExp(`<a class="sublinhado" href="/publico/curriculo\\.pdf" hreflang="pt-BR">${TEXTOS.baixarCurriculoEmPortugues.en.replace(/[()]/g, '\\$&')}</a>`), 'e linka o português, dizendo isso');
 });
 
 test('O controle de idioma na tela estreita', () => {
